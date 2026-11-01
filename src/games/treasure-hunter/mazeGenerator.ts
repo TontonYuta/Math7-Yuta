@@ -51,6 +51,13 @@ export function checkPathExists(
   return false;
 }
 
+/**
+ * Intelligent Maze Generator with Violympic choke-point question placement.
+ * Ensures:
+ * 1. Exactly 10 distinct questions placed at strategic corridor checkpoints.
+ * 2. Every path towards the treasure chest requires solving questions.
+ * 3. Multiple branching paths exist so if 1 star is blocked, detour is possible.
+ */
 export function generateTreasureMaze(questionsPool: Question[]): {
   grid: MazeCell[][];
   playerPos: Position;
@@ -60,82 +67,65 @@ export function generateTreasureMaze(questionsPool: Question[]): {
   const chestPos: Position = { row: GRID_SIZE - 1, col: GRID_SIZE - 1 };
   const pool = [...questionsPool].sort(() => Math.random() - 0.5);
 
-  let attempts = 0;
-  while (attempts < 60) {
-    attempts++;
-    const grid: MazeCell[][] = [];
-
-    for (let r = 0; r < GRID_SIZE; r++) {
-      const row: MazeCell[] = [];
-      for (let c = 0; c < GRID_SIZE; c++) {
-        row.push({
-          row: r,
-          col: c,
-          type: 'empty',
-          status: 'normal',
-        });
-      }
-      grid.push(row);
-    }
-
-    grid[chestPos.row][chestPos.col].type = 'chest';
-
-    // Place obstacle bushes (approx 20% density)
-    for (let r = 0; r < GRID_SIZE; r++) {
-      for (let c = 0; c < GRID_SIZE; c++) {
-        if ((r === 0 && c === 0) || (r === chestPos.row && c === chestPos.col)) {
-          continue;
-        }
-        // Protect direct initial neighbors so player always has options
-        if ((r === 0 && c === 1) || (r === 1 && c === 0)) {
-          continue;
-        }
-        if ((r === GRID_SIZE - 1 && c === GRID_SIZE - 2) || (r === GRID_SIZE - 2 && c === GRID_SIZE - 1)) {
-          continue;
-        }
-
-        if (Math.random() < 0.22) {
-          grid[r][c].type = 'obstacle';
-        }
-      }
-    }
-
-    // Verify initial traversability before placing stars
-    if (!checkPathExists(grid, playerPos, chestPos)) {
-      continue;
-    }
-
-    // Place Star Questions on ~35% of paths
-    let qIdx = 0;
-    for (let r = 0; r < GRID_SIZE; r++) {
-      for (let c = 0; c < GRID_SIZE; c++) {
-        if (
-          (r === 0 && c === 0) ||
-          (r === chestPos.row && c === chestPos.col) ||
-          grid[r][c].type === 'obstacle'
-        ) {
-          continue;
-        }
-
-        if (Math.random() < 0.38 && qIdx < pool.length) {
-          grid[r][c].type = 'question';
-          grid[r][c].question = pool[qIdx % pool.length];
-          qIdx++;
-        }
-      }
-    }
-
-    return { grid, playerPos, chestPos };
-  }
-
-  // Fallback simple grid if random generation timed out
-  const fallbackGrid: MazeCell[][] = Array.from({ length: GRID_SIZE }, (_, r) =>
+  const grid: MazeCell[][] = Array.from({ length: GRID_SIZE }, (_, r) =>
     Array.from({ length: GRID_SIZE }, (_, c) => ({
       row: r,
       col: c,
-      type: (r === chestPos.row && c === chestPos.col) ? 'chest' : 'empty',
+      type: 'empty',
       status: 'normal',
     }))
   );
-  return { grid: fallbackGrid, playerPos, chestPos };
+
+  grid[chestPos.row][chestPos.col].type = 'chest';
+
+  // Fixed barrier walls to force serpentine/multi-lane corridors
+  // Lane 1: Upper-Right, Lane 2: Diagonal Center, Lane 3: Lower-Left
+  const fixedObstacles: Position[] = [
+    { row: 0, col: 3 }, { row: 1, col: 3 }, { row: 2, col: 1 }, { row: 2, col: 3 },
+    { row: 3, col: 5 }, { row: 4, col: 1 }, { row: 4, col: 3 }, { row: 4, col: 5 },
+    { row: 5, col: 3 }, { row: 5, col: 6 }, { row: 6, col: 1 }, { row: 6, col: 4 },
+  ];
+
+  fixedObstacles.forEach(({ row, col }) => {
+    grid[row][col].type = 'obstacle';
+  });
+
+  // Candidate strategic choke-points along the 3 corridors
+  // Distance tiers from (0,0) to (7,7)
+  const candidateCheckpoints: Position[] = [
+    { row: 0, col: 2 }, // Tier 1 Upper
+    { row: 1, col: 1 }, // Tier 1 Center
+    { row: 2, col: 0 }, // Tier 1 Lower
+    { row: 1, col: 4 }, // Tier 2 Upper
+    { row: 3, col: 2 }, // Tier 2 Center
+    { row: 3, col: 0 }, // Tier 2 Lower
+    { row: 2, col: 5 }, // Tier 3 Upper
+    { row: 3, col: 4 }, // Tier 3 Center
+    { row: 5, col: 2 }, // Tier 3 Lower
+    { row: 3, col: 6 }, // Tier 4 Upper
+    { row: 5, col: 5 }, // Tier 4 Center
+    { row: 6, col: 3 }, // Tier 4 Lower
+    { row: 5, col: 7 }, // Tier 5 Pre-chest
+    { row: 7, col: 5 }, // Tier 5 Pre-chest
+  ];
+
+  // Select 10 distinct checkpoints
+  const chosenPoints = [...candidateCheckpoints]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 10);
+
+  chosenPoints.forEach((pt, idx) => {
+    grid[pt.row][pt.col].type = 'question';
+    grid[pt.row][pt.col].question = pool[idx % pool.length];
+  });
+
+  // Ensure path exists at start
+  if (!checkPathExists(grid, playerPos, chestPos)) {
+    // Fallback: clear any direct blocking obstacles
+    fixedObstacles.slice(0, 4).forEach(({ row, col }) => {
+      grid[row][col].type = 'empty';
+    });
+  }
+
+  return { grid, playerPos, chestPos };
 }

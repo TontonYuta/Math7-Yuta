@@ -139,7 +139,7 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
       </header>
 
       {/* Arena Center: Boss vs Player Battle Showdown */}
-      <div className="max-w-2xl mx-auto w-full flex items-center justify-around py-4">
+      <div className="max-w-4xl mx-auto w-full flex items-center justify-around py-3">
         {/* Player */}
         <div className={`text-center space-y-1 transition-transform ${isPlayerHurt ? 'animate-shake scale-90' : ''}`}>
           <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-4xl sm:text-5xl shadow-xl">
@@ -159,44 +159,53 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
         </div>
       </div>
 
-      {/* Question Battle Card */}
+      {/* Question Battle Card - Expanded to max-w-4xl */}
       {status === 'fighting' && currentQ && (
-        <div className="max-w-2xl mx-auto w-full bg-stone-900 border-2 border-red-500/70 rounded-3xl p-4 sm:p-6 shadow-2xl space-y-4">
-          <div className="flex items-center justify-between text-xs text-stone-400 pb-2 border-b border-stone-800">
+        <div className="max-w-4xl mx-auto w-full bg-stone-900 border-2 border-red-500/70 rounded-3xl p-5 sm:p-7 shadow-2xl space-y-5">
+          <div className="flex items-center justify-between text-xs sm:text-sm text-stone-400 pb-2 border-b border-stone-800">
             <span className="font-bold text-amber-400">Đòn tấn công {currentIdx + 1} / {battleQuestions.length}</span>
             <span>+25 điểm mỗi đòn chuẩn xác</span>
           </div>
 
-          <div className="p-3.5 bg-stone-800/90 rounded-2xl border border-stone-700 text-stone-100 text-sm sm:text-base leading-relaxed">
-            <MathRenderer content={currentQ.content} className="!text-amber-100 font-medium" />
+          <div className="p-5 bg-gradient-to-b from-stone-850 to-stone-900 rounded-2xl border border-stone-700 text-stone-100 text-base sm:text-lg leading-relaxed shadow-inner">
+            <MathRenderer content={currentQ.content} className="!text-amber-100 text-base sm:text-lg font-medium" />
           </div>
 
           {/* Options */}
           {isMcq ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {currentQ.options!.map((opt) => (
-                <button
-                  key={opt.key}
-                  onClick={() => setSelectedMcq(opt.key)}
-                  className={`p-3 rounded-xl border text-left text-xs sm:text-sm font-medium transition-all ${
-                    selectedMcq === opt.key
-                      ? 'border-red-400 bg-red-950/70 text-red-200 font-bold ring-2 ring-red-500'
-                      : 'border-stone-700 bg-stone-800/60 hover:border-red-500/50 text-stone-300'
-                  }`}
-                >
-                  <span className="font-bold mr-2 text-amber-400">{opt.key}.</span>
-                  <MathRenderer content={opt.content} className="inline !text-stone-100" />
-                </button>
-              ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {currentQ.options!.map((opt) => {
+                const isSelected = selectedMcq === opt.key;
+                return (
+                  <button
+                    key={opt.key}
+                    onClick={() => setSelectedMcq(opt.key)}
+                    className={`p-4 rounded-2xl border-2 text-left text-sm sm:text-base font-medium transition-all flex items-center gap-3 min-h-[60px] ${
+                      isSelected
+                        ? 'border-red-400 bg-red-950/80 text-red-100 font-bold ring-2 ring-red-500 shadow-lg scale-[1.01]'
+                        : 'border-stone-700 bg-stone-850/80 hover:border-red-500/60 text-stone-200'
+                    }`}
+                  >
+                    <span className={`w-8 h-8 rounded-lg flex items-center justify-center font-black text-sm shrink-0 ${
+                      isSelected ? 'bg-red-500 text-white' : 'bg-stone-700 text-stone-300'
+                    }`}>
+                      {opt.key}
+                    </span>
+                    <div className="flex-1">
+                      <MathRenderer content={opt.content} className="inline !text-stone-100" />
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-3 max-w-xl mx-auto">
               <input
                 type="text"
                 value={fillValue}
                 onChange={(e) => setFillValue(e.target.value)}
                 placeholder="Nhập số hoặc phân số kết quả..."
-                className="w-full text-center text-lg sm:text-xl font-mono font-bold px-4 py-2 rounded-xl border border-red-500/60 bg-stone-800 text-amber-200 focus:outline-none"
+                className="w-full text-center text-xl sm:text-2xl font-mono font-bold px-4 py-3 rounded-2xl border-2 border-red-500/80 bg-stone-950 text-amber-200 focus:outline-none shadow-inner"
               />
               <VirtualMathKeyboard value={fillValue} onChange={setFillValue} />
             </div>
@@ -206,9 +215,9 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
             <button
               onClick={handleAttack}
               disabled={isMcq ? !selectedMcq : !fillValue.trim()}
-              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 disabled:opacity-40 text-white font-black text-sm tracking-wider uppercase shadow-xl flex items-center gap-2 active:scale-95"
+              className="px-8 py-3 rounded-2xl bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 disabled:opacity-40 text-white font-black text-sm sm:text-base tracking-wider uppercase shadow-xl flex items-center gap-2 active:scale-95 transition-transform"
             >
-              <Swords className="w-4 h-4" />
+              <Swords className="w-5 h-5" />
               <span>TUNG CHIÊU TẤN CÔNG</span>
             </button>
           </div>
