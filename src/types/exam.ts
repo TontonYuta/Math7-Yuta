@@ -52,6 +52,7 @@ export interface Question {
   isPracticalMath?: boolean; // Real-world practical application question
   hasParametricM?: boolean;  // Question contains parameter m
   track?: ExamTrack | 'BOTH'; // Which track this question primarily targets
+  gameCategory?: 'arithmetic' | 'word_problem'; // 'arithmetic' for Bức tranh bí ẩn, 'word_problem' for Vượt chướng ngại vật
   latexVerified?: boolean;   // Hidden audit flag: marks question as having 100% verified LaTeX syntax & rendering (no UI display)
   answerVerified?: boolean;  // Audit flag: marks question as 100% verified for both mathematical logic and answer rendering
 }

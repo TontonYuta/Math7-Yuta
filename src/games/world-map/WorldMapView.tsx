@@ -10,7 +10,7 @@ interface WorldMapViewProps {
   totalStars: number;
   playerCoins: number;
   onSelectWorld: (worldId: string) => void;
-  onSelectLevel: (level: GameLevel) => void;
+  onSelectLevel: (level: GameLevel, mode: 'treasure' | 'picture' | 'boss') => void;
   onBackToLobby: () => void;
 }
 
@@ -115,9 +115,9 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
           level={selectedPreviewLevel}
           worldName={activeWorld.name}
           onClose={() => setSelectedPreviewLevel(null)}
-          onStartLevel={(lvl) => {
+          onStartLevel={(lvl, mode) => {
             setSelectedPreviewLevel(null);
-            onSelectLevel(lvl);
+            onSelectLevel(lvl, mode);
           }}
         />
       )}

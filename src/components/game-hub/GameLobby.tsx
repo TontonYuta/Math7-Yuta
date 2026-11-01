@@ -134,38 +134,40 @@ export const GameLobby: React.FC<GameLobbyProps> = ({
             </div>
 
             {/* Card 2: Bức Tranh Bí Ẩn */}
-            <div className="relative rounded-3xl bg-stone-900/60 border-2 border-stone-800 p-6 shadow-xl flex flex-col justify-between opacity-85">
+            <div className="group relative rounded-3xl bg-gradient-to-br from-stone-900 via-stone-900/90 to-amber-950/40 border-4 border-amber-500 hover:border-amber-400 p-6 shadow-2xl transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-2xl bg-stone-800 text-stone-400 flex items-center justify-center text-2xl border border-stone-700">
-                    <span>🧩</span>
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-600 text-stone-950 flex items-center justify-center text-2xl shadow-lg border-2 border-amber-300 group-hover:scale-110 transition-transform">
+                    <span>🖼️</span>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-stone-800 text-amber-300/90 text-xs font-bold uppercase tracking-wider border border-amber-500/30">
-                    SẮP RA MẮT
+                  <span className="px-3 py-1 rounded-full bg-emerald-500 text-stone-950 text-xs font-black uppercase tracking-wider shadow">
+                    SẴN SÀNG CHƠI
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-stone-300">
+                  <h3 className="text-xl sm:text-2xl font-black text-amber-200 group-hover:text-amber-100 transition">
                     Bức Tranh Bí Ẩn (Mysterious Picture)
                   </h3>
-                  <p className="text-xs sm:text-sm text-stone-400 mt-2 leading-relaxed">
-                    Mở khóa 9 mảnh ghép che bức tranh lịch sử bằng cách giải đúng các phép toán và ghép cặp giá trị tương đương.
+                  <p className="text-xs sm:text-sm text-stone-300 mt-2 leading-relaxed">
+                    Chuyên trị các phép tính toán số học siêu tốc. Giải đúng từng phép tính để lật mở 9 mảnh ghép của những bức tranh phong cảnh và kiệt tác kỳ vĩ!
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-2 text-xs font-semibold text-stone-500">
-                  <span className="px-2.5 py-1 rounded-xl bg-stone-800/40 border border-stone-700/50">Lưới 3x3 mảnh ghép</span>
-                  <span className="px-2.5 py-1 rounded-xl bg-stone-800/40 border border-stone-700/50">Ghép cặp tương đương</span>
+                <div className="flex flex-wrap gap-2 text-xs font-semibold text-amber-300/80">
+                  <span className="px-2.5 py-1 rounded-xl bg-stone-800/80 border border-stone-700">⏱️ 20 phút</span>
+                  <span className="px-2.5 py-1 rounded-xl bg-stone-800/80 border border-stone-700">❤️ 3 mạng sống</span>
+                  <span className="px-2.5 py-1 rounded-xl bg-stone-800/80 border border-stone-700">🧩 9 Mảnh ghép 3x3</span>
                 </div>
               </div>
 
               <div className="pt-6 mt-4 border-t border-stone-800">
                 <button
-                  disabled
-                  className="w-full py-3.5 px-6 rounded-2xl bg-stone-800 text-stone-500 font-bold uppercase text-sm tracking-wider cursor-not-allowed border border-stone-700 flex items-center justify-center gap-2"
+                  onClick={() => onSelectGame('picture')}
+                  className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-stone-950 font-black tracking-wider uppercase text-sm sm:text-base shadow-xl flex items-center justify-center gap-2 transition-all active:scale-95 group-hover:shadow-amber-500/30"
                 >
-                  <span>ĐANG HOÀN THIỆN</span>
+                  <Play className="w-5 h-5 fill-stone-950" />
+                  <span>VÀO CHƠI NGAY</span>
                 </button>
               </div>
             </div>
