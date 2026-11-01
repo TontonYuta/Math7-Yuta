@@ -19,6 +19,7 @@ import {
   Zap,
   CheckCircle2,
   Flame,
+  Compass,
 } from 'lucide-react';
 import { TOAN7_CHAPTERS_METADATA, TOAN7_EXAM_SETS, TOAN7_QUESTIONS_DATABASE } from '../data/toan7/index';
 import { Question, ExamSet, ChapterInfo } from '../types/exam';
@@ -56,6 +57,7 @@ interface DashboardViewProps {
   onPracticeMode: () => void;
   onSelectChapter: (chapterId: string) => void;
   onQuestionBankMode: () => void;
+  onTreasureMode?: () => void;
   currentTrack?: ExamTrack;
   onSelectTrack?: (track: ExamTrack) => void;
   questions?: Question[];
@@ -73,6 +75,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onPracticeMode,
   onSelectChapter,
   onQuestionBankMode,
+  onTreasureMode,
   currentTrack = 'PHOTHONG',
   onSelectTrack,
   questions,
@@ -407,9 +410,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       </div>
 
       {/* =================================================================== */}
-      {/* BENTO ROW 2: 2 PRACTICE GATEWAYS (Chuyên Đề & Ngân Hàng)           */}
+      {/* BENTO ROW 2: 3 PRACTICE GATEWAYS (Chuyên Đề & Ngân Hàng & Game)    */}
       {/* =================================================================== */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
         {/* Gateway 1: Luyện Chuyên Đề */}
         <div
           onClick={onPracticeMode}
@@ -421,17 +424,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <BookOpen className="w-4 h-4" />
               </div>
               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
-                {totalTopicsCount} DẠNG TOÁN TRỌNG TÂM
+                {totalTopicsCount} DẠNG TOÁN
               </span>
             </div>
 
             <div>
               <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-zinc-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition flex items-center gap-1.5">
-                <span>Luyện Tập Theo Dạng Toán</span>
+                <span>Luyện Theo Dạng Toán</span>
                 <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
               </h3>
               <p className="text-xs text-slate-600 dark:text-zinc-400 mt-0.5 leading-relaxed">
-                Rèn sâu từng dạng bài có đáp án giải thích chi tiết, gợi ý tư duy Socratic và bộ lọc độ khó ({activeQuestions.length} câu {isPT ? 'chuẩn SGK' : 'bứt phá 9+'}).
+                Rèn sâu từng dạng bài có đáp án giải thích chi tiết, gợi ý tư duy Socratic ({activeQuestions.length} câu {isPT ? 'chuẩn SGK' : 'bứt phá 9+'}).
               </p>
             </div>
           </div>
@@ -453,13 +456,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <Search className="w-4 h-4" />
               </div>
               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                {totalQuestionsCount ? `${totalQuestionsCount} CÂU TOÀN THƯ VIỆN` : `${activeQuestions.length} CÂU HỎI`}
+                {totalQuestionsCount ? `${totalQuestionsCount} CÂU` : `${activeQuestions.length} CÂU`}
               </span>
             </div>
 
             <div>
               <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-zinc-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition flex items-center gap-1.5">
-                <span>Ngân Hàng Câu Hỏi Toàn Diện</span>
+                <span>Ngân Hàng Câu Hỏi</span>
                 <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
               </h3>
               <p className="text-xs text-slate-600 dark:text-zinc-400 mt-0.5 leading-relaxed">
@@ -471,6 +474,38 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <div className="pt-3 mt-2 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between text-xs font-semibold text-emerald-600 dark:text-emerald-400">
             <span>Duyệt câu hỏi theo mức độ</span>
             <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+          </div>
+        </div>
+
+        {/* Gateway 3: Game Vượt Chướng Ngại Vật (Đi Tìm Kho Báu) */}
+        <div
+          onClick={onTreasureMode}
+          className="group rounded-2xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent dark:from-amber-950/40 dark:via-zinc-900 dark:to-zinc-950 border-2 border-amber-400/80 dark:border-amber-600/70 p-4 sm:p-5 shadow-sm hover:border-amber-500 hover:shadow-lg hover:-translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between relative overflow-hidden"
+        >
+          <div className="space-y-2.5 relative z-10">
+            <div className="flex items-center justify-between">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 text-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                <Compass className="w-4 h-4" />
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black font-mono bg-amber-500 text-white shadow-xs">
+                GAME VIOLYMPIC
+              </span>
+            </div>
+
+            <div>
+              <h3 className="text-sm sm:text-base font-black text-amber-900 dark:text-amber-200 group-hover:text-amber-600 dark:group-hover:text-amber-300 transition flex items-center gap-1.5">
+                <span>Vượt Chướng Ngại Vật</span>
+                <ChevronRight className="w-4 h-4 text-amber-500 group-hover:translate-x-1 transition-transform" />
+              </h3>
+              <p className="text-xs text-stone-600 dark:text-stone-300 mt-0.5 leading-relaxed">
+                Đồng hành cùng chú sóc vượt mê cung thử thách toán học, tránh bụi cây và mở khóa rương kho báu hoàng gia!
+              </p>
+            </div>
+          </div>
+
+          <div className="pt-3 mt-2 border-t border-amber-200/60 dark:border-amber-800/60 flex items-center justify-between text-xs font-bold text-amber-700 dark:text-amber-400 relative z-10">
+            <span>Vào chơi ngay</span>
+            <span className="group-hover:translate-x-0.5 transition-transform font-mono">→</span>
           </div>
         </div>
       </div>

@@ -16,6 +16,7 @@ import {
   X,
   Clock,
   Zap,
+  Compass,
 } from 'lucide-react';
 import { AppMode } from './Navbar';
 import { TOAN7_CHAPTERS_METADATA, TOAN7_EXAM_SETS } from '../data/toan7/index';
@@ -127,6 +128,15 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
       badge: `${totalQuestionsCount || availableQuestionsCount} câu`,
       action: () => onSelectMode('bank'),
       isActive: currentMode === 'bank',
+    },
+    {
+      id: 'treasure',
+      label: 'Vượt Chướng Ngại Vật',
+      desc: 'Mê cung tìm kho báu chuẩn Violympic',
+      icon: Compass,
+      badge: 'Game 7',
+      action: () => onSelectMode('treasure'),
+      isActive: currentMode === 'treasure',
     },
   ];
 

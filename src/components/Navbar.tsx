@@ -3,7 +3,7 @@ import { Sun, Moon, GraduationCap, LayoutGrid, Menu, LogOut, Eye, EyeOff } from 
 import { ExamTrack } from '../utils/trackFilter';
 import { getTargetExamYear } from '../utils/timeUtils';
 
-export type AppMode = 'intro' | 'exam' | 'practice' | 'bank';
+export type AppMode = 'intro' | 'exam' | 'practice' | 'bank' | 'treasure';
 
 interface NavbarProps {
   currentMode: AppMode;
@@ -153,6 +153,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 ? '25 Chuyên Đề Trọng Tâm'
                 : currentMode === 'bank'
                 ? 'Ngân Hàng Câu Hỏi'
+                : currentMode === 'treasure'
+                ? 'Vượt Chướng Ngại Vật (Đi Tìm Kho Báu)'
                 : `Thi Thử ${isPT ? '60 Phút' : '90 Phút'}`}
             </span>
           </div>
