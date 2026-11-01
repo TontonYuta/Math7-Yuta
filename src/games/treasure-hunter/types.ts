@@ -23,10 +23,14 @@ export interface TreasureGameState {
   playerPos: Position;
   chestPos: Position;
   score: number;
+  coins: number;
   lives: number;
   maxLives: number;
   timeRemaining: number;
   status: GameStatus;
   activeQuestionCell: MazeCell | null;
   questionsAnswered: number;
+  correctAnswersCount: number;
+  stepsTaken: number;
+  streak: number;
 }
