@@ -14,6 +14,8 @@ export interface MysteryImageItem {
   title: string;
   description: string;
   imageUrl: string;
+  worldId?: string;
+  worldName?: string;
 }
 
 export interface MysteryGameState {

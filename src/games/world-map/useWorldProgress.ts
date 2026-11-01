@@ -11,18 +11,32 @@ export function useWorldProgress() {
     try {
       const saved = localStorage.getItem(PROGRESS_KEY);
       if (saved) {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        return {
+          unlockedLevelIds: parsed.unlockedLevelIds || ['chuong_1_so_huu_ti_lvl_1'],
+          levelStars: parsed.levelStars || {},
+          levelHighscores: parsed.levelHighscores || {},
+          unlockedGalleryImageIds: parsed.unlockedGalleryImageIds || [],
+          totalStars: parsed.totalStars || 0,
+          currentWorldId: parsed.currentWorldId || 'chuong_1_so_huu_ti',
+          totalCalculationsSolved: parsed.totalCalculationsSolved || 0,
+          totalWordProblemsSolved: parsed.totalWordProblemsSolved || 0,
+          bossesDefeated: parsed.bossesDefeated || 0,
+        };
       }
     } catch (e) {
       console.warn('Failed to parse saved progress', e);
     }
-    // Default initial progress
     return {
       unlockedLevelIds: ['chuong_1_so_huu_ti_lvl_1'],
       levelStars: {},
       levelHighscores: {},
+      unlockedGalleryImageIds: [],
       totalStars: 0,
       currentWorldId: 'chuong_1_so_huu_ti',
+      totalCalculationsSolved: 0,
+      totalWordProblemsSolved: 0,
+      bossesDefeated: 0,
     };
   });
 
@@ -31,7 +45,7 @@ export function useWorldProgress() {
   }, [progress]);
 
   const recordLevelCompletion = useCallback(
-    (levelId: string, score: number, stars: number) => {
+    (levelId: string, score: number, stars: number, gameType?: 'picture' | 'treasure' | 'boss', galleryImageId?: string) => {
       setProgress((prev) => {
         const prevStars = prev.levelStars[levelId] || 0;
         const prevHighscore = prev.levelHighscores[levelId] || 0;
@@ -44,6 +58,12 @@ export function useWorldProgress() {
           ...prev.levelHighscores,
           [levelId]: Math.max(prevHighscore, score),
         };
+
+        // Unlock artwork if galleryImageId provided
+        const newGallery = [...prev.unlockedGalleryImageIds];
+        if (galleryImageId && !newGallery.includes(galleryImageId)) {
+          newGallery.push(galleryImageId);
+        }
 
         // Find next level to unlock
         const allLevels: GameLevel[] = [];
@@ -65,7 +85,11 @@ export function useWorldProgress() {
           unlockedLevelIds: newUnlocked,
           levelStars: updatedStars,
           levelHighscores: updatedHighscores,
+          unlockedGalleryImageIds: newGallery,
           totalStars,
+          totalCalculationsSolved: (prev.totalCalculationsSolved || 0) + (gameType === 'picture' ? 9 : 0),
+          totalWordProblemsSolved: (prev.totalWordProblemsSolved || 0) + (gameType === 'treasure' ? 5 : 0),
+          bossesDefeated: (prev.bossesDefeated || 0) + (gameType === 'boss' ? 1 : 0),
         };
       });
     },
@@ -88,6 +112,7 @@ export function useWorldProgress() {
     worlds: worldsWithProgress,
     currentWorldId: progress.currentWorldId,
     totalStars: progress.totalStars,
+    progress,
     setCurrentWorldId: (wId: string) =>
       setProgress((prev) => ({ ...prev, currentWorldId: wId })),
     recordLevelCompletion,

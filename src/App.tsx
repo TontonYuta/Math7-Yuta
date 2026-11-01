@@ -4,19 +4,21 @@ import { WorldMapView } from './games/world-map/WorldMapView';
 import { TreasureHunterGame } from './games/treasure-hunter/TreasureHunterGame';
 import { MysteriousPictureGame } from './games/mysterious-picture/MysteriousPictureGame';
 import { BossBattleGame } from './games/boss-battle/BossBattleGame';
+import { DashboardGalleryView } from './games/dashboard/DashboardGalleryView';
 import { useWorldProgress } from './games/world-map/useWorldProgress';
 import { GameLevel } from './games/world-map/types';
 import { TOAN7_QUESTIONS_DATABASE, TOAN7_EXAM_SETS } from './data/toan7/index';
 import { Question } from './types/exam';
 
 export default function App() {
-  const [activeScreen, setActiveScreen] = useState<'lobby' | 'world-map' | 'treasure' | 'picture' | 'boss'>('lobby');
+  const [activeScreen, setActiveScreen] = useState<'lobby' | 'world-map' | 'treasure' | 'picture' | 'boss' | 'dashboard'>('lobby');
   const [selectedLevel, setSelectedLevel] = useState<GameLevel | null>(null);
 
   const {
     worlds,
     currentWorldId,
     totalStars,
+    progress,
     setCurrentWorldId,
     recordLevelCompletion,
   } = useWorldProgress();
@@ -52,7 +54,7 @@ export default function App() {
     return chapterFiltered.length > 0 ? chapterFiltered : TOAN7_QUESTIONS_DATABASE;
   }, [selectedLevel]);
 
-  // Specific question sets partitioned for game modes
+  // Automatically partitioned questions by category
   const arithmeticQuestions = useMemo(() => {
     const filtered = activeLevelQuestions.filter((q) => q.gameCategory === 'arithmetic');
     return filtered.length >= 6 ? filtered : activeLevelQuestions;
@@ -63,27 +65,34 @@ export default function App() {
     return filtered.length >= 6 ? filtered : activeLevelQuestions;
   }, [activeLevelQuestions]);
 
-  const handleSelectLevel = (level: GameLevel, mode: 'treasure' | 'picture' | 'boss') => {
+  const handleSelectLevel = (level: GameLevel) => {
     setSelectedLevel(level);
-    if (mode === 'boss' || level.isBoss) {
+    if (level.gameType === 'boss') {
       setActiveScreen('boss');
-    } else if (mode === 'picture') {
+    } else if (level.gameType === 'picture') {
       setActiveScreen('picture');
     } else {
       setActiveScreen('treasure');
     }
   };
 
-  const handleLevelVictory = (score: number, stars: number) => {
+  const handlePictureVictory = (score: number, stars: number) => {
     if (selectedLevel) {
-      recordLevelCompletion(selectedLevel.id, score, stars);
-      setPlayerCoins((c) => c + 50);
+      recordLevelCompletion(selectedLevel.id, score, stars, 'picture', selectedLevel.galleryImageId);
+      setPlayerCoins((c) => c + 60);
+    }
+  };
+
+  const handleTreasureVictory = (score: number, stars: number) => {
+    if (selectedLevel) {
+      recordLevelCompletion(selectedLevel.id, score, stars, 'treasure');
+      setPlayerCoins((c) => c + 60);
     }
   };
 
   const handleBossVictory = (score: number, stars: number) => {
     if (selectedLevel) {
-      recordLevelCompletion(selectedLevel.id, score, stars);
+      recordLevelCompletion(selectedLevel.id, score, stars, 'boss');
       setPlayerCoins((c) => c + 150);
     }
   };
@@ -92,13 +101,8 @@ export default function App() {
     <div className="min-h-screen bg-stone-950 text-stone-100 font-sans selection:bg-amber-500 selection:text-stone-950">
       {activeScreen === 'lobby' && (
         <GameLobby
-          onSelectGame={(gameId) => {
-            if (gameId === 'picture') {
-              setActiveScreen('picture');
-            } else {
-              setActiveScreen('world-map');
-            }
-          }}
+          onStartAdventure={() => setActiveScreen('world-map')}
+          onOpenDashboard={() => setActiveScreen('dashboard')}
           playerCoins={playerCoins}
         />
       )}
@@ -112,6 +116,7 @@ export default function App() {
           onSelectWorld={setCurrentWorldId}
           onSelectLevel={handleSelectLevel}
           onBackToLobby={() => setActiveScreen('lobby')}
+          onOpenDashboard={() => setActiveScreen('dashboard')}
         />
       )}
 
@@ -125,8 +130,8 @@ export default function App() {
       {activeScreen === 'picture' && (
         <MysteriousPictureGame
           questionsPool={arithmeticQuestions}
-          onExit={() => (selectedLevel ? setActiveScreen('world-map') : setActiveScreen('lobby'))}
-          onCompleteLevel={handleLevelVictory}
+          onExit={() => setActiveScreen('world-map')}
+          onCompleteLevel={handlePictureVictory}
         />
       )}
 
@@ -137,6 +142,15 @@ export default function App() {
           questions={activeLevelQuestions}
           onVictory={handleBossVictory}
           onExit={() => setActiveScreen('world-map')}
+        />
+      )}
+
+      {activeScreen === 'dashboard' && (
+        <DashboardGalleryView
+          worlds={worlds}
+          progress={progress}
+          playerCoins={playerCoins}
+          onBack={() => setActiveScreen('world-map')}
         />
       )}
     </div>

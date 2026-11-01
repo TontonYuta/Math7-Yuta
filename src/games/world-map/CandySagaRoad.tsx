@@ -123,9 +123,12 @@ export const CandySagaRoad: React.FC<CandySagaRoadProps> = ({
                   {isLocked ? (
                     <Lock className="w-6 h-6 text-stone-400" />
                   ) : (
-                    <span className="text-xl sm:text-2xl font-black drop-shadow-sm">
-                      {level.levelNumber}
-                    </span>
+                    <div className="flex flex-col items-center">
+                      <span className="text-xs">{level.gameType === 'picture' ? '🖼️' : '🐿️'}</span>
+                      <span className="text-sm sm:text-base font-black drop-shadow-sm leading-none mt-0.5">
+                        {level.levelNumber}
+                      </span>
+                    </div>
                   )}
                 </button>
 

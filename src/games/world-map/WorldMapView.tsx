@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GameWorld, GameLevel } from './types';
 import { CandySagaRoad } from './CandySagaRoad';
 import { LevelDetailModal } from './LevelDetailModal';
-import { Star, ArrowLeft, ChevronLeft, ChevronRight, Compass } from 'lucide-react';
+import { Star, ArrowLeft, ChevronLeft, ChevronRight, Compass, BarChart3 } from 'lucide-react';
 
 interface WorldMapViewProps {
   worlds: GameWorld[];
@@ -10,8 +10,9 @@ interface WorldMapViewProps {
   totalStars: number;
   playerCoins: number;
   onSelectWorld: (worldId: string) => void;
-  onSelectLevel: (level: GameLevel, mode: 'treasure' | 'picture' | 'boss') => void;
+  onSelectLevel: (level: GameLevel) => void;
   onBackToLobby: () => void;
+  onOpenDashboard: () => void;
 }
 
 export const WorldMapView: React.FC<WorldMapViewProps> = ({
@@ -22,6 +23,7 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
   onSelectWorld,
   onSelectLevel,
   onBackToLobby,
+  onOpenDashboard,
 }) => {
   const [selectedPreviewLevel, setSelectedPreviewLevel] = useState<GameLevel | null>(null);
 
@@ -49,16 +51,26 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
           </button>
 
           <div className="flex items-center gap-3">
+            {/* Dashboard & Gallery Shortcut */}
+            <button
+              onClick={onOpenDashboard}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-amber-600/30 hover:bg-amber-600/50 border border-amber-500/60 text-amber-200 text-xs sm:text-sm font-black transition-all active:scale-95 shadow"
+              title="Bảng Thống Kê & Bộ Sưu Tập Tranh"
+            >
+              <BarChart3 className="w-4 h-4 text-amber-300" />
+              <span>Thống Kê & Tranh</span>
+            </button>
+
             {/* Stars */}
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-amber-950/80 border border-amber-500/60 text-amber-300 font-bold shadow-inner">
-              <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-              <span className="font-mono text-base font-black">{totalStars}</span>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-amber-950/80 border border-amber-500/60 text-amber-300 font-bold shadow-inner">
+              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+              <span className="font-mono text-sm sm:text-base font-black">{totalStars}</span>
             </div>
 
             {/* Coins */}
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-yellow-950/80 border border-yellow-500/60 text-yellow-300 font-bold shadow-inner">
-              <span className="text-base">🪙</span>
-              <span className="font-mono text-base font-black">{playerCoins}</span>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-yellow-950/80 border border-yellow-500/60 text-yellow-300 font-bold shadow-inner">
+              <span className="text-sm sm:text-base">🪙</span>
+              <span className="font-mono text-sm sm:text-base font-black">{playerCoins}</span>
             </div>
           </div>
         </header>
@@ -115,9 +127,9 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
           level={selectedPreviewLevel}
           worldName={activeWorld.name}
           onClose={() => setSelectedPreviewLevel(null)}
-          onStartLevel={(lvl, mode) => {
+          onStartLevel={(lvl) => {
             setSelectedPreviewLevel(null);
-            onSelectLevel(lvl, mode);
+            onSelectLevel(lvl);
           }}
         />
       )}
