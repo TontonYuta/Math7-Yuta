@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { GameLobby } from './components/game-hub/GameLobby';
+import { TopicSelectionView } from './games/world-map/TopicSelectionView';
 import { WorldMapView } from './games/world-map/WorldMapView';
 import { TreasureHunterGame } from './games/treasure-hunter/TreasureHunterGame';
 import { MysteriousPictureGame } from './games/mysterious-picture/MysteriousPictureGame';
@@ -11,7 +12,7 @@ import { TOAN7_QUESTIONS_DATABASE, TOAN7_EXAM_SETS } from './data/toan7/index';
 import { Question } from './types/exam';
 
 export default function App() {
-  const [activeScreen, setActiveScreen] = useState<'lobby' | 'world-map' | 'treasure' | 'picture' | 'boss' | 'dashboard'>('lobby');
+  const [activeScreen, setActiveScreen] = useState<'lobby' | 'topic-select' | 'world-map' | 'treasure' | 'picture' | 'boss' | 'dashboard'>('lobby');
   const [selectedLevel, setSelectedLevel] = useState<GameLevel | null>(null);
 
   const {
@@ -54,7 +55,7 @@ export default function App() {
     return chapterFiltered.length > 0 ? chapterFiltered : TOAN7_QUESTIONS_DATABASE;
   }, [selectedLevel]);
 
-  // Automatically partitioned questions by category
+  // Specific question sets partitioned for game modes
   const arithmeticQuestions = useMemo(() => {
     const filtered = activeLevelQuestions.filter((q) => q.gameCategory === 'arithmetic');
     return filtered.length >= 6 ? filtered : activeLevelQuestions;
@@ -101,9 +102,23 @@ export default function App() {
     <div className="min-h-screen bg-stone-950 text-stone-100 font-sans selection:bg-amber-500 selection:text-stone-950">
       {activeScreen === 'lobby' && (
         <GameLobby
-          onStartAdventure={() => setActiveScreen('world-map')}
+          onStartAdventure={() => setActiveScreen('topic-select')}
           onOpenDashboard={() => setActiveScreen('dashboard')}
           playerCoins={playerCoins}
+        />
+      )}
+
+      {activeScreen === 'topic-select' && (
+        <TopicSelectionView
+          worlds={worlds}
+          totalStars={totalStars}
+          playerCoins={playerCoins}
+          onSelectTopic={(wId) => {
+            setCurrentWorldId(wId);
+            setActiveScreen('world-map');
+          }}
+          onBackToLobby={() => setActiveScreen('lobby')}
+          onOpenDashboard={() => setActiveScreen('dashboard')}
         />
       )}
 
@@ -117,6 +132,7 @@ export default function App() {
           onSelectLevel={handleSelectLevel}
           onBackToLobby={() => setActiveScreen('lobby')}
           onOpenDashboard={() => setActiveScreen('dashboard')}
+          onOpenTopicSelect={() => setActiveScreen('topic-select')}
         />
       )}
 
@@ -150,7 +166,7 @@ export default function App() {
           worlds={worlds}
           progress={progress}
           playerCoins={playerCoins}
-          onBack={() => setActiveScreen('world-map')}
+          onBack={() => setActiveScreen('topic-select')}
         />
       )}
     </div>

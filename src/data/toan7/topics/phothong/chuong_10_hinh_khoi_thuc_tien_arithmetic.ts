@@ -31,6 +31,7 @@ export const CHUONG_10_HINH_KHOI_THUC_TIEN_ARITHMETIC_QUESTIONS: Question[] = [
     "detailedSolution": "Hình lập phương có đúng $4$ đường chéo chính đi qua tâm hình khối nối các cặp đỉnh đối diện nhau qua tâm.\n\nChọn A.",
     "socraticHint": "8 đỉnh chia thành 4 cặp đỉnh đối xứng nhau.",
     "difficulty": "Nhận biết",
+    "difficultyLevel": 1,
     "latexVerified": true,
     "answerVerified": true,
     "track": "PHOTHONG",

@@ -48,6 +48,7 @@ export interface Question {
   detailedSolution: string; // LaTeX-rich step-by-step explanation
   socraticHint: string; // Intuitive hint guiding student's critical thinking
   difficulty: 'Nhận biết' | 'Thông hiểu' | 'Vận dụng' | 'Vận dụng cao';
+  difficultyLevel?: 1 | 2 | 3 | 4 | 5; // 5-point scale: 1=Dễ/Nhận biết, 2=Thông hiểu, 3=Vận dụng, 4=Vận dụng cao, 5=Học sinh giỏi
   examSets?: string[]; // IDs of exam sets this question belongs to
   isPracticalMath?: boolean; // Real-world practical application question
   hasParametricM?: boolean;  // Question contains parameter m

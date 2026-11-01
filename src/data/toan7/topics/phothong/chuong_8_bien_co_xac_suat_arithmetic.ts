@@ -16,6 +16,7 @@ export const CHUONG_8_BIEN_CO_XAC_SUAT_ARITHMETIC_QUESTIONS: Question[] = [
     "detailedSolution": "Mỗi con xúc xắc có 6 khả năng. Hai con xúc xắc có tổng số kết quả là $6 \\times 6 = 36$.\n\nĐáp số: 36.",
     "socraticHint": "Áp dụng quy tắc nhân: $6 \\times 6$.",
     "difficulty": "Thông hiểu",
+    "difficultyLevel": 2,
     "latexVerified": true,
     "answerVerified": true,
     "track": "PHOTHONG",

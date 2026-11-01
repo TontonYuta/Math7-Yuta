@@ -13,6 +13,7 @@ interface WorldMapViewProps {
   onSelectLevel: (level: GameLevel) => void;
   onBackToLobby: () => void;
   onOpenDashboard: () => void;
+  onOpenTopicSelect: () => void;
 }
 
 export const WorldMapView: React.FC<WorldMapViewProps> = ({
@@ -24,6 +25,7 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
   onSelectLevel,
   onBackToLobby,
   onOpenDashboard,
+  onOpenTopicSelect,
 }) => {
   const [selectedPreviewLevel, setSelectedPreviewLevel] = useState<GameLevel | null>(null);
 
@@ -42,13 +44,24 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
       <div className="max-w-4xl mx-auto w-full space-y-6">
         {/* Top Candy Saga Bar */}
         <header className="flex flex-wrap items-center justify-between gap-4 bg-stone-900/90 border-2 border-amber-600/60 rounded-3xl p-3 sm:p-4 shadow-xl backdrop-blur-md">
-          <button
-            onClick={onBackToLobby}
-            className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-stone-800 hover:bg-stone-700 border border-stone-600 text-stone-200 text-xs sm:text-sm font-black transition-all active:scale-95"
-          >
-            <ArrowLeft className="w-4 h-4 text-amber-400" />
-            <span>Sảnh Game</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onBackToLobby}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-stone-800 hover:bg-stone-700 border border-stone-600 text-stone-200 text-xs sm:text-sm font-black transition-all active:scale-95"
+            >
+              <ArrowLeft className="w-4 h-4 text-amber-400" />
+              <span>Sảnh</span>
+            </button>
+
+            <button
+              onClick={onOpenTopicSelect}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-amber-600/30 hover:bg-amber-600/50 border border-amber-500/60 text-amber-200 text-xs sm:text-sm font-black transition-all active:scale-95"
+              title="Quay lại danh sách 10 Chuyên đề"
+            >
+              <Compass className="w-4 h-4 text-amber-300" />
+              <span>Đổi Chuyên Đề</span>
+            </button>
+          </div>
 
           <div className="flex items-center gap-3">
             {/* Dashboard & Gallery Shortcut */}

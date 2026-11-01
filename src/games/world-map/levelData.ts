@@ -36,7 +36,7 @@ export function buildGameWorlds(): GameWorld[] {
         galleryImageId: isPicture ? worldImage.id : undefined,
         isBoss: false,
         starsEarned: 0,
-        isUnlocked: chapIdx === 0 && topIdx === 0,
+        isUnlocked: topIdx === 0,
         highscore: 0,
       };
     });

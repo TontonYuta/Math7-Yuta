@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Question } from '../../../types/exam';
 import { MathRenderer } from '../../../components/MathRenderer';
 import { VirtualMathKeyboard } from '../../../components/VirtualMathKeyboard';
+import { getDifficultyInfo } from '../../../utils/difficultyBadge';
 import { X, CheckCircle2, RotateCcw, Sparkles } from 'lucide-react';
 
 interface MathChallengeModalProps {
@@ -19,6 +20,7 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
   const [fillValue, setFillValue] = useState<string>('');
 
   const isMcq = question.type === 'mcq' && question.options && question.options.length > 0;
+  const diffInfo = getDifficultyInfo(question);
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -49,6 +51,9 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
                 </h2>
                 <span className="px-2.5 py-0.5 rounded-full bg-amber-950/60 text-amber-300 text-xs font-bold border border-amber-500/40">
                   {isMcq ? 'Trắc nghiệm' : 'Điền số'}
+                </span>
+                <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold border shadow-sm ${diffInfo.bgClass} ${diffInfo.borderClass} ${diffInfo.colorClass}`}>
+                  Độ khó: {diffInfo.starsString} ({diffInfo.badgeText})
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-amber-200/90 font-medium truncate max-w-md sm:max-w-xl">

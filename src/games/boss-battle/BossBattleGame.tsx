@@ -3,6 +3,7 @@ import confetti from 'canvas-confetti';
 import { Question } from '../../types/exam';
 import { MathRenderer } from '../../components/MathRenderer';
 import { VirtualMathKeyboard } from '../../components/VirtualMathKeyboard';
+import { getDifficultyInfo } from '../../utils/difficultyBadge';
 import { soundFx } from '../../sound/soundFx';
 import { checkAnswerCorrectness } from '../../utils/scoring';
 import { Heart, Trophy, Skull, Swords, RotateCcw, ArrowLeft, Flame, Zap } from 'lucide-react';
@@ -163,7 +164,12 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
       {status === 'fighting' && currentQ && (
         <div className="max-w-4xl mx-auto w-full bg-stone-900 border-2 border-red-500/70 rounded-3xl p-5 sm:p-7 shadow-2xl space-y-5">
           <div className="flex items-center justify-between text-xs sm:text-sm text-stone-400 pb-2 border-b border-stone-800">
-            <span className="font-bold text-amber-400">Đòn tấn công {currentIdx + 1} / {battleQuestions.length}</span>
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-amber-400">Đòn tấn công {currentIdx + 1} / {battleQuestions.length}</span>
+              <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold border ${getDifficultyInfo(currentQ).bgClass} ${getDifficultyInfo(currentQ).borderClass} ${getDifficultyInfo(currentQ).colorClass}`}>
+                Độ khó: {getDifficultyInfo(currentQ).starsString} ({getDifficultyInfo(currentQ).badgeText})
+              </span>
+            </div>
             <span>+25 điểm mỗi đòn chuẩn xác</span>
           </div>
 

@@ -101,7 +101,7 @@ export function useWorldProgress() {
       ...world,
       levels: world.levels.map((lvl) => ({
         ...lvl,
-        isUnlocked: progress.unlockedLevelIds.includes(lvl.id),
+        isUnlocked: lvl.isUnlocked || progress.unlockedLevelIds.includes(lvl.id),
         starsEarned: progress.levelStars[lvl.id] || 0,
         highscore: progress.levelHighscores[lvl.id] || 0,
       })),
