@@ -79,9 +79,9 @@ export const FloatingLuffyNavigator: React.FC<FloatingLuffyNavigatorProps> = ({
 
         {/* Luffy Character & Thousand Sunny Avatar Group */}
         <div className={`relative flex flex-col items-center group ${isWaving ? 'scale-110 rotate-3' : ''} transition-transform`}>
-          {/* Ocean Wake / Sea Ripples */}
-          <div className="absolute -bottom-2 w-16 h-5 bg-cyan-400/30 rounded-full blur-[3px] animate-pulse" />
-          <div className="absolute -bottom-1 w-20 h-4 border-2 border-cyan-300/40 rounded-full animate-ping opacity-40" />
+          {/* Ocean Wake / Sea Ripples (pointer-events-none so island markers underneath remain clickable) */}
+          <div className="pointer-events-none absolute -bottom-2 w-16 h-5 bg-cyan-400/30 rounded-full blur-[3px] animate-pulse" />
+          <div className="pointer-events-none absolute -bottom-1 w-20 h-4 border-2 border-cyan-300/40 rounded-full animate-ping opacity-40" />
 
           {/* Luffy Chibi Avatar Circle */}
           <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full p-1 bg-gradient-to-tr from-amber-500 via-red-500 to-yellow-300 shadow-[0_0_22px_rgba(245,158,11,0.6)] border-2 border-amber-300 flex items-center justify-center bg-zinc-900 overflow-hidden">
