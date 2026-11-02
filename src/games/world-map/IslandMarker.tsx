@@ -1,7 +1,7 @@
 import React from 'react';
 import { GameWorld } from './types';
-import { ANIME_REALMS_CONFIG } from './levelData';
-import { Star, Lock, Anchor, Flame, Skull } from 'lucide-react';
+import { getRealmMeta } from './levelData';
+import { Star, Lock, Anchor } from 'lucide-react';
 
 interface IslandMarkerProps {
   world: GameWorld;
@@ -19,17 +19,9 @@ export const IslandMarker: React.FC<IslandMarkerProps> = ({
   isUnlocked,
   isCompleted,
   totalWorldStars,
-  maxWorldStars,
   onSelect,
 }) => {
-  const realm = ANIME_REALMS_CONFIG[world.id] || {
-    realmName: world.shortName,
-    themeSymbol: '🏝️',
-    mapCoords: { x: 50, y: 50 },
-    bossName: 'Boss',
-    bossIcon: '👑',
-  };
-
+  const realm = getRealmMeta(world.id, world.worldNumber - 1);
   const { x, y } = realm.mapCoords;
 
   return (

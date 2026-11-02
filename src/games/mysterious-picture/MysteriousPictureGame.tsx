@@ -42,7 +42,7 @@ export const MysteriousPictureGame: React.FC<MysteriousPictureGameProps> = ({
   } = gameState;
 
   return (
-    <div className="min-h-screen bg-[#0c0d12] text-zinc-100 flex flex-col p-3 sm:p-6 select-none">
+    <div className="min-h-screen bg-transparent text-zinc-100 flex flex-col p-3 sm:p-6 select-none">
       <div className="max-w-4xl mx-auto w-full space-y-6 flex flex-col items-center flex-1">
         {/* Mystery HUD Header */}
         <MysteryHUD

@@ -98,7 +98,7 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#0c0d12] text-zinc-100 p-3 sm:p-6 select-none flex flex-col justify-between">
+    <div className="min-h-screen bg-transparent text-zinc-100 p-3 sm:p-6 select-none flex flex-col justify-between">
       {/* Top Header / Arena HUD */}
       <header className="max-w-3xl mx-auto w-full bg-[#14161f] border border-zinc-800 rounded-2xl p-3 sm:p-4 shadow-lg">
         <div className="flex items-center justify-between gap-4">
@@ -115,26 +115,29 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
             <div className="flex items-center justify-between text-xs font-mono font-bold text-red-400 mb-1">
               <span className="flex items-center gap-1.5">
                 <Flame className="w-3.5 h-3.5 text-red-500 animate-pulse" />
-                <span>{bossName}</span>
+                <span>Haki Boss: {bossName}</span>
               </span>
               <span>{bossHp} / {maxBossHp} HP</span>
             </div>
             <div className="w-full h-2.5 bg-zinc-900 rounded-full border border-zinc-800 overflow-hidden p-0.5">
               <div
-                className="h-full bg-red-500 rounded-full transition-all duration-300"
+                className="h-full bg-gradient-to-r from-orange-500 to-red-600 rounded-full transition-all duration-300 shadow-[0_0_8px_rgba(239,68,68,0.5)]"
                 style={{ width: `${(bossHp / maxBossHp) * 100}%` }}
               />
             </div>
           </div>
 
-          {/* Player Hearts */}
-          <div className="flex items-center gap-1">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <Heart
-                key={i}
-                className={`w-4 h-4 ${i < playerHp ? 'text-red-500 fill-red-500' : 'text-zinc-800'}`}
-              />
-            ))}
+          {/* Player Hearts / Chakra */}
+          <div className="flex flex-col items-end gap-1">
+            <span className="text-[10px] font-mono text-amber-400 font-bold uppercase">Chakra</span>
+            <div className="flex items-center gap-1">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <Heart
+                  key={i}
+                  className={`w-4 h-4 ${i < playerHp ? 'text-red-500 fill-red-500' : 'text-zinc-800'}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </header>
@@ -143,20 +146,22 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
       <div className="max-w-3xl mx-auto w-full flex items-center justify-around py-4">
         {/* Player */}
         <div className={`text-center space-y-1 transition-transform ${isPlayerHurt ? 'animate-shake scale-90' : ''}`}>
-          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-zinc-850 border border-zinc-700 flex items-center justify-center text-zinc-200 text-2xl shadow">
-            ⚔️
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-zinc-850 border border-amber-400/50 flex items-center justify-center text-3xl shadow">
+            👒
           </div>
-          <span className="text-xs font-mono text-zinc-400 block">Thí Sinh</span>
+          <span className="text-xs font-mono text-amber-300 block font-bold">Chiến Binh Mũ Rơm</span>
         </div>
 
-        <div className="text-zinc-500 font-mono text-sm uppercase tracking-widest">ĐỐI ĐẦU</div>
+        <div className="text-red-400 font-mono text-xs uppercase tracking-widest px-2.5 py-1 rounded bg-red-950/40 border border-red-800/60 font-bold">
+          ⚡ HAKI ĐỐI ĐẦU ⚡
+        </div>
 
         {/* Boss */}
         <div className={`text-center space-y-1 transition-transform ${isBossHurt ? 'animate-shake scale-90' : ''}`}>
-          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-red-950/40 border border-red-700/60 flex items-center justify-center text-3xl shadow">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-red-950/60 border border-red-500/80 ring-2 ring-red-500/30 flex items-center justify-center text-3xl shadow">
             {bossIcon}
           </div>
-          <span className="text-xs font-mono text-red-400 block">{bossName}</span>
+          <span className="text-xs font-mono text-red-400 block font-bold">{bossName}</span>
         </div>
       </div>
 

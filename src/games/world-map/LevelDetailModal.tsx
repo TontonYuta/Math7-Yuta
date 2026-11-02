@@ -90,16 +90,16 @@ export const LevelDetailModal: React.FC<LevelDetailModalProps> = ({
             <span className="text-zinc-500">Hình thức:</span>
             <span className="font-medium text-zinc-200">
               {isBoss
-                ? 'Đấu trường đề tổng hợp'
+                ? 'Đại chiến Trùm & đề thi tổng hợp'
                 : isPicture
-                ? 'Tính toán số học 9 mảnh ghép'
-                : 'Giải toán đố vượt mê cung'}
+                ? 'Giải mã 9 phong ấn Poneglyph số học'
+                : 'Đột kích mê cung giải toán đố lời văn'}
             </span>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-zinc-500">Phần thưởng:</span>
-            <span className="font-mono font-semibold text-yellow-400">
-              +50 ~ +100 Xu {isPicture ? '• Mở khóa tranh' : ''}
+            <span className="font-medium text-amber-400">
+              {isBoss ? '+150 Xu & Huy Hiệu Haki' : '+60 Xu & Mở Khóa Tranh'}
             </span>
           </div>
         </div>

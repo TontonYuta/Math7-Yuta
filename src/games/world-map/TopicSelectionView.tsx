@@ -21,7 +21,7 @@ export const TopicSelectionView: React.FC<TopicSelectionViewProps> = ({
   onOpenDashboard,
 }) => {
   return (
-    <div className="min-h-screen bg-[#0c0d12] text-zinc-100 p-4 sm:p-8 select-none flex flex-col justify-between">
+    <div className="min-h-screen bg-transparent text-zinc-100 p-4 sm:p-8 select-none flex flex-col justify-between">
       <div className="max-w-5xl mx-auto w-full space-y-6">
         {/* Top Header */}
         <header className="flex flex-wrap items-center justify-between gap-4 bg-[#14161f] border border-zinc-800/80 rounded-2xl px-5 py-3.5 shadow-lg">

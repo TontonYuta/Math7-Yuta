@@ -22,7 +22,7 @@ export const MYSTERY_IMAGES: MysteryImageItem[] = [
     title: 'Đảo Trên Trời Skypiea & Lôi Thần Goro Goro',
     description: 'Lôi Thần Enel đối đầu Lôi Ảnh Làng Mây tại đỉnh đền thờ thần thoại 10.000m trên không.',
     imageUrl: '/assets/anime/chap_3_skypiea_enel.jpg',
-    worldId: 'chuong_3_goc_song_song',
+    worldId: 'chuong_3_goc_va_duong_thang_song_song',
     worldName: 'Hải Trình 3: Đảo Skypiea x Làng Mây (Góc & Đường Song Song)',
   },
   {
@@ -38,7 +38,7 @@ export const MYSTERY_IMAGES: MysteryImageItem[] = [
     title: 'Quần Đảo Sabaody & Thế Hệ Siêu Tân Tinh Nhẫn Giới',
     description: 'Phòng phẫu thuật ROOM của Trafalgar Law kết hợp ảo thuật Sharingan tại Rừng Cây Yarukiman.',
     imageUrl: '/assets/anime/chap_5_sabaody_law.jpg',
-    worldId: 'chuong_5_thu_thap_du_lieu',
+    worldId: 'chuong_5_thong_ke_thu_thap_du_lieu',
     worldName: 'Hải Trình 5: Quần Đảo Sabaody (Thu Thập & Biểu Diễn Dữ Liệu)',
   },
   {
@@ -46,7 +46,7 @@ export const MYSTERY_IMAGES: MysteryImageItem[] = [
     title: 'Nhà Ngục Impel Down & Hang Ổ Làng Âm Thanh',
     description: 'Hạ gục quái thú độc dược Giám Ngục Magellan và bẫy cấm thuật của Orochimaru.',
     imageUrl: '/assets/anime/chap_6_impel_down.jpg',
-    worldId: 'chuong_6_ti_le_thuc',
+    worldId: 'chuong_6_ti_le_thuc_va_dai_luong_ti_le',
     worldName: 'Hải Trình 6: Nhà Ngục Impel Down (Tỉ Lệ Thức & Tỉ Lệ Thuận Nghịch)',
   },
   {
@@ -54,7 +54,7 @@ export const MYSTERY_IMAGES: MysteryImageItem[] = [
     title: 'Đại Chiến Marineford & Hội Nghị Ngũ Đại Kage',
     description: 'Quy tụ sức mạnh Tứ Hoàng, Đô Đốc Hải Quân và các Ninja Huyền Thoại định hình thời đại.',
     imageUrl: '/assets/anime/chap_7_marineford_war.jpg',
-    worldId: 'chuong_7_bieu_thuc_dai_so',
+    worldId: 'chuong_7_bieu_thuc_dai_so_va_da_thuc',
     worldName: 'Hải Trình 7: Tổng Bộ Marineford (Biểu Thức Đại Số & Đa Thức)',
   },
   {
@@ -62,7 +62,7 @@ export const MYSTERY_IMAGES: MysteryImageItem[] = [
     title: 'Đảo Người Cá & Làng Mưa Thần Tượng Tendo Pain',
     description: 'Bí ẩn Khối Poneglyph Joy Boy nơi đáy biển sâu và thần nhãn Rinnegan Lục Đạo Luân Hồi.',
     imageUrl: '/assets/anime/chap_8_fishman_pain.jpg',
-    worldId: 'chuong_8_bien_co_xac_suat',
+    worldId: 'chuong_8_bien_co_va_xac_suat',
     worldName: 'Hải Trình 8: Đảo Người Cá x Làng Mưa (Biến Cố & Xác Suất)',
   },
   {
@@ -70,7 +70,7 @@ export const MYSTERY_IMAGES: MysteryImageItem[] = [
     title: 'Vương Quốc Wano & Thung Lũng Tận Cùng Haki Long Thần',
     description: 'Haki Bá Vương Tứ Hoàng Kaido chạm trán Susanoo Thể Toàn Diện của Uchiha Madara.',
     imageUrl: '/assets/anime/chap_9_wano_kaido.jpg',
-    worldId: 'chuong_9_quan_he_tam_giac',
+    worldId: 'chuong_9_quan_he_trong_tam_giac_dong_quy',
     worldName: 'Hải Trình 9: Vương Quốc Wano (Quan Hệ Giữa Các Yếu Tố Tam Giác)',
   },
   {
@@ -78,7 +78,7 @@ export const MYSTERY_IMAGES: MysteryImageItem[] = [
     title: 'Đảo Kho Báu Laugh Tale & Đỉnh Cao Lục Đạo Hiền Nhân',
     description: 'Chinh phục hòn đảo cuối cùng của Đại Hải Trình và tiếp nhận truyền thừa Lục Đạo Nhẫn Tông.',
     imageUrl: '/assets/anime/chap_10_laughtale_sage.jpg',
-    worldId: 'chuong_10_hinh_khoi_thuc_tien',
+    worldId: 'chuong_10_hinh_khoi_trong_thuc_tien',
     worldName: 'Hải Trình 10: Đảo Kho Báu Laugh Tale (Hình Khối Thực Tiễn & Điểm 10 Cuối Kì)',
   },
 ];

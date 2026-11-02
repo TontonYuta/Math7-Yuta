@@ -55,17 +55,17 @@ export const CandySagaRoad: React.FC<CandySagaRoadProps> = ({
                     }`}
                   >
                     <Swords className={`w-8 h-8 mb-1 ${isLocked ? 'text-zinc-600' : 'text-red-400'}`} />
-                    <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-zinc-300">
-                      {isLocked ? 'KHÓA' : 'TRÙM BOSS'}
+                    <span className="text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-300">
+                      {isLocked ? 'KHÓA' : 'QUYẾT CHIẾN TRÙM'}
                     </span>
                   </div>
 
-                  <div className="mt-2 text-center bg-[#14161f] px-3.5 py-1.5 rounded-xl border border-zinc-800 shadow">
+                  <div className="mt-2 text-center bg-[#14161f]/90 px-3.5 py-1.5 rounded-xl border border-zinc-800 shadow">
                     <h4 className="text-xs font-bold text-white">
                       {level.bossName || level.title}
                     </h4>
-                    <span className="text-[10px] font-mono text-zinc-500 block">
-                      Đề tổng hợp chuyên đề
+                    <span className="text-[10px] font-mono text-zinc-400 block">
+                      Đề tổng hợp & Thu phục Haki
                     </span>
                   </div>
                 </div>
@@ -132,8 +132,8 @@ export const CandySagaRoad: React.FC<CandySagaRoadProps> = ({
                 </div>
 
                 {/* Concise Level Title */}
-                <span className="text-[10px] font-medium text-zinc-400 mt-1 max-w-[110px] text-center truncate">
-                  {level.gameType === 'picture' ? 'Mảnh ghép' : 'Mê cung'} {formattedNum}
+                <span className="text-[10px] font-mono text-zinc-400 mt-1 max-w-[120px] text-center truncate">
+                  {level.gameType === 'picture' ? 'Poneglyph' : 'Đột kích'} {formattedNum}
                 </span>
               </div>
             </div>

@@ -1,9 +1,9 @@
 import React from 'react';
-import { GameWorld, GameLevel } from './types';
-import { ANIME_REALMS_CONFIG } from './levelData';
+import { GameWorld } from './types';
+import { getRealmMeta } from './levelData';
 import { MYSTERY_IMAGES } from '../mysterious-picture/mysteryImages';
 import { IslandMarker } from './IslandMarker';
-import { Compass, Swords, ArrowRight, Shield, Star, Sparkles } from 'lucide-react';
+import { Compass, Swords, ArrowRight, Star } from 'lucide-react';
 
 interface ShinobiGrandLineMapProps {
   worlds: GameWorld[];
@@ -18,21 +18,29 @@ export const ShinobiGrandLineMap: React.FC<ShinobiGrandLineMapProps> = ({
   onSelectWorld,
   onEnterWorldTrail,
 }) => {
-  const activeWorld = worlds.find((w) => w.id === activeWorldId) || worlds[0];
-  const activeIdx = worlds.findIndex((w) => w.id === activeWorld.id);
-  const activeRealm = ANIME_REALMS_CONFIG[activeWorld.id];
-  const activeMysteryImg = MYSTERY_IMAGES[activeIdx % MYSTERY_IMAGES.length];
+  const activeWorld = worlds.find((w) => w.id === activeWorldId) || worlds[0] || {
+    id: 'chuong_1_so_huu_ti',
+    worldNumber: 1,
+    name: 'Hải Trình 1',
+    shortName: 'Số hữu tỉ',
+    description: '',
+    color: '#0284c7',
+    levels: [],
+  };
 
-  const worldStars = activeWorld.levels.reduce((acc, l) => acc + l.starsEarned, 0);
-  const maxWorldStars = activeWorld.levels.length * 3;
+  const activeIdx = Math.max(0, worlds.findIndex((w) => w.id === activeWorld.id));
+  const activeRealm = getRealmMeta(activeWorld.id, activeIdx);
+  const activeMysteryImg = MYSTERY_IMAGES[activeIdx % MYSTERY_IMAGES.length] || MYSTERY_IMAGES[0];
 
-  // Path coordinates for connecting the 10 islands sequentially
+  const worldStars = activeWorld.levels ? activeWorld.levels.reduce((acc, l) => acc + l.starsEarned, 0) : 0;
+  const maxWorldStars = activeWorld.levels ? activeWorld.levels.length * 3 : 0;
+
+  // Path coordinates connecting the 10 islands sequentially
   const linePoints = worlds
-    .map((w) => {
-      const cfg = ANIME_REALMS_CONFIG[w.id];
-      return cfg ? `${cfg.mapCoords.x},${cfg.mapCoords.y}` : null;
+    .map((w, idx) => {
+      const cfg = getRealmMeta(w.id, idx);
+      return `${cfg.mapCoords.x},${cfg.mapCoords.y}`;
     })
-    .filter(Boolean)
     .join(' ');
 
   return (
@@ -71,32 +79,34 @@ export const ShinobiGrandLineMap: React.FC<ShinobiGrandLineMapProps> = ({
 
         {/* Grand Line Sea Route Vector Lines */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
-          {/* Outer glow line */}
-          <polyline
-            points={linePoints}
-            fill="none"
-            stroke="rgba(245, 158, 11, 0.2)"
-            strokeWidth="6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          {/* Main dashed nautical path */}
-          <polyline
-            points={linePoints}
-            fill="none"
-            stroke="rgba(245, 158, 11, 0.7)"
-            strokeWidth="2"
-            strokeDasharray="6 6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+          {linePoints && (
+            <>
+              <polyline
+                points={linePoints}
+                fill="none"
+                stroke="rgba(245, 158, 11, 0.2)"
+                strokeWidth="6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <polyline
+                points={linePoints}
+                fill="none"
+                stroke="rgba(245, 158, 11, 0.7)"
+                strokeWidth="2"
+                strokeDasharray="6 6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </>
+          )}
         </svg>
 
         {/* 10 Island Markers on the Map */}
-        {worlds.map((world, idx) => {
-          const wStars = world.levels.reduce((acc, l) => acc + l.starsEarned, 0);
-          const maxStars = world.levels.length * 3;
-          const isUnlocked = world.levels.some((l) => l.isUnlocked);
+        {worlds.map((world) => {
+          const wStars = world.levels ? world.levels.reduce((acc, l) => acc + l.starsEarned, 0) : 0;
+          const maxStars = world.levels ? world.levels.length * 3 : 0;
+          const isUnlocked = world.levels ? world.levels.some((l) => l.isUnlocked) : false;
           const isCompleted = wStars === maxStars && maxStars > 0;
 
           return (
@@ -119,7 +129,7 @@ export const ShinobiGrandLineMap: React.FC<ShinobiGrandLineMapProps> = ({
         {/* Island Anime Preview Thumbnail */}
         <div className="relative w-full md:w-56 h-36 rounded-2xl overflow-hidden border border-zinc-700/80 shrink-0 bg-zinc-900 shadow-md">
           <img
-            src={activeMysteryImg.imageUrl}
+            src={activeMysteryImg?.imageUrl || '/assets/anime/chap_1_naruto_luffy.jpg'}
             alt={activeRealm.realmName}
             className="w-full h-full object-cover"
           />
@@ -142,7 +152,7 @@ export const ShinobiGrandLineMap: React.FC<ShinobiGrandLineMapProps> = ({
               {activeRealm.islandCode}
             </span>
             <span className="text-xs font-mono text-zinc-400">
-              {activeWorld.levels.length} Ải Vượt Thử Thách
+              {activeWorld.levels ? activeWorld.levels.length : 0} Ải Vượt Thử Thách
             </span>
           </div>
 

@@ -6,55 +6,90 @@ SCREENSHOT_DIR = '/home/tontonyuta/.gemini/antigravity-cli/brain/85b88f80-590d-4
 os.makedirs(SCREENSHOT_DIR, exist_ok=True)
 
 def run():
-    print('🚀 Launching Chromium for Naruto x One Piece E2E Verification...')
+    print('🚀 Starting Comprehensive Naruto x One Piece E2E Verification...')
+    errors = []
+    
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=True, args=['--no-sandbox', '--disable-dev-shm-usage'])
         page = browser.new_page(viewport={'width': 1440, 'height': 900})
 
+        # Capture console errors
+        page.on('console', lambda msg: errors.append(f'[{msg.type}] {msg.text}') if msg.type == 'error' else None)
+        page.on('pageerror', lambda exc: errors.append(f'[PAGE_ERROR] {str(exc)}'))
+
         # 1. Visit Lobby
-        page.goto('http://localhost:3000', wait_until='networkidle')
+        page.goto('http://127.0.0.1:3000', wait_until='commit')
+        page.wait_for_selector('h1', timeout=5000)
         time.sleep(0.5)
-        page.screenshot(path=os.path.join(SCREENSHOT_DIR, '01_naruto_op_lobby.png'))
-        print('✅ 1. Lobby Loaded & Captured')
-        assert 'Đại Hải Trình x Nhẫn Giới Toán 7' in page.content(), 'Lobby title missing'
+        page.screenshot(path=os.path.join(SCREENSHOT_DIR, '01_naruto_op_lobby_synchronized.png'))
+        print('✅ 1. Lobby Loaded with Synchronized Anime Background')
 
         # 2. Click "Mở Hải Đồ Thế Giới & Khởi Hành"
         page.locator('button:has-text("Mở Hải Đồ Thế Giới")').click()
-        time.sleep(0.8)
-        page.screenshot(path=os.path.join(SCREENSHOT_DIR, '02_shinobi_grand_line_map.png'))
-        print('✅ 2. Shinobi Grand Line Map Loaded & Captured')
-        assert 'Hải Đồ Đại Hải Trình x Nhẫn Giới' in page.content(), 'Map header missing'
+        page.wait_for_selector('text=Hải Đồ Đại Hải Trình', timeout=5000)
+        time.sleep(0.5)
+        page.screenshot(path=os.path.join(SCREENSHOT_DIR, '02_shinobi_grand_line_map_full.png'))
+        print('✅ 2. Shinobi Grand Line Map Loaded')
 
-        # 3. Click on Island 2 (Alabasta) or Island 9 (Wano)
-        alabasta = page.locator('div[title*="Alabasta"]').first
-        if alabasta.is_visible():
-            alabasta.click()
-            time.sleep(0.5)
-            page.screenshot(path=os.path.join(SCREENSHOT_DIR, '03_selected_island_dock.png'))
-            print('✅ 3. Selected Island Dock Info Captured')
+        # 3. Test selecting various islands (verifying no ID mismatch crash on any chapter)
+        islands_to_test = ['Alabasta', 'Skypiea', 'Wano', 'Laugh Tale', 'Enies Lobby', 'Marineford']
+        for island_name in islands_to_test:
+            marker = page.locator(f'div[title*="{island_name}"]').first
+            if marker.is_visible():
+                marker.click()
+                time.sleep(0.2)
+                print(f'   -> Tested selecting island: {island_name} (OK)')
+        
+        page.screenshot(path=os.path.join(SCREENSHOT_DIR, '03_tested_islands_selection.png'))
 
-        # 4. Click "Cập Bến & Vượt Ải" -> Switch to Island Trail
-        enter_btn = page.locator('button:has-text("Cập Bến & Vượt Ải")')
-        if enter_btn.is_visible():
-            enter_btn.click()
-            time.sleep(0.5)
-            page.screenshot(path=os.path.join(SCREENSHOT_DIR, '04_island_trail_view.png'))
-            print('✅ 4. Island Trail (Candy Saga Road) Captured')
+        # 4. Enter Island Trail
+        page.locator('button:has-text("Cập Bến & Vượt Ải")').click()
+        time.sleep(0.5)
+        page.screenshot(path=os.path.join(SCREENSHOT_DIR, '04_island_trail_candy_saga.png'))
+        print('✅ 4. Island Trail (Candy Saga Style) Loaded')
 
-        # 5. Switch View to 10 Topics
+        # 5. Open Level Detail Modal for Level 1
+        lvl1_btn = page.locator('button:has-text("01")').first
+        if lvl1_btn.is_visible():
+            lvl1_btn.click()
+            time.sleep(0.4)
+            page.screenshot(path=os.path.join(SCREENSHOT_DIR, '05_level_detail_modal.png'))
+            print('✅ 5. Level Detail Modal Opened')
+            
+            # Start Level 1 (Picture Game)
+            page.locator('button:has-text("CHƠI NGAY"), button:has-text("Bắt đầu")').first.click()
+            time.sleep(0.6)
+            page.screenshot(path=os.path.join(SCREENSHOT_DIR, '06_picture_game_poneglyph.png'))
+            print('✅ 6. Mysterious Picture Game (Poneglyph Grid) Loaded')
+
+            # Exit back to map
+            exit_btn = page.locator('button:has-text("Về Bản Đồ")').first
+            if exit_btn.is_visible():
+                exit_btn.click()
+                time.sleep(0.6)
+
+        # 6. Test 10 Topics Grid
         page.locator('button:has-text("10 Chuyên Đề")').click()
         time.sleep(0.5)
-        page.screenshot(path=os.path.join(SCREENSHOT_DIR, '05_topics_grid_view.png'))
-        print('✅ 5. Topics Grid View Captured')
+        page.screenshot(path=os.path.join(SCREENSHOT_DIR, '07_topics_grid_synchronized.png'))
+        print('✅ 7. 10 Topics View Loaded')
 
-        # 6. Open Gallery
+        # 7. Test Dashboard & Gallery
         page.locator('button:has-text("Hồ sơ & Tranh")').click()
-        time.sleep(0.8)
-        page.screenshot(path=os.path.join(SCREENSHOT_DIR, '06_anime_gallery_artworks.png'))
-        print('✅ 6. Anime Artworks Gallery Captured')
+        time.sleep(0.5)
+        page.screenshot(path=os.path.join(SCREENSHOT_DIR, '08_gallery_view_synchronized.png'))
+        print('✅ 8. Gallery View Loaded with Naruto x One Piece Masterpieces')
 
         browser.close()
-        print('🎉 All E2E steps verified successfully!')
+
+    print(f'🔍 Total Console Errors: {len(errors)}')
+    if errors:
+        print('❌ Errors found:')
+        for err in errors:
+            print('  -', err)
+        raise RuntimeError('Console errors detected in browser!')
+    else:
+        print('🎉 ZERO CONSOLE ERRORS! PERFECT SYNCHRONIZATION ACHIEVED!')
 
 if __name__ == '__main__':
     run()

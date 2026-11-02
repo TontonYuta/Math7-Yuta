@@ -1,7 +1,7 @@
 import React from 'react';
 import { MazeCell, Position } from '../types';
 import { GRID_SIZE } from '../mazeGenerator';
-import { Lock, Target, HelpCircle, User } from 'lucide-react';
+import { Lock, Sparkles, Compass, Shield, Skull } from 'lucide-react';
 
 interface AdventureMazeProps {
   grid: MazeCell[][];
@@ -26,21 +26,24 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
 
   return (
     <div
-      className={`relative w-full max-w-xl mx-auto p-4 bg-[#14161f] rounded-2xl border border-zinc-800 shadow-xl transition-transform select-none ${
+      className={`relative w-full max-w-xl mx-auto p-4 sm:p-5 bg-[#141622]/95 backdrop-blur-md rounded-3xl border border-zinc-800 shadow-2xl transition-transform select-none ${
         shake ? 'animate-shake' : ''
       }`}
     >
-      {/* Maze Header */}
-      <div className="flex items-center justify-between pb-3 px-1 border-b border-zinc-800 text-xs text-zinc-400">
-        <span className="font-mono">
-          Nhấp vào ô liền kề để di chuyển dũng sĩ
+      {/* Maze Tactical Header */}
+      <div className="flex items-center justify-between pb-3 px-1 border-b border-zinc-800/80 text-xs">
+        <div className="flex items-center gap-2 text-zinc-300 font-medium">
+          <Compass className="w-4 h-4 text-amber-400" />
+          <span>Mê Cung Đột Kích Căn Cứ • Lưới 8x8</span>
+        </div>
+        <span className="font-mono text-[11px] text-zinc-500">
+          Chạm ô liền kề để di chuyển
         </span>
-        <span className="font-mono text-zinc-500">Lưới 8x8</span>
       </div>
 
       {/* Grid Canvas */}
       <div
-        className="grid gap-1.5 p-2.5 mt-3 bg-[#0d0e14] rounded-xl border border-zinc-800/80 aspect-square"
+        className="grid gap-1.5 p-3 mt-3 bg-[#0a0c13] rounded-2xl border border-zinc-800/90 aspect-square"
         style={{
           gridTemplateColumns: `repeat(${GRID_SIZE}, minmax(0, 1fr))`,
           gridTemplateRows: `repeat(${GRID_SIZE}, minmax(0, 1fr))`,
@@ -58,18 +61,18 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
 
             const canClick = adjacent && !isObstacle && !isBlocked;
 
-            let tileStyle = 'bg-[#181a24] border-zinc-800/60 text-zinc-600';
+            let tileStyle = 'bg-[#151724] border-zinc-800/60 text-zinc-600';
 
             if (isObstacle) {
-              tileStyle = 'bg-zinc-900 border-zinc-850 opacity-40';
+              tileStyle = 'bg-zinc-950 border-zinc-900 opacity-30';
             } else if (isBlocked) {
               tileStyle = 'bg-red-950/40 border-red-800/50 text-red-400';
             } else if (isPlayer) {
-              tileStyle = 'bg-sky-500/20 border-sky-400 ring-2 ring-sky-400/50 z-10 text-white';
+              tileStyle = 'bg-amber-400/20 border-amber-400 ring-2 ring-amber-400/60 z-10 text-amber-300 shadow-md';
             } else if (isChest) {
-              tileStyle = 'bg-amber-500/20 border-amber-400 text-amber-300';
+              tileStyle = 'bg-yellow-500/20 border-yellow-400 text-yellow-300 ring-2 ring-yellow-400/40';
             } else if (canClick && isQuestion && !isCompleted) {
-              tileStyle = 'bg-amber-950/30 border-amber-500/80 hover:bg-amber-950/50 text-amber-400 cursor-pointer animate-pulse';
+              tileStyle = 'bg-amber-950/40 border-amber-500/80 hover:bg-amber-950/60 text-amber-400 cursor-pointer animate-pulse';
             } else if (canClick) {
               tileStyle = 'bg-zinc-800 border-zinc-600 hover:bg-zinc-700 cursor-pointer text-zinc-300';
             }
@@ -80,36 +83,36 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
                 type="button"
                 disabled={!canClick}
                 onClick={() => onCellClick(cell)}
-                className={`relative flex items-center justify-center rounded-lg border text-center transition-all duration-150 ${tileStyle} ${
+                className={`relative flex items-center justify-center rounded-xl border text-center transition-all duration-150 ${tileStyle} ${
                   canClick ? 'hover:scale-105 active:scale-95' : 'cursor-default'
                 }`}
-                title={`Vị trí [${r + 1}, ${c + 1}]`}
+                title={`Tọa độ [${r + 1}, ${c + 1}]`}
               >
-                {/* 1. Player Pawn */}
+                {/* 1. Player Pawn: Shinobi Pirate Hat */}
                 {isPlayer && (
-                  <div className="flex items-center justify-center text-sky-400">
-                    <User className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+                  <div className="flex items-center justify-center text-sm font-bold">
+                    👒
                   </div>
                 )}
 
-                {/* 2. Goal: Target / Chest */}
+                {/* 2. Goal: Treasure Chest One Piece */}
                 {!isPlayer && isChest && (
-                  <div className="flex items-center justify-center text-amber-400">
-                    <Target className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
+                  <div className="flex items-center justify-center text-sm animate-bounce">
+                    📦
                   </div>
                 )}
 
-                {/* 3. Blocked / Barrier */}
+                {/* 3. Blocked Barrier */}
                 {!isPlayer && !isChest && isBlocked && (
                   <div className="flex items-center justify-center text-red-400">
                     <Lock className="w-3.5 h-3.5" />
                   </div>
                 )}
 
-                {/* 4. Question Barrier Node */}
+                {/* 4. Question Barrier Node: Scroll / Jutsu */}
                 {!isPlayer && !isChest && !isBlocked && isQuestion && !isCompleted && (
-                  <div className="flex items-center justify-center text-amber-400">
-                    <HelpCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <div className="flex items-center justify-center text-xs">
+                    📜
                   </div>
                 )}
               </button>
