@@ -26,7 +26,7 @@ export const ONE_PIECE_REALMS_CONFIG: Record<string, OnePieceRealmMeta> = {
     bossType: 'topic',
     examSetId: 'toan7_pt_01',
     bountyReward: '30,000,000 ฿',
-    mapCoords: { x: 12, y: 38 },
+    mapCoords: { x: 8, y: 56 },
   },
   chuong_2_so_thuc: {
     sagaName: 'Alabasta',
@@ -38,7 +38,7 @@ export const ONE_PIECE_REALMS_CONFIG: Record<string, OnePieceRealmMeta> = {
     bossType: 'midterm',
     examSetId: 'toan7_pt_02',
     bountyReward: '81,000,000 ฿',
-    mapCoords: { x: 23, y: 52 },
+    mapCoords: { x: 17, y: 28 },
   },
   chuong_3_goc_va_duong_thang_song_song: {
     sagaName: 'Skypiea',
@@ -50,7 +50,7 @@ export const ONE_PIECE_REALMS_CONFIG: Record<string, OnePieceRealmMeta> = {
     bossType: 'midterm',
     examSetId: 'toan7_pt_02',
     bountyReward: '100,000,000 ฿',
-    mapCoords: { x: 34, y: 44 },
+    mapCoords: { x: 27, y: 65 },
   },
   chuong_4_tam_giac_bang_nhau: {
     sagaName: 'Enies Lobby',
@@ -62,7 +62,7 @@ export const ONE_PIECE_REALMS_CONFIG: Record<string, OnePieceRealmMeta> = {
     bossType: 'final',
     examSetId: 'toan7_pt_03',
     bountyReward: '300,000,000 ฿',
-    mapCoords: { x: 44, y: 53 },
+    mapCoords: { x: 37, y: 26 },
   },
   chuong_5_thong_ke_thu_thap_du_lieu: {
     sagaName: 'Sabaody',
@@ -74,7 +74,7 @@ export const ONE_PIECE_REALMS_CONFIG: Record<string, OnePieceRealmMeta> = {
     bossType: 'final',
     examSetId: 'toan7_pt_03',
     bountyReward: '400,000,000 ฿',
-    mapCoords: { x: 52, y: 50 },
+    mapCoords: { x: 47, y: 58 },
   },
   chuong_6_ti_le_thuc_va_dai_luong_ti_le: {
     sagaName: 'Impel Down',
@@ -86,7 +86,7 @@ export const ONE_PIECE_REALMS_CONFIG: Record<string, OnePieceRealmMeta> = {
     bossType: 'midterm',
     examSetId: 'toan7_pt_04',
     bountyReward: '500,000,000 ฿',
-    mapCoords: { x: 50, y: 66 },
+    mapCoords: { x: 55, y: 78 },
   },
   chuong_7_bieu_thuc_dai_so_va_da_thuc: {
     sagaName: 'Marineford',
@@ -98,7 +98,7 @@ export const ONE_PIECE_REALMS_CONFIG: Record<string, OnePieceRealmMeta> = {
     bossType: 'midterm',
     examSetId: 'toan7_pt_04',
     bountyReward: '1,500,000,000 ฿',
-    mapCoords: { x: 58, y: 48 },
+    mapCoords: { x: 64, y: 24 },
   },
   chuong_8_bien_co_va_xac_suat: {
     sagaName: 'Fishman Island',
@@ -110,7 +110,7 @@ export const ONE_PIECE_REALMS_CONFIG: Record<string, OnePieceRealmMeta> = {
     bossType: 'final',
     examSetId: 'toan7_pt_05',
     bountyReward: '2,000,000,000 ฿',
-    mapCoords: { x: 64, y: 62 },
+    mapCoords: { x: 74, y: 64 },
   },
   chuong_9_quan_he_trong_tam_giac_dong_quy: {
     sagaName: 'Wano Kuni',
@@ -122,7 +122,7 @@ export const ONE_PIECE_REALMS_CONFIG: Record<string, OnePieceRealmMeta> = {
     bossType: 'final',
     examSetId: 'toan7_pt_05',
     bountyReward: '4,611,100,000 ฿',
-    mapCoords: { x: 78, y: 45 },
+    mapCoords: { x: 84, y: 26 },
   },
   chuong_10_hinh_khoi_trong_thuc_tien: {
     sagaName: 'Laugh Tale',
@@ -134,7 +134,7 @@ export const ONE_PIECE_REALMS_CONFIG: Record<string, OnePieceRealmMeta> = {
     bossType: 'final',
     examSetId: 'toan7_pt_06',
     bountyReward: '5,564,800,000 ฿',
-    mapCoords: { x: 90, y: 50 },
+    mapCoords: { x: 92, y: 52 },
   },
 };
 
@@ -143,9 +143,9 @@ export function getRealmMeta(chapterId?: string, fallbackIndex = 0): OnePieceRea
     return ONE_PIECE_REALMS_CONFIG[chapterId];
   }
   const defaultCoords = [
-    { x: 12, y: 38 }, { x: 23, y: 52 }, { x: 34, y: 44 }, { x: 44, y: 53 },
-    { x: 52, y: 50 }, { x: 50, y: 66 }, { x: 58, y: 48 }, { x: 64, y: 62 },
-    { x: 78, y: 45 }, { x: 90, y: 50 }
+    { x: 8, y: 56 }, { x: 17, y: 28 }, { x: 27, y: 65 }, { x: 37, y: 26 },
+    { x: 47, y: 58 }, { x: 55, y: 78 }, { x: 64, y: 24 }, { x: 74, y: 64 },
+    { x: 84, y: 26 }, { x: 92, y: 52 }
   ];
   const idx = Math.max(0, fallbackIndex % defaultCoords.length);
   return {

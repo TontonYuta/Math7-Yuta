@@ -195,3 +195,27 @@ export const BOSS_DISTINCT_AVATARS: Record<string, string> = {
   chuong_9_quan_he_trong_tam_giac_dong_quy: '🐲', // Emperor Kaido Dragon
   chuong_10_hinh_khoi_trong_thuc_tien: '👑', // Pirate King Gol D. Roger
 };
+
+// 8. Serpentine Cubic Bézier Path Generator for Overworld Map Navigation
+export function generateWindingBezierPath(
+  coords: { x: number; y: number }[],
+  width = 1000,
+  height = 650
+): string {
+  if (coords.length < 2) return '';
+  const pts = coords.map((c) => ({
+    x: (c.x / 100) * width,
+    y: (c.y / 100) * height,
+  }));
+
+  let path = `M ${pts[0].x} ${pts[0].y}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const curr = pts[i];
+    const next = pts[i + 1];
+    const midX = (curr.x + next.x) / 2;
+    // S-curve smooth tangents
+    path += ` C ${midX} ${curr.y}, ${midX} ${next.y}, ${next.x} ${next.y}`;
+  }
+  return path;
+}
+

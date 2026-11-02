@@ -4,7 +4,7 @@ import { getRealmMeta } from './levelData';
 import { MYSTERY_IMAGES } from '../mysterious-picture/mysteryImages';
 import { IslandMarker } from './IslandMarker';
 import { Compass, Swords, ArrowRight, Star, ShieldAlert } from 'lucide-react';
-import { ISLAND_UNIQUE_BADGES } from './onePieceAssets';
+import { ISLAND_UNIQUE_BADGES, generateWindingBezierPath, LuffyStrawHatPawn } from './onePieceAssets';
 
 interface GrandLineWorldMapProps {
   worlds: GameWorld[];
@@ -22,7 +22,7 @@ export const GrandLineWorldMap: React.FC<GrandLineWorldMapProps> = ({
   const activeWorld = worlds.find((w) => w.id === activeWorldId) || worlds[0] || {
     id: 'chuong_1_so_huu_ti',
     worldNumber: 1,
-    name: 'Hải Trình 1',
+    name: '1. East Blue',
     shortName: 'Số hữu tỉ',
     description: '',
     color: '#0284c7',
@@ -36,18 +36,19 @@ export const GrandLineWorldMap: React.FC<GrandLineWorldMapProps> = ({
   const worldStars = activeWorld.levels ? activeWorld.levels.reduce((acc, l) => acc + l.starsEarned, 0) : 0;
   const maxWorldStars = activeWorld.levels ? activeWorld.levels.length * 3 : 0;
 
-  // Path coordinates connecting the 10 islands sequentially
-  const linePoints = worlds
-    .map((w, idx) => {
-      const cfg = getRealmMeta(w.id, idx);
-      return `${cfg.mapCoords.x},${cfg.mapCoords.y}`;
-    })
-    .join(' ');
+  // Extract coords for 10 islands
+  const islandCoords = worlds.map((w, idx) => {
+    const cfg = getRealmMeta(w.id, idx);
+    return cfg.mapCoords;
+  });
+
+  // Generate smooth winding Cubic Bézier SVG curve path
+  const windingCurvedPath = generateWindingBezierPath(islandCoords, 1000, 650);
 
   return (
     <div className="relative w-full flex flex-col gap-6 select-none">
-      {/* Visual Canvas Area with Canon One Piece Grand Line Map Background */}
-      <div className="relative w-full h-[480px] sm:h-[540px] lg:h-[600px] rounded-3xl overflow-hidden border border-zinc-800/90 bg-[#090b11] shadow-2xl">
+      {/* Full-width Immersive Map Canvas Area */}
+      <div className="relative w-full h-[620px] sm:h-[700px] lg:h-[750px] rounded-3xl overflow-hidden border border-zinc-800/90 bg-[#090b11] shadow-2xl">
         {/* Real Canon One Piece Grand Line Map Artwork Background */}
         <div className="absolute inset-0 pointer-events-none z-0">
           <img
@@ -55,49 +56,70 @@ export const GrandLineWorldMap: React.FC<GrandLineWorldMapProps> = ({
             alt="One Piece Grand Line Canon World Map"
             className="w-full h-full object-cover object-center filter brightness-[0.72] contrast-125 saturate-125"
           />
-          {/* Subtle nautical dark vignette overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#090b11]/90 via-[#090b11]/25 to-[#090b11]/70" />
+          {/* Nautical dark vignette overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#090b11]/95 via-[#090b11]/20 to-[#090b11]/75" />
         </div>
 
-        {/* Decorative Compass & Log Pose Atmosphere */}
-        <div className="absolute top-5 left-6 flex items-center gap-2.5 pointer-events-none z-10 opacity-95">
-          <Compass className="w-6 h-6 text-amber-400 animate-[spin_60s_linear_infinite]" />
-          <span className="text-xs sm:text-sm font-mono tracking-widest text-zinc-100 font-black uppercase drop-shadow">
-            Hải Đồ Đại Hải Trình (Grand Line Map)
+        {/* Decorative Compass & Log Pose Navigation Badge */}
+        <div className="absolute top-6 left-7 flex items-center gap-3 pointer-events-none z-10 opacity-95">
+          <Compass className="w-7 h-7 text-amber-400 animate-[spin_60s_linear_infinite]" />
+          <div>
+            <span className="text-xs sm:text-sm font-mono tracking-widest text-zinc-100 font-black uppercase drop-shadow block">
+              Hải Đồ Đại Hải Trình (Grand Line World Map)
+            </span>
+            <span className="text-[11px] font-mono text-amber-300 font-bold block">
+              Hải trình 10 Vùng Biển • Tuyến đường Log Pose uốn lượn
+            </span>
+          </div>
+        </div>
+
+        <div className="absolute top-6 right-7 pointer-events-none z-10 opacity-90">
+          <span className="text-xs font-mono text-amber-300 font-extrabold uppercase px-3.5 py-1.5 rounded-xl bg-zinc-950/90 border border-amber-500/40 shadow-xl backdrop-blur-md">
+            Reverse Mountain → Tân Thế Giới New World
           </span>
         </div>
 
-        <div className="absolute top-5 right-6 pointer-events-none z-10 opacity-90">
-          <span className="text-xs font-mono text-amber-300 font-bold uppercase px-3 py-1 rounded-lg bg-zinc-950/90 border border-amber-500/40 shadow-lg">
-            Log Pose Route • 10 Vùng Biển
-          </span>
+        {/* Calm Belt indicators */}
+        <div className="absolute bottom-4 left-7 text-xs font-mono text-zinc-300 pointer-events-none drop-shadow">
+          ⚓ Vành Đai Tĩnh Lặng (Calm Belt) • Vùng Trú Ngụ Của Vua Biển Sea Kings
         </div>
 
-        {/* Calm Belt subtle indicators */}
-        <div className="absolute bottom-3 left-6 text-xs font-mono text-zinc-300 pointer-events-none drop-shadow">
-          Vành Đai Tĩnh Lặng (Calm Belt) • Vùng Trú Ngụ Của Vua Biển Sea Kings
-        </div>
-
-        {/* Grand Line Sea Route Vector Lines */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
-          {linePoints && (
+        {/* Grand Line Winding Sea Route Curved Vector Lines */}
+        <svg
+          viewBox="0 0 1000 650"
+          preserveAspectRatio="none"
+          className="absolute inset-0 w-full h-full pointer-events-none z-10"
+        >
+          {windingCurvedPath && (
             <>
-              <polyline
-                points={linePoints}
+              {/* Layer 1: Ambient Deep Ocean Current Glow */}
+              <path
+                d={windingCurvedPath}
                 fill="none"
-                stroke="rgba(245, 158, 11, 0.2)"
-                strokeWidth="6"
+                stroke="rgba(245, 158, 11, 0.15)"
+                strokeWidth="20"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-              <polyline
-                points={linePoints}
+              {/* Layer 2: Main Sea Route Ribbon */}
+              <path
+                d={windingCurvedPath}
                 fill="none"
-                stroke="rgba(245, 158, 11, 0.75)"
-                strokeWidth="2"
-                strokeDasharray="6 6"
+                stroke="rgba(245, 158, 11, 0.65)"
+                strokeWidth="4.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+              />
+              {/* Layer 3: Dynamic Log Pose Dashed Navigation Stream */}
+              <path
+                d={windingCurvedPath}
+                fill="none"
+                stroke="#FEF08A"
+                strokeWidth="2.5"
+                strokeDasharray="10 8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="opacity-80"
               />
             </>
           )}
