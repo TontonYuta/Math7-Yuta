@@ -1,6 +1,7 @@
 import React from 'react';
 import { GameLevel } from './types';
-import { Star, Lock, Swords, Grid3X3, Compass } from 'lucide-react';
+import { Star, Lock, Swords } from 'lucide-react';
+import { AncientPoneglyphNode, OnePieceTreasureChest } from './onePieceAssets';
 
 interface CandySagaRoadProps {
   levels: GameLevel[];
@@ -56,16 +57,16 @@ export const CandySagaRoad: React.FC<CandySagaRoadProps> = ({
                   >
                     <Swords className={`w-10 h-10 mb-2 ${isLocked ? 'text-zinc-600' : 'text-red-400'}`} />
                     <span className="text-xs font-mono font-black tracking-wider uppercase text-zinc-200">
-                      {isLocked ? 'KHÓA' : 'QUYẾT ĐẤU TRÙM ARC'}
+                      {isLocked ? 'KHÓA' : 'TRÙM ARC'}
                     </span>
                   </div>
 
                   <div className="mt-3 text-center bg-[#14161f]/95 px-5 py-2 rounded-2xl border border-zinc-700/80 shadow-lg">
                     <h4 className="text-sm sm:text-base font-black text-white">
-                      {level.bossName || level.title}
+                      Trùm: {level.bossName || level.title}
                     </h4>
                     <span className="text-xs font-mono text-amber-300 block font-bold mt-0.5">
-                      Đề toán chuẩn • Thu thập Berries
+                      Đề tổng hợp • Nhận Berries
                     </span>
                   </div>
                 </div>
@@ -103,11 +104,11 @@ export const CandySagaRoad: React.FC<CandySagaRoadProps> = ({
                     <Lock className="w-5 h-5 text-zinc-600" />
                   ) : (
                     <>
-                      <div className="text-zinc-400 group-hover:text-amber-400 transition-colors">
+                      <div className="transition-transform group-hover:scale-110">
                         {level.gameType === 'picture' ? (
-                          <Grid3X3 className="w-5 h-5" />
+                          <AncientPoneglyphNode className="w-5 h-5" />
                         ) : (
-                          <Compass className="w-5 h-5" />
+                          <OnePieceTreasureChest className="w-5 h-5" />
                         )}
                       </div>
                       <span className="font-mono text-sm sm:text-base font-black text-white leading-none mt-1">
@@ -131,9 +132,9 @@ export const CandySagaRoad: React.FC<CandySagaRoadProps> = ({
                   ))}
                 </div>
 
-                {/* Level Title */}
-                <span className="text-xs font-mono text-zinc-300 font-semibold mt-1.5 max-w-[150px] text-center truncate">
-                  {level.gameType === 'picture' ? 'Poneglyph' : 'Đột kích'} {formattedNum}
+                {/* Level Title (Compact) */}
+                <span className="text-xs font-mono text-zinc-300 font-bold mt-1.5 max-w-[150px] text-center truncate">
+                  Ải {level.levelNumber}
                 </span>
               </div>
             </div>

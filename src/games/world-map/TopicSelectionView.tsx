@@ -2,6 +2,7 @@ import React from 'react';
 import { GameWorld } from './types';
 import { getRealmMeta } from './levelData';
 import { Star, ArrowLeft, Lock, BarChart3, ChevronRight, Layers, Swords, ShieldAlert } from 'lucide-react';
+import { ISLAND_UNIQUE_BADGES } from './onePieceAssets';
 
 interface TopicSelectionViewProps {
   worlds: GameWorld[];
@@ -92,8 +93,12 @@ export const TopicSelectionView: React.FC<TopicSelectionViewProps> = ({
                 <div className="space-y-4">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-zinc-800/90 border border-zinc-700 flex items-center justify-center font-mono font-black text-2xl text-zinc-200 shadow-inner shrink-0">
-                        {realm.themeSymbol}
+                      <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-zinc-800/90 border border-zinc-700 flex items-center justify-center shadow-inner shrink-0 p-2.5">
+                        {ISLAND_UNIQUE_BADGES[realm.islandCode] ? (
+                          React.createElement(ISLAND_UNIQUE_BADGES[realm.islandCode], { className: 'w-full h-full' })
+                        ) : (
+                          <span className="font-mono font-black text-2xl text-zinc-200">{realm.themeSymbol}</span>
+                        )}
                       </div>
                       <div>
                         <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block font-bold">

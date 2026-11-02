@@ -7,6 +7,7 @@ import { getDifficultyInfo } from '../../utils/difficultyBadge';
 import { soundFx } from '../../sound/soundFx';
 import { checkAnswerCorrectness } from '../../utils/scoring';
 import { Heart, Trophy, Skull, Swords, RotateCcw, ArrowLeft, Flame, Zap } from 'lucide-react';
+import { LuffyStrawHatPawn } from '../world-map/onePieceAssets';
 
 interface BossBattleGameProps {
   bossName: string;
@@ -146,8 +147,8 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
       <div className="max-w-5xl mx-auto w-full flex items-center justify-around py-6">
         {/* Player */}
         <div className={`text-center space-y-2 transition-transform ${isPlayerHurt ? 'animate-shake scale-90' : ''}`}>
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-zinc-850 border-2 border-amber-400/60 flex items-center justify-center text-4xl shadow-xl">
-            👒
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-zinc-850 border-2 border-amber-400/60 flex items-center justify-center p-3 shadow-xl">
+            <LuffyStrawHatPawn className="w-full h-full" />
           </div>
           <span className="text-xs sm:text-sm font-mono text-amber-300 block font-black">Thuyền Trưởng Mũ Rơm</span>
         </div>

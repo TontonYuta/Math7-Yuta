@@ -1,7 +1,14 @@
 import React from 'react';
 import { MazeCell, Position } from '../types';
 import { GRID_SIZE } from '../mazeGenerator';
-import { Lock, Sparkles, Compass, Shield, Skull } from 'lucide-react';
+import { Compass } from 'lucide-react';
+import {
+  LuffyStrawHatPawn,
+  OnePieceTreasureChest,
+  AncientPoneglyphNode,
+  MarineIronGateBarrier,
+  SeaReefObstacle,
+} from '../../world-map/onePieceAssets';
 
 interface AdventureMazeProps {
   grid: MazeCell[][];
@@ -64,17 +71,17 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
             let tileStyle = 'bg-[#151724] border-zinc-800/60 text-zinc-600';
 
             if (isObstacle) {
-              tileStyle = 'bg-zinc-950 border-zinc-900 opacity-30';
+              tileStyle = 'bg-zinc-950 border-zinc-900 opacity-60';
             } else if (isBlocked) {
-              tileStyle = 'bg-red-950/40 border-red-800/50 text-red-400';
+              tileStyle = 'bg-red-950/40 border-red-800/60 text-red-400';
             } else if (isPlayer) {
-              tileStyle = 'bg-amber-400/20 border-amber-400 ring-2 ring-amber-400/60 z-10 text-amber-300 shadow-md';
+              tileStyle = 'bg-amber-400/20 border-amber-400 ring-4 ring-amber-400/40 z-10 shadow-lg shadow-amber-500/20';
             } else if (isChest) {
-              tileStyle = 'bg-yellow-500/20 border-yellow-400 text-yellow-300 ring-2 ring-yellow-400/40';
+              tileStyle = 'bg-yellow-500/20 border-yellow-400 ring-4 ring-yellow-400/40 shadow-lg shadow-yellow-500/20';
             } else if (canClick && isQuestion && !isCompleted) {
-              tileStyle = 'bg-amber-950/40 border-amber-500/80 hover:bg-amber-950/60 text-amber-400 cursor-pointer animate-pulse';
+              tileStyle = 'bg-sky-950/40 border-sky-400 hover:bg-sky-950/60 cursor-pointer animate-pulse ring-2 ring-sky-400/30';
             } else if (canClick) {
-              tileStyle = 'bg-zinc-800 border-zinc-600 hover:bg-zinc-700 cursor-pointer text-zinc-300';
+              tileStyle = 'bg-zinc-800/90 border-zinc-600 hover:bg-zinc-700 cursor-pointer text-zinc-200';
             }
 
             return (
@@ -83,36 +90,43 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
                 type="button"
                 disabled={!canClick}
                 onClick={() => onCellClick(cell)}
-                className={`relative flex items-center justify-center rounded-xl border text-center transition-all duration-150 ${tileStyle} ${
+                className={`relative flex items-center justify-center p-1 rounded-xl border text-center transition-all duration-150 ${tileStyle} ${
                   canClick ? 'hover:scale-105 active:scale-95' : 'cursor-default'
                 }`}
                 title={`Tọa độ [${r + 1}, ${c + 1}]`}
               >
-                {/* 1. Player Pawn: Straw Hat (Luffy Mũ Rơm) */}
+                {/* 1. Player Pawn: Straw Hat Luffy */}
                 {isPlayer && (
-                  <div className="flex items-center justify-center text-base sm:text-lg font-bold">
-                    👒
+                  <div className="flex items-center justify-center animate-pulse">
+                    <LuffyStrawHatPawn className="w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
                 )}
 
-                {/* 2. Goal: Kho báu One Piece */}
+                {/* 2. Goal: Royal One Piece Gold Chest */}
                 {!isPlayer && isChest && (
-                  <div className="flex items-center justify-center text-base sm:text-lg animate-bounce">
-                    📦
+                  <div className="flex items-center justify-center animate-bounce">
+                    <OnePieceTreasureChest className="w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
                 )}
 
-                {/* 3. Blocked Barrier */}
+                {/* 3. Blocked Barrier: World Government Marine Iron Gate */}
                 {!isPlayer && !isChest && isBlocked && (
-                  <div className="flex items-center justify-center text-red-400">
-                    <Lock className="w-4 h-4" />
+                  <div className="flex items-center justify-center">
+                    <MarineIronGateBarrier className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
                 )}
 
-                {/* 4. Question Barrier Node: Khối Poneglyph / Trạm gác Hải Quân */}
+                {/* 4. Question Barrier Node: Ancient Poneglyph Stone Monolith */}
                 {!isPlayer && !isChest && !isBlocked && isQuestion && !isCompleted && (
-                  <div className="flex items-center justify-center text-sm">
-                    📜
+                  <div className="flex items-center justify-center">
+                    <AncientPoneglyphNode className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </div>
+                )}
+
+                {/* 5. Sea Reef Obstacle */}
+                {!isPlayer && !isChest && isObstacle && (
+                  <div className="flex items-center justify-center">
+                    <SeaReefObstacle className="w-5 h-5 sm:w-6 sm:h-6 opacity-70" />
                   </div>
                 )}
               </button>

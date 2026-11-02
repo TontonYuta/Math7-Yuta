@@ -4,6 +4,7 @@ import { getRealmMeta } from './levelData';
 import { MYSTERY_IMAGES } from '../mysterious-picture/mysteryImages';
 import { IslandMarker } from './IslandMarker';
 import { Compass, Swords, ArrowRight, Star, ShieldAlert } from 'lucide-react';
+import { ISLAND_UNIQUE_BADGES } from './onePieceAssets';
 
 interface GrandLineWorldMapProps {
   worlds: GameWorld[];
@@ -45,35 +46,35 @@ export const GrandLineWorldMap: React.FC<GrandLineWorldMapProps> = ({
 
   return (
     <div className="relative w-full flex flex-col gap-6 select-none">
-      {/* Visual Canvas Area */}
-      <div className="relative w-full h-[480px] sm:h-[540px] lg:h-[580px] rounded-3xl overflow-hidden border border-zinc-800/90 bg-[#090b11] shadow-2xl">
-        {/* Ocean Grid Background & Vignette */}
-        <div
-          className="absolute inset-0 opacity-20 pointer-events-none"
-          style={{
-            backgroundImage: `radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.15) 0%, transparent 70%),
-              linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)`,
-            backgroundSize: '100% 100%, 40px 40px, 40px 40px',
-          }}
-        />
+      {/* Visual Canvas Area with Canon One Piece Grand Line Map Background */}
+      <div className="relative w-full h-[480px] sm:h-[540px] lg:h-[600px] rounded-3xl overflow-hidden border border-zinc-800/90 bg-[#090b11] shadow-2xl">
+        {/* Real Canon One Piece Grand Line Map Artwork Background */}
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <img
+            src="/assets/onepiece/op_grand_line_map.png"
+            alt="One Piece Grand Line Canon World Map"
+            className="w-full h-full object-cover object-center filter brightness-[0.72] contrast-125 saturate-125"
+          />
+          {/* Subtle nautical dark vignette overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#090b11]/90 via-[#090b11]/25 to-[#090b11]/70" />
+        </div>
 
         {/* Decorative Compass & Log Pose Atmosphere */}
-        <div className="absolute top-5 left-6 flex items-center gap-2.5 pointer-events-none z-10 opacity-90">
+        <div className="absolute top-5 left-6 flex items-center gap-2.5 pointer-events-none z-10 opacity-95">
           <Compass className="w-6 h-6 text-amber-400 animate-[spin_60s_linear_infinite]" />
-          <span className="text-xs sm:text-sm font-mono tracking-widest text-zinc-200 font-black uppercase">
+          <span className="text-xs sm:text-sm font-mono tracking-widest text-zinc-100 font-black uppercase drop-shadow">
             Hải Đồ Đại Hải Trình (Grand Line Map)
           </span>
         </div>
 
-        <div className="absolute top-5 right-6 pointer-events-none z-10 opacity-80">
-          <span className="text-xs font-mono text-amber-300 font-bold uppercase px-3 py-1 rounded-lg bg-zinc-900/95 border border-amber-500/40 shadow-sm">
+        <div className="absolute top-5 right-6 pointer-events-none z-10 opacity-90">
+          <span className="text-xs font-mono text-amber-300 font-bold uppercase px-3 py-1 rounded-lg bg-zinc-950/90 border border-amber-500/40 shadow-lg">
             Log Pose Route • 10 Vùng Biển
           </span>
         </div>
 
         {/* Calm Belt subtle indicators */}
-        <div className="absolute bottom-3 left-6 text-[10px] sm:text-xs font-mono text-zinc-400 pointer-events-none">
+        <div className="absolute bottom-3 left-6 text-xs font-mono text-zinc-300 pointer-events-none drop-shadow">
           Vành Đai Tĩnh Lặng (Calm Belt) • Vùng Trú Ngụ Của Vua Biển Sea Kings
         </div>
 
@@ -157,7 +158,11 @@ export const GrandLineWorldMap: React.FC<GrandLineWorldMapProps> = ({
           </div>
 
           <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
-            <span className="text-2xl">{activeRealm.themeSymbol}</span>
+            {ISLAND_UNIQUE_BADGES[activeRealm.islandCode] ? (
+              React.createElement(ISLAND_UNIQUE_BADGES[activeRealm.islandCode], { className: 'w-7 h-7 shrink-0' })
+            ) : (
+              <span className="text-2xl">{activeRealm.themeSymbol}</span>
+            )}
             <span>{activeRealm.sagaName}</span>
           </h2>
 

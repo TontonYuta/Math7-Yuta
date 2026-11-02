@@ -12,129 +12,129 @@ export interface OnePieceRealmMeta {
   bossType: 'topic' | 'midterm' | 'final';
   examSetId: string;
   bountyReward: string;
-  mapCoords: { x: number; y: number }; // Percentage on Grand Line Map canvas
+  mapCoords: { x: number; y: number }; // Percentage coords on canon Grand Line Map
 }
 
 export const ONE_PIECE_REALMS_CONFIG: Record<string, OnePieceRealmMeta> = {
   chuong_1_so_huu_ti: {
-    sagaName: 'Biển Đông: Thị Trấn Khởi Đầu Loguetown',
+    sagaName: 'East Blue',
     islandCode: 'EAST_BLUE',
     themeSymbol: '⛵',
-    bossName: '"Cá Mập Cưa" Arlong & Buggy Hề',
+    bossName: 'Arlong & Buggy Hề',
     bossTitle: 'Bá Chủ Biển Đông',
     bossIcon: '🦈',
     bossType: 'topic',
     examSetId: 'toan7_pt_01',
     bountyReward: '30,000,000 ฿',
-    mapCoords: { x: 12, y: 78 },
+    mapCoords: { x: 12, y: 38 },
   },
   chuong_2_so_thuc: {
-    sagaName: 'Vương Quốc Sa Mạc Alabasta',
+    sagaName: 'Alabasta',
     islandCode: 'ALABASTA',
     themeSymbol: '🏜️',
-    bossName: 'Shichibukai Sir Crocodile',
-    bossTitle: 'Sa Mạc Vương • Baroque Works',
+    bossName: 'Sir Crocodile',
+    bossTitle: 'Sa Mạc Vương Shichibukai',
     bossIcon: '🦂',
     bossType: 'midterm',
     examSetId: 'toan7_pt_02',
     bountyReward: '81,000,000 ฿',
-    mapCoords: { x: 25, y: 62 },
+    mapCoords: { x: 23, y: 52 },
   },
   chuong_3_goc_va_duong_thang_song_song: {
-    sagaName: 'Đảo Trên Trời Skypiea',
+    sagaName: 'Skypiea',
     islandCode: 'SKYPIEA',
     themeSymbol: '⚡',
-    bossName: '"Chúa Trời" Lôi Thần Enel',
+    bossName: 'Lôi Thần Enel',
     bossTitle: 'Sấm Sét Goro Goro & Mantra',
     bossIcon: '⚡',
     bossType: 'midterm',
     examSetId: 'toan7_pt_02',
     bountyReward: '100,000,000 ฿',
-    mapCoords: { x: 38, y: 35 },
+    mapCoords: { x: 34, y: 44 },
   },
   chuong_4_tam_giac_bang_nhau: {
-    sagaName: 'Đảo Tư Pháp Enies Lobby',
+    sagaName: 'Enies Lobby',
     islandCode: 'ENIES_LOBBY',
     themeSymbol: '⚖️',
-    bossName: 'Thủ Lĩnh Lục Thức Rob Lucci',
-    bossTitle: 'Sát Thủ CP9 • Trái Báo Đốm',
+    bossName: 'Rob Lucci CP9',
+    bossTitle: 'Sát Thủ Lục Thức • Báo Đốm',
     bossIcon: '🐆',
     bossType: 'final',
     examSetId: 'toan7_pt_03',
     bountyReward: '300,000,000 ฿',
-    mapCoords: { x: 50, y: 58 },
+    mapCoords: { x: 44, y: 53 },
   },
   chuong_5_thong_ke_thu_thap_du_lieu: {
-    sagaName: 'Quần Đảo Cây Sabaody',
+    sagaName: 'Sabaody',
     islandCode: 'SABAODY',
     themeSymbol: '🌳',
-    bossName: 'Đô Đốc Hải Quân Kizaru Borsalino',
-    bossTitle: 'Ánh Sáng Tối Thượng & Pacifista',
+    bossName: 'Đô Đốc Kizaru',
+    bossTitle: 'Tia Sáng Pika Pika & Pacifista',
     bossIcon: '✨',
     bossType: 'final',
     examSetId: 'toan7_pt_03',
     bountyReward: '400,000,000 ฿',
-    mapCoords: { x: 62, y: 74 },
+    mapCoords: { x: 52, y: 50 },
   },
   chuong_6_ti_le_thuc_va_dai_luong_ti_le: {
-    sagaName: 'Đại Địa Ngục Đáy Biển Impel Down',
+    sagaName: 'Impel Down',
     islandCode: 'IMPEL_DOWN',
     themeSymbol: '⛓️',
-    bossName: 'Tổng Giám Ngục Magellan',
-    bossTitle: 'Độc Long Phán Quyết Doku Doku',
-    bossIcon: '☠️',
+    bossName: 'Magellan Độc Long',
+    bossTitle: 'Tổng Giám Ngục Địa Ngục',
+    bossIcon: '🐉',
     bossType: 'midterm',
     examSetId: 'toan7_pt_04',
     bountyReward: '500,000,000 ฿',
-    mapCoords: { x: 55, y: 88 },
+    mapCoords: { x: 50, y: 66 },
   },
   chuong_7_bieu_thuc_dai_so_va_da_thuc: {
-    sagaName: 'Tổng Bộ Hải Quân Marineford',
+    sagaName: 'Marineford',
     islandCode: 'MARINEFORD',
     themeSymbol: '⚓',
-    bossName: 'Đại Đô Đốc Akainu Sakazuki',
-    bossTitle: 'Nham Thạch Tuyệt Đối Magu Magu',
+    bossName: 'Đại Đô Đốc Akainu',
+    bossTitle: 'Nham Thạch Magu Magu',
     bossIcon: '🌋',
     bossType: 'midterm',
     examSetId: 'toan7_pt_04',
     bountyReward: '1,500,000,000 ฿',
-    mapCoords: { x: 68, y: 44 },
+    mapCoords: { x: 58, y: 48 },
   },
   chuong_8_bien_co_va_xac_suat: {
-    sagaName: 'Đảo Người Cá Vùng Biển Sâu 10.000m',
+    sagaName: 'Fishman Island',
     islandCode: 'FISHMAN_ISLAND',
     themeSymbol: '🫧',
-    bossName: 'Thủ Lĩnh Hody Jones',
-    bossTitle: 'Băng Tân Người Cá & Steroid',
+    bossName: 'Hody Jones',
+    bossTitle: 'Băng Tân Người Cá',
     bossIcon: '🔱',
     bossType: 'final',
     examSetId: 'toan7_pt_05',
     bountyReward: '2,000,000,000 ฿',
-    mapCoords: { x: 78, y: 68 },
+    mapCoords: { x: 64, y: 62 },
   },
   chuong_9_quan_he_trong_tam_giac_dong_quy: {
-    sagaName: 'Vương Quốc Samurai Wano Kuni',
+    sagaName: 'Wano Kuni',
     islandCode: 'WANO_KUNI',
     themeSymbol: '🐲',
-    bossName: 'Tứ Hoàng Kaido Bách Thú',
+    bossName: 'Tứ Hoàng Kaido',
     bossTitle: 'Sinh Vật Mạnh Nhất Thế Giới',
     bossIcon: '🔥',
     bossType: 'final',
     examSetId: 'toan7_pt_05',
     bountyReward: '4,611,100,000 ฿',
-    mapCoords: { x: 88, y: 42 },
+    mapCoords: { x: 78, y: 45 },
   },
   chuong_10_hinh_khoi_trong_thuc_tien: {
-    sagaName: 'Hòn Đảo Cuối Cùng Laugh Tale',
+    sagaName: 'Laugh Tale',
     islandCode: 'LAUGH_TALE',
     themeSymbol: '👑',
-    bossName: 'Vua Hải Tặc Gol D. Roger',
-    bossTitle: 'Chủ Nhân Kho Báu One Piece',
+    bossName: 'Gol D. Roger',
+    bossTitle: 'Vua Hải Tặc Khởi Nguyên',
     bossIcon: '🌟',
     bossType: 'final',
     examSetId: 'toan7_pt_06',
     bountyReward: '5,564,800,000 ฿',
-    mapCoords: { x: 92, y: 18 },
+    mapCoords: { x: 90, y: 50 },
   },
 };
 
@@ -143,17 +143,17 @@ export function getRealmMeta(chapterId?: string, fallbackIndex = 0): OnePieceRea
     return ONE_PIECE_REALMS_CONFIG[chapterId];
   }
   const defaultCoords = [
-    { x: 12, y: 78 }, { x: 25, y: 62 }, { x: 38, y: 35 }, { x: 50, y: 58 },
-    { x: 62, y: 74 }, { x: 55, y: 88 }, { x: 68, y: 44 }, { x: 78, y: 68 },
-    { x: 88, y: 42 }, { x: 92, y: 18 }
+    { x: 12, y: 38 }, { x: 23, y: 52 }, { x: 34, y: 44 }, { x: 44, y: 53 },
+    { x: 52, y: 50 }, { x: 50, y: 66 }, { x: 58, y: 48 }, { x: 64, y: 62 },
+    { x: 78, y: 45 }, { x: 90, y: 50 }
   ];
   const idx = Math.max(0, fallbackIndex % defaultCoords.length);
   return {
-    sagaName: `Hải Trình Đại Hải Trình ${idx + 1}`,
+    sagaName: `Hải Trình ${idx + 1}`,
     islandCode: `ISLAND_${idx + 1}`,
     themeSymbol: '🧭',
-    bossName: `Thuyền Trưởng Vùng Biển ${idx + 1}`,
-    bossTitle: 'Trùm Hải Trình',
+    bossName: `Trùm Hải Trình ${idx + 1}`,
+    bossTitle: 'Trùm Vùng Biển',
     bossIcon: '👑',
     bossType: 'topic',
     examSetId: 'toan7_pt_01',
@@ -167,7 +167,7 @@ export function buildGameWorlds(): GameWorld[] {
     const realmMeta = getRealmMeta(chap.id, chapIdx);
     const worldImage = MYSTERY_IMAGES[chapIdx % MYSTERY_IMAGES.length];
 
-    // Alternating levels within each chapter
+    // Alternating levels within each chapter (compact titles)
     const levels: GameLevel[] = chap.topics.map((top, topIdx) => {
       const isPicture = topIdx % 2 === 0;
       const gameType = isPicture ? 'picture' : 'treasure';
@@ -176,12 +176,10 @@ export function buildGameWorlds(): GameWorld[] {
         id: `${chap.id}_lvl_${topIdx + 1}`,
         worldId: chap.id,
         levelNumber: topIdx + 1,
-        title: isPicture
-          ? `Ải ${topIdx + 1}: Giải Mã Poneglyph - ${top.shortName}`
-          : `Ải ${topIdx + 1}: Thâm Nhập Căn Cứ - ${top.shortName}`,
+        title: `Ải ${topIdx + 1}: ${top.shortName}`,
         subtitle: isPicture
-          ? 'Tính toán số học để giải mã văn tự cổ Joy Boy'
-          : 'Vượt chướng ngại vật & giải bài toán đố thực tế',
+          ? 'Giải mã Poneglyph • Mở tranh One Piece'
+          : 'Đột kích mê cung • Thu thập Berries',
         topicId: top.id,
         gameType,
         galleryImageId: isPicture ? worldImage.id : undefined,
@@ -192,18 +190,18 @@ export function buildGameWorlds(): GameWorld[] {
       };
     });
 
-    // Append Boss Level
+    // Append Boss Level (compact title)
     levels.push({
       id: `${chap.id}_boss`,
       worldId: chap.id,
       levelNumber: levels.length + 1,
-      title: `QUYẾT ĐẤU TRÙM ARC: ${realmMeta.bossName}`,
+      title: `Trùm: ${realmMeta.bossName}`,
       subtitle:
         realmMeta.bossType === 'midterm'
-          ? `Chiến dịch Giữa Kì • Tiền thưởng ${realmMeta.bountyReward}`
+          ? `Chiến dịch Giữa Kì • Nhận ${realmMeta.bountyReward}`
           : realmMeta.bossType === 'final'
-          ? `Đại chiến Cuối Kì • Tiền thưởng ${realmMeta.bountyReward}`
-          : `Đề tổng ôn chuyên đề • Thức tỉnh Haki Bá Vương`,
+          ? `Đại chiến Cuối Kì • Nhận ${realmMeta.bountyReward}`
+          : `Đề tổng ôn chuyên đề • Nhận ${realmMeta.bountyReward}`,
       gameType: 'boss',
       isBoss: true,
       bossType: realmMeta.bossType,
@@ -218,9 +216,9 @@ export function buildGameWorlds(): GameWorld[] {
     return {
       id: chap.id,
       worldNumber: chapIdx + 1,
-      name: `Hải Trình ${chapIdx + 1}: ${realmMeta.sagaName}`,
+      name: `${chapIdx + 1}. ${realmMeta.sagaName} - ${chap.shortName}`,
       shortName: chap.shortName,
-      description: `${chap.description} • Địa bàn: ${realmMeta.sagaName}`,
+      description: `${chap.description} • ${realmMeta.sagaName}`,
       color: chap.color,
       themeIcon: realmMeta.themeSymbol,
       levels,
