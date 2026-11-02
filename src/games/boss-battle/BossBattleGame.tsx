@@ -175,6 +175,11 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
               <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold border ${getDifficultyInfo(currentQ).bgClass} ${getDifficultyInfo(currentQ).borderClass} ${getDifficultyInfo(currentQ).colorClass}`}>
                 Độ khó: {getDifficultyInfo(currentQ).starsString} ({getDifficultyInfo(currentQ).badgeText})
               </span>
+              {currentQ.track === 'NANGCAO' && (
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                  👑 15 Chuyên Đề HSG
+                </span>
+              )}
             </div>
             <span>+25 điểm mỗi đòn chuẩn xác</span>
           </div>

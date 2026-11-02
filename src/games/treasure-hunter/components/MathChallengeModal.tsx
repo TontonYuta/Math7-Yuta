@@ -48,6 +48,15 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
             <span className={`px-3 py-1 rounded-lg text-xs sm:text-sm font-mono font-black border ${diffInfo.bgClass} ${diffInfo.borderClass} ${diffInfo.colorClass}`}>
               Độ khó: {diffInfo.starsString} ({diffInfo.badgeText})
             </span>
+            {question.track === 'NANGCAO' ? (
+              <span className="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500/20 to-purple-500/20 text-amber-300 border border-amber-500/50 text-xs font-black uppercase tracking-wider">
+                👑 15 Chuyên Đề HSG
+              </span>
+            ) : (
+              <span className="px-2.5 py-1 rounded-lg bg-sky-500/15 text-sky-300 border border-sky-500/40 text-xs font-bold uppercase tracking-wider">
+                📘 Phổ Thông
+              </span>
+            )}
             <span className="text-sm text-zinc-400 font-semibold hidden sm:inline truncate max-w-md">
               {question.chapterName || question.topicName || 'Thử thách toán học'}
             </span>

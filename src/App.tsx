@@ -11,6 +11,7 @@ import { GameLevel } from './games/world-map/types';
 import { TOAN7_QUESTIONS_DATABASE, TOAN7_EXAM_SETS } from './data/toan7/index';
 import { Question } from './types/exam';
 import { OnePieceWorldBackground } from './components/background/OnePieceWorldBackground';
+import { getBalancedLevelPool } from './utils/questionInterleaver';
 
 export default function App() {
   const [activeScreen, setActiveScreen] = useState<'lobby' | 'topic-select' | 'world-map' | 'treasure' | 'picture' | 'boss' | 'dashboard'>('lobby');
@@ -34,26 +35,9 @@ export default function App() {
     localStorage.setItem('math7_player_coins', playerCoins.toString());
   }, [playerCoins]);
 
-  // Questions pool for currently active level
+  // Questions pool for currently active level (interleaved Phổ thông & 15 Chuyên đề Nâng cao)
   const activeLevelQuestions: Question[] = useMemo(() => {
-    if (!selectedLevel) return TOAN7_QUESTIONS_DATABASE;
-
-    if (selectedLevel.isBoss && selectedLevel.examSetId) {
-      const examSet = TOAN7_EXAM_SETS.find((s) => s.id === selectedLevel.examSetId);
-      if (examSet && examSet.questionIds) {
-        const found = TOAN7_QUESTIONS_DATABASE.filter((q) => examSet.questionIds.includes(q.id));
-        if (found.length > 0) return found;
-      }
-      return TOAN7_QUESTIONS_DATABASE;
-    }
-
-    if (selectedLevel.topicId) {
-      const filtered = TOAN7_QUESTIONS_DATABASE.filter((q) => q.topicId === selectedLevel.topicId);
-      if (filtered.length >= 5) return filtered;
-    }
-
-    const chapterFiltered = TOAN7_QUESTIONS_DATABASE.filter((q) => q.chapterId === selectedLevel.worldId);
-    return chapterFiltered.length > 0 ? chapterFiltered : TOAN7_QUESTIONS_DATABASE;
+    return getBalancedLevelPool(selectedLevel, TOAN7_QUESTIONS_DATABASE);
   }, [selectedLevel]);
 
   // Specific question sets partitioned for game modes

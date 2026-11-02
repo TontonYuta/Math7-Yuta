@@ -5,6 +5,7 @@ import { MysteryTile, MysteryGameState, MysteryImageItem } from './types';
 import { MYSTERY_IMAGES } from './mysteryImages';
 import { checkAnswerCorrectness } from '../../utils/scoring';
 import { soundFx } from '../../sound/soundFx';
+import { layoutPoneglyphTiles } from '../../utils/questionInterleaver';
 
 const INITIAL_TIME = 20 * 60; // 20 minutes in seconds
 const MAX_LIVES = 3;
@@ -32,7 +33,7 @@ export function useMysteryGame(
 
   const initTiles = useCallback(
     (pool: Question[]): MysteryTile[] => {
-      const shuffledQ = [...pool].sort(() => Math.random() - 0.5);
+      const balancedQuestions = layoutPoneglyphTiles(pool);
       const tiles: MysteryTile[] = [];
 
       for (let i = 0; i < 9; i++) {
@@ -42,7 +43,7 @@ export function useMysteryGame(
           id: i,
           row,
           col,
-          question: shuffledQ[i % shuffledQ.length],
+          question: balancedQuestions[i] || pool[i % pool.length],
           isRevealed: false,
           isWrongShake: false,
         });

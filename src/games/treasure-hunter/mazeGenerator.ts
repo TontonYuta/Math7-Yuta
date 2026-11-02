@@ -1,5 +1,6 @@
 import { MazeCell, Position } from './types';
 import { Question } from '../../types/exam';
+import { layoutMazeCheckpoints } from '../../utils/questionInterleaver';
 
 export const GRID_SIZE = 8;
 
@@ -114,9 +115,12 @@ export function generateTreasureMaze(questionsPool: Question[]): {
     .sort(() => Math.random() - 0.5)
     .slice(0, 10);
 
+  // Assign interleaved Phổ thông & Nâng cao questions
+  const mazeQuestions = layoutMazeCheckpoints(questionsPool, chosenPoints.length);
+
   chosenPoints.forEach((pt, idx) => {
     grid[pt.row][pt.col].type = 'question';
-    grid[pt.row][pt.col].question = pool[idx % pool.length];
+    grid[pt.row][pt.col].question = mazeQuestions[idx] || pool[idx % pool.length];
   });
 
   // Ensure path exists at start
