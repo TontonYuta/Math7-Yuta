@@ -43,76 +43,84 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-zinc-100 p-3 sm:p-5 lg:p-7 select-none flex flex-col justify-between">
-      <div className="mx-auto w-full space-y-6 transition-all duration-300 max-w-[1600px] px-2 sm:px-4">
+    <div className="min-h-screen bg-transparent text-zinc-100 p-2 sm:p-5 lg:p-7 select-none flex flex-col justify-between">
+      <div className="mx-auto w-full space-y-4 sm:space-y-6 transition-all duration-300 max-w-[1600px] px-1 sm:px-4">
         {/* Top Navigation Header */}
-        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#14161f]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl px-6 py-4 shadow-xl">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={onBackToLobby}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
-              title="Về sảnh chính"
-            >
-              <ArrowLeft className="w-4 h-4 text-zinc-300" />
-              <span>Sảnh</span>
-            </button>
+        <header className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2.5 sm:gap-4 bg-[#14161f]/95 backdrop-blur-md border border-zinc-800/90 rounded-2xl sm:rounded-3xl px-3 py-2.5 sm:px-6 sm:py-4 shadow-xl">
+          {/* Top/Left Row: Navigation & View Switcher */}
+          <div className="flex items-center justify-between md:justify-start gap-2 sm:gap-3 flex-wrap">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <button
+                onClick={onBackToLobby}
+                className="flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-xs sm:text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
+                title="Về sảnh chính"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-300" />
+                <span>Sảnh</span>
+              </button>
 
-            <button
-              onClick={onOpenTopicSelect}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
-              title="Danh sách 10 chuyên đề"
-            >
-              <Layers className="w-4 h-4 text-amber-400" />
-              <span>10 Chuyên Đề</span>
-            </button>
+              <button
+                onClick={onOpenTopicSelect}
+                className="flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-xs sm:text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
+                title="Danh sách 10 chuyên đề"
+              >
+                <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
+                <span className="hidden sm:inline">10 Chuyên Đề</span>
+                <span className="sm:hidden">10 Đảo</span>
+              </button>
+            </div>
+
+            {/* View Mode Switcher */}
+            <div className="flex items-center bg-zinc-900/95 p-1 rounded-xl sm:rounded-2xl border border-zinc-800 shadow-inner">
+              <button
+                type="button"
+                onClick={() => setViewMode('grand-map')}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                  viewMode === 'grand-map'
+                    ? 'bg-amber-400 text-zinc-950 shadow-md font-black'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                <MapIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span className="hidden xs:inline sm:inline">Hải Đồ Thế Giới</span>
+                <span className="xs:hidden sm:hidden">Hải Đồ</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setViewMode('island-trail')}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                  viewMode === 'island-trail'
+                    ? 'bg-amber-400 text-zinc-950 shadow-md font-black'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                <Route className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span className="hidden xs:inline sm:inline">Chi Tiết Ải Đảo</span>
+                <span className="xs:hidden sm:hidden">Ải Đảo</span>
+              </button>
+            </div>
           </div>
 
-          {/* View Mode Switcher */}
-          <div className="flex items-center bg-zinc-900/95 p-1.5 rounded-2xl border border-zinc-800 shadow-inner">
-            <button
-              type="button"
-              onClick={() => setViewMode('grand-map')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${
-                viewMode === 'grand-map'
-                  ? 'bg-amber-400 text-zinc-950 shadow-md font-black'
-                  : 'text-zinc-400 hover:text-white'
-              }`}
-            >
-              <MapIcon className="w-4 h-4" />
-              <span>Hải Đồ Thế Giới</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setViewMode('island-trail')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${
-                viewMode === 'island-trail'
-                  ? 'bg-amber-400 text-zinc-950 shadow-md font-black'
-                  : 'text-zinc-400 hover:text-white'
-              }`}
-            >
-              <Route className="w-4 h-4" />
-              <span>Chi Tiết Ải Đảo</span>
-            </button>
-          </div>
-
-          <div className="flex items-center gap-3">
+          {/* Bottom/Right Row: Player Stats */}
+          <div className="flex items-center justify-end gap-1.5 sm:gap-3">
             <button
               onClick={onOpenDashboard}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
+              className="flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-xs sm:text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
               title="Kho báu và bộ sưu tập tranh"
             >
-              <BarChart3 className="w-4 h-4 text-amber-400" />
-              <span>Kho Báu & Tranh</span>
+              <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
+              <span className="hidden sm:inline">Kho Báu & Tranh</span>
+              <span className="sm:hidden">Kho Báu</span>
             </button>
 
-            <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-zinc-850 border border-zinc-700 text-amber-400 font-mono text-sm font-extrabold shadow-inner">
-              <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+            <div className="flex items-center gap-1 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl sm:rounded-2xl bg-zinc-850 border border-zinc-700 text-amber-400 font-mono text-xs sm:text-sm font-extrabold shadow-inner">
+              <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
               <span>{totalStars}</span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-sm font-extrabold shadow-inner">
-              <span className="text-base font-black text-amber-400">฿</span>
+            <div className="flex items-center gap-1 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-xs sm:text-sm font-extrabold shadow-inner">
+              <span className="text-sm sm:text-base font-black text-amber-400">฿</span>
               <span>{playerCoins.toLocaleString()}</span>
             </div>
           </div>

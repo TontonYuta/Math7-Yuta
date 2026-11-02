@@ -33,7 +33,7 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
 
   return (
     <div
-      className={`relative w-full max-w-[1600px] mx-auto p-5 sm:p-7 bg-[#141622]/95 backdrop-blur-md rounded-3xl border border-zinc-800/90 shadow-2xl transition-transform select-none overflow-hidden ${
+      className={`relative w-full max-w-[1600px] mx-auto p-2.5 sm:p-7 bg-[#141622]/95 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-zinc-800/90 shadow-2xl transition-transform select-none overflow-hidden ${
         shake ? 'animate-shake' : ''
       }`}
     >
@@ -48,19 +48,20 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
       </div>
 
       {/* Maze Tactical Header */}
-      <div className="relative z-10 flex items-center justify-between pb-4 px-1 border-b border-zinc-800/80 text-xs sm:text-sm">
-        <div className="flex items-center gap-2.5 text-zinc-200 font-bold">
-          <Compass className="w-5 h-5 text-amber-400" />
-          <span>Mê Cung Tiền Đồn Hải Tặc • Lưới 8x8 Toàn Màn Hình</span>
+      <div className="relative z-10 flex items-center justify-between pb-2 sm:pb-4 px-1 border-b border-zinc-800/80 text-xs sm:text-sm">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 text-zinc-200 font-bold">
+          <Compass className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
+          <span className="hidden sm:inline">Mê Cung Tiền Đồn Hải Tặc • Lưới 8x8 Toàn Màn Hình</span>
+          <span className="sm:hidden">Mê Cung 8x8</span>
         </div>
-        <span className="font-mono text-xs sm:text-sm text-amber-300 font-semibold">
-          Chạm ô liền kề để thuyền trưởng Luffy di chuyển
+        <span className="font-mono text-[10px] sm:text-sm text-amber-300 font-semibold truncate max-w-[180px] sm:max-w-none">
+          Chạm ô liền kề để Luffy di chuyển
         </span>
       </div>
 
       {/* Grid Canvas expanding to fill full-width container */}
       <div
-        className="relative z-10 grid gap-2.5 p-3 sm:p-5 mt-4 bg-[#0a0c13]/85 rounded-2xl border border-zinc-800/90 h-[560px] sm:h-[640px] lg:h-[700px] w-full"
+        className="relative z-10 grid gap-1 sm:gap-2.5 p-1.5 sm:p-5 mt-2 sm:mt-4 bg-[#0a0c13]/85 rounded-xl sm:rounded-2xl border border-zinc-800/90 h-[380px] xs:h-[450px] sm:h-[640px] lg:h-[700px] w-full"
         style={{
           gridTemplateColumns: `repeat(${GRID_SIZE}, minmax(0, 1fr))`,
           gridTemplateRows: `repeat(${GRID_SIZE}, minmax(0, 1fr))`,
@@ -108,35 +109,35 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
                 {/* 1. Player Pawn: Straw Hat Luffy */}
                 {isPlayer && (
                   <div className="flex items-center justify-center animate-pulse">
-                    <LuffyStrawHatPawn className="w-7 h-7 sm:w-9 sm:h-9" />
+                    <LuffyStrawHatPawn className="w-5 h-5 sm:w-9 sm:h-9" />
                   </div>
                 )}
 
                 {/* 2. Goal: Royal One Piece Gold Chest */}
                 {!isPlayer && isChest && (
                   <div className="flex items-center justify-center animate-bounce">
-                    <OnePieceTreasureChest className="w-7 h-7 sm:w-9 sm:h-9" />
+                    <OnePieceTreasureChest className="w-5 h-5 sm:w-9 sm:h-9" />
                   </div>
                 )}
 
                 {/* 3. Blocked Barrier: World Government Marine Iron Gate */}
                 {!isPlayer && !isChest && isBlocked && (
                   <div className="flex items-center justify-center">
-                    <MarineIronGateBarrier className="w-6 h-6 sm:w-8 sm:h-8" />
+                    <MarineIronGateBarrier className="w-4 h-4 sm:w-8 sm:h-8" />
                   </div>
                 )}
 
                 {/* 4. Question Barrier Node: Ancient Poneglyph Stone Monolith */}
                 {!isPlayer && !isChest && !isBlocked && isQuestion && !isCompleted && (
                   <div className="flex items-center justify-center">
-                    <AncientPoneglyphNode className="w-6 h-6 sm:w-8 sm:h-8" />
+                    <AncientPoneglyphNode className="w-4 h-4 sm:w-8 sm:h-8" />
                   </div>
                 )}
 
                 {/* 5. Sea Reef Obstacle */}
                 {!isPlayer && !isChest && isObstacle && (
                   <div className="flex items-center justify-center">
-                    <SeaReefObstacle className="w-6 h-6 sm:w-8 sm:h-8 opacity-70" />
+                    <SeaReefObstacle className="w-4 h-4 sm:w-8 sm:h-8 opacity-70" />
                   </div>
                 )}
               </button>

@@ -62,7 +62,7 @@ export const GrandLineWorldMap: React.FC<GrandLineWorldMapProps> = ({
   return (
     <div className="relative w-full flex flex-col gap-6 select-none">
       {/* Full-width Immersive Map Canvas Area */}
-      <div className="relative w-full h-[620px] sm:h-[700px] lg:h-[750px] rounded-3xl overflow-hidden border border-zinc-800/90 bg-[#090b11] shadow-2xl">
+      <div className="relative w-full h-[520px] sm:h-[700px] lg:h-[750px] rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-800/90 bg-[#090b11] shadow-2xl">
         {/* Real Canon One Piece Grand Line Map Artwork Background */}
         <div className="absolute inset-0 pointer-events-none z-0">
           <img
@@ -74,27 +74,33 @@ export const GrandLineWorldMap: React.FC<GrandLineWorldMapProps> = ({
           <div className="absolute inset-0 bg-gradient-to-t from-[#090b11]/95 via-[#090b11]/20 to-[#090b11]/75" />
         </div>
 
-        {/* Decorative Compass & Log Pose Navigation Badge */}
-        <div className="absolute top-6 left-7 flex items-center gap-3.5 pointer-events-none z-10 opacity-95 bg-zinc-950/85 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-zinc-800 shadow-xl">
-          <Compass className="w-8 h-8 text-amber-400 animate-[spin_60s_linear_infinite] shrink-0" />
+        {/* Decorative Compass & Log Pose Navigation Badge (Responsive) */}
+        <div className="hidden sm:flex absolute top-5 left-6 items-center gap-3.5 pointer-events-none z-10 opacity-95 bg-zinc-950/85 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-zinc-800 shadow-xl">
+          <Compass className="w-7 h-7 text-amber-400 animate-[spin_60s_linear_infinite] shrink-0" />
           <div>
-            <span className="text-sm sm:text-base font-mono tracking-widest text-zinc-100 font-black uppercase drop-shadow block">
-              Hải Đồ Đại Hải Trình (Grand Line World Map)
+            <span className="text-xs sm:text-sm font-mono tracking-widest text-zinc-100 font-black uppercase drop-shadow block">
+              Hải Đồ Đại Hải Trình (Grand Line)
             </span>
-            <span className="text-xs sm:text-sm font-mono text-amber-300 font-extrabold block">
-              Hải trình 10 Vùng Biển • Tuyến đường Log Pose uốn lượn
+            <span className="text-[11px] sm:text-xs font-mono text-amber-300 font-extrabold block">
+              Hải trình 10 Vùng Biển • Log Pose uốn lượn
             </span>
           </div>
         </div>
 
-        <div className="absolute top-6 right-7 pointer-events-none z-10 opacity-95">
-          <span className="text-xs sm:text-sm font-mono text-amber-300 font-black uppercase px-4 py-2.5 rounded-2xl bg-zinc-950/90 border border-amber-500/50 shadow-2xl backdrop-blur-md block">
-            Reverse Mountain → Tân Thế Giới New World
+        {/* Mobile Mini Compass */}
+        <div className="sm:hidden absolute top-3 left-3 flex items-center gap-1.5 pointer-events-none z-10 bg-zinc-950/90 backdrop-blur-md px-2.5 py-1 rounded-xl border border-zinc-800 shadow-lg text-[10px] font-mono text-amber-300 font-bold">
+          <Compass className="w-3.5 h-3.5 text-amber-400 animate-[spin_60s_linear_infinite]" />
+          <span>Grand Line Map</span>
+        </div>
+
+        <div className="hidden sm:block absolute top-5 right-6 pointer-events-none z-10 opacity-95">
+          <span className="text-xs font-mono text-amber-300 font-black uppercase px-3.5 py-2 rounded-2xl bg-zinc-950/90 border border-amber-500/50 shadow-2xl backdrop-blur-md block">
+            Reverse Mountain → New World
           </span>
         </div>
 
-        {/* Calm Belt indicators */}
-        <div className="absolute bottom-5 left-7 text-xs sm:text-sm font-mono text-zinc-200 font-bold pointer-events-none drop-shadow-md bg-zinc-950/85 px-4 py-2 rounded-xl border border-zinc-800 backdrop-blur-sm">
+        {/* Calm Belt indicators (desktop only to prevent mobile overlap) */}
+        <div className="hidden md:block absolute bottom-5 left-7 text-xs sm:text-sm font-mono text-zinc-200 font-bold pointer-events-none drop-shadow-md bg-zinc-950/85 px-4 py-2 rounded-xl border border-zinc-800 backdrop-blur-sm">
           ⚓ Vành Đai Tĩnh Lặng (Calm Belt) • Vùng Trú Ngụ Của Vua Biển Sea Kings
         </div>
 
@@ -171,73 +177,73 @@ export const GrandLineWorldMap: React.FC<GrandLineWorldMapProps> = ({
       </div>
 
       {/* Selected Island Deep Dock Info Card */}
-      <div className="rounded-3xl bg-[#141624]/95 backdrop-blur-md border border-zinc-800/90 p-6 sm:p-8 shadow-2xl flex flex-col md:flex-row items-center gap-8">
+      <div className="rounded-2xl sm:rounded-3xl bg-[#141624]/95 backdrop-blur-md border border-zinc-800/90 p-4 sm:p-8 shadow-2xl flex flex-col md:flex-row items-center gap-5 sm:gap-8">
         {/* Island Anime Preview Thumbnail */}
-        <div className="relative w-full md:w-80 h-48 sm:h-52 rounded-2xl overflow-hidden border border-zinc-700/80 shrink-0 bg-zinc-900 shadow-xl">
+        <div className="relative w-full md:w-80 h-40 sm:h-52 rounded-xl sm:rounded-2xl overflow-hidden border border-zinc-700/80 shrink-0 bg-zinc-900 shadow-xl">
           <img
             src={activeMysteryImg?.imageUrl || '/assets/onepiece/op_01_east_blue.jpg'}
             alt={activeRealm.sagaName}
             className="w-full h-full object-cover saturate-115 filter contrast-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
-          <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-            <span className="text-xs sm:text-sm font-mono px-3 py-1 rounded-lg bg-zinc-900/95 border border-zinc-700 text-amber-300 font-black shadow-md">
+          <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-3 sm:left-3 sm:right-3 flex items-center justify-between">
+            <span className="text-xs font-mono px-2.5 py-1 rounded-md sm:rounded-lg bg-zinc-900/95 border border-zinc-700 text-amber-300 font-black shadow-md">
               Hải Trình {activeIdx + 1}
             </span>
-            <span className="text-xs sm:text-sm font-mono text-zinc-100 flex items-center gap-1.5 font-extrabold bg-zinc-900/95 px-3 py-1 rounded-lg border border-zinc-700 shadow-md">
-              <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+            <span className="text-xs font-mono text-zinc-100 flex items-center gap-1 font-extrabold bg-zinc-900/95 px-2.5 py-1 rounded-md sm:rounded-lg border border-zinc-700 shadow-md">
+              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
               <span>{worldStars}/{maxWorldStars}</span>
             </span>
           </div>
         </div>
 
         {/* Island Details & Canon Lore */}
-        <div className="flex-1 w-full space-y-3.5">
-          <div className="flex flex-wrap items-center gap-2.5">
-            <span className="text-xs sm:text-sm font-mono px-3 py-1 rounded-lg bg-zinc-800 border border-zinc-700 text-amber-300 font-black">
+        <div className="flex-1 w-full space-y-2.5 sm:space-y-3.5">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[11px] sm:text-sm font-mono px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-lg bg-zinc-800 border border-zinc-700 text-amber-300 font-black">
               {activeRealm.islandCode}
             </span>
-            <span className="text-xs sm:text-sm font-mono text-zinc-300 font-bold bg-zinc-900 px-3 py-1 rounded-lg border border-zinc-800">
+            <span className="text-[11px] sm:text-sm font-mono text-zinc-300 font-bold bg-zinc-900 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-lg border border-zinc-800">
               {activeWorld.levels ? activeWorld.levels.length : 0} Ải Hải Trình
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-3">
+          <h2 className="text-xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2 sm:gap-3">
             {ISLAND_UNIQUE_BADGES[activeRealm.islandCode] ? (
-              React.createElement(ISLAND_UNIQUE_BADGES[activeRealm.islandCode], { className: 'w-8 h-8 shrink-0' })
+              React.createElement(ISLAND_UNIQUE_BADGES[activeRealm.islandCode], { className: 'w-6 h-6 sm:w-8 sm:h-8 shrink-0' })
             ) : (
-              <span className="text-2xl">{activeRealm.themeSymbol}</span>
+              <span className="text-xl sm:text-2xl">{activeRealm.themeSymbol}</span>
             )}
             <span>{activeRealm.sagaName}</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-zinc-200 font-normal leading-relaxed line-clamp-3">
+          <p className="text-xs sm:text-base text-zinc-200 font-normal leading-relaxed line-clamp-3">
             <strong className="text-amber-300 font-bold">{activeWorld.shortName}:</strong> {activeWorld.description}
           </p>
 
-          <div className="flex flex-wrap items-center gap-3 pt-1 text-xs sm:text-sm font-mono">
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 font-bold shadow-sm">
-              <Swords className="w-4 h-4 text-red-400" />
-              <span>Trùm Arc: <strong className="text-white font-extrabold">{activeRealm.bossName}</strong></span>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-0.5 text-xs sm:text-sm font-mono">
+            <div className="flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 font-bold shadow-sm">
+              <Swords className="w-3.5 h-3.5 text-red-400" />
+              <span>Trùm: <strong className="text-white font-extrabold">{activeRealm.bossName}</strong></span>
             </div>
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 font-bold shadow-sm">
-              <ShieldAlert className="w-4 h-4 text-amber-400" />
+            <div className="flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 font-bold shadow-sm">
+              <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
               <span>Truy nã: <strong className="font-extrabold">{activeRealm.bountyReward}</strong></span>
             </div>
           </div>
         </div>
 
         {/* Action Button */}
-        <div className="w-full md:w-auto shrink-0 flex flex-col items-center gap-2">
+        <div className="w-full md:w-auto shrink-0 flex flex-col items-center gap-1.5 sm:gap-2">
           <button
             type="button"
             onClick={() => onEnterWorldTrail(activeWorld.id)}
-            className="w-full md:w-auto px-9 py-4.5 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-950 font-black text-base sm:text-lg flex items-center justify-center gap-3 shadow-2xl transition-all active:scale-95 shadow-amber-500/20"
+            className="w-full md:w-auto px-7 py-3 sm:px-9 sm:py-4.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-950 font-black text-sm sm:text-lg flex items-center justify-center gap-2.5 shadow-2xl transition-all active:scale-95 shadow-amber-500/20"
           >
             <span>Cập Bến & Vượt Ải</span>
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
-          <span className="text-xs font-mono text-zinc-400">
+          <span className="text-[11px] sm:text-xs font-mono text-zinc-400">
             Giương buồm tàu Thousand Sunny
           </span>
         </div>

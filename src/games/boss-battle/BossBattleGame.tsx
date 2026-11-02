@@ -102,28 +102,28 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-zinc-100 p-4 sm:p-8 select-none flex flex-col justify-between">
+    <div className="min-h-screen bg-transparent text-zinc-100 p-2 sm:p-8 select-none flex flex-col justify-between">
       {/* Top Header / Arena HUD */}
-      <header className="max-w-5xl mx-auto w-full bg-[#14161f]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl p-4 sm:p-6 shadow-xl">
-        <div className="flex items-center justify-between gap-6">
+      <header className="max-w-5xl mx-auto w-full bg-[#14161f]/95 backdrop-blur-md border border-zinc-800/90 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-xl">
+        <div className="flex items-center justify-between gap-3 sm:gap-6">
           <button
             onClick={onExit}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-sm font-bold transition-all border border-zinc-700/80 shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs sm:text-sm font-bold transition-all border border-zinc-700/80 shadow-sm shrink-0"
           >
-            <ArrowLeft className="w-4 h-4 text-zinc-300" />
+            <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-300" />
             <span>Rút lui</span>
           </button>
 
           {/* Boss HP Bar */}
           <div className="flex-1 max-w-lg">
-            <div className="flex items-center justify-between text-xs sm:text-sm font-mono font-bold text-red-400 mb-1.5">
-              <span className="flex items-center gap-2">
-                <Flame className="w-4 h-4 text-red-500 animate-pulse" />
-                <span className="text-white font-black">Haki Boss: {bossName}</span>
+            <div className="flex items-center justify-between text-[11px] sm:text-sm font-mono font-bold text-red-400 mb-1">
+              <span className="flex items-center gap-1.5 truncate max-w-[150px] sm:max-w-none">
+                <Flame className="w-3.5 h-3.5 text-red-500 animate-pulse shrink-0" />
+                <span className="text-white font-black truncate">{bossName}</span>
               </span>
-              <span className="text-red-300 font-extrabold">{bossHp} / {maxBossHp} HP</span>
+              <span className="text-red-300 font-extrabold shrink-0">{bossHp}/{maxBossHp} HP</span>
             </div>
-            <div className="w-full h-3.5 bg-zinc-900 rounded-full border border-zinc-800 overflow-hidden p-0.5 shadow-inner">
+            <div className="w-full h-2.5 sm:h-3.5 bg-zinc-900 rounded-full border border-zinc-800 overflow-hidden p-0.5 shadow-inner">
               <div
                 className="h-full bg-gradient-to-r from-orange-500 to-red-600 rounded-full transition-all duration-300 shadow-[0_0_12px_rgba(239,68,68,0.6)]"
                 style={{ width: `${(bossHp / maxBossHp) * 100}%` }}
@@ -132,13 +132,13 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
           </div>
 
           {/* Player Hearts / Pirate Will */}
-          <div className="flex flex-col items-end gap-1.5">
-            <span className="text-xs font-mono text-amber-400 font-black uppercase">Ý Chí Hải Tặc</span>
-            <div className="flex items-center gap-1.5">
+          <div className="flex flex-col items-end gap-0.5 sm:gap-1.5 shrink-0">
+            <span className="text-[10px] sm:text-xs font-mono text-amber-400 font-black uppercase">Ý Chí</span>
+            <div className="flex items-center gap-1">
               {Array.from({ length: 3 }).map((_, i) => (
                 <Heart
                   key={i}
-                  className={`w-5 h-5 ${i < playerHp ? 'text-red-500 fill-red-500' : 'text-zinc-800'}`}
+                  className={`w-3.5 h-3.5 sm:w-5 sm:h-5 ${i < playerHp ? 'text-red-500 fill-red-500' : 'text-zinc-800'}`}
                 />
               ))}
             </div>
@@ -147,25 +147,25 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
       </header>
 
       {/* Arena Center: Boss vs Player Battle Showdown */}
-      <div className="max-w-5xl mx-auto w-full flex items-center justify-around py-6">
+      <div className="max-w-5xl mx-auto w-full flex items-center justify-around py-3 sm:py-6">
         {/* Player */}
-        <div className={`text-center space-y-2 transition-transform ${isPlayerHurt ? 'animate-shake scale-90' : ''}`}>
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-zinc-850 border-2 border-amber-400/60 flex items-center justify-center p-3 shadow-xl">
+        <div className={`text-center space-y-1 sm:space-y-2 transition-transform ${isPlayerHurt ? 'animate-shake scale-90' : ''}`}>
+          <div className="w-12 h-12 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-zinc-850 border-2 border-amber-400/60 flex items-center justify-center p-2 sm:p-3 shadow-xl mx-auto">
             <LuffyStrawHatPawn className="w-full h-full" />
           </div>
-          <span className="text-xs sm:text-sm font-mono text-amber-300 block font-black">Thuyền Trưởng Mũ Rơm</span>
+          <span className="text-[10px] sm:text-sm font-mono text-amber-300 block font-black">Mũ Rơm</span>
         </div>
 
-        <div className="text-red-400 font-mono text-xs sm:text-sm uppercase tracking-widest px-4 py-2 rounded-2xl bg-red-950/60 border border-red-800/80 font-black shadow-[0_0_15px_rgba(239,68,68,0.4)]">
-          ⚡ ĐẠI CHIẾN HAKI BÁ VƯƠNG ⚡
+        <div className="text-red-400 font-mono text-[10px] sm:text-sm uppercase tracking-normal sm:tracking-widest px-2.5 py-1 sm:px-4 sm:py-2 rounded-xl sm:rounded-2xl bg-red-950/60 border border-red-800/80 font-black shadow-[0_0_15px_rgba(239,68,68,0.4)]">
+          ⚡ ĐẠI CHIẾN TỨ HOÀNG ⚡
         </div>
 
         {/* Boss */}
-        <div className={`text-center space-y-2 transition-transform ${isBossHurt ? 'animate-shake scale-90' : ''}`}>
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-red-950/70 border-2 border-red-500 ring-4 ring-red-500/30 flex items-center justify-center text-4xl shadow-xl">
+        <div className={`text-center space-y-1 sm:space-y-2 transition-transform ${isBossHurt ? 'animate-shake scale-90' : ''}`}>
+          <div className="w-12 h-12 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-red-950/70 border-2 border-red-500 ring-2 sm:ring-4 ring-red-500/30 flex items-center justify-center text-2xl sm:text-4xl shadow-xl mx-auto">
             {bossIcon}
           </div>
-          <span className="text-xs sm:text-sm font-mono text-red-400 block font-black">{bossName}</span>
+          <span className="text-[10px] sm:text-sm font-mono text-red-400 block font-black truncate max-w-[90px] sm:max-w-none">{bossName}</span>
         </div>
       </div>
 
@@ -246,9 +246,9 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
             <button
               onClick={handleAttack}
               disabled={isMcq ? !selectedMcq : !fillValue.trim()}
-              className="px-8 py-3 rounded-2xl bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 disabled:opacity-40 text-white font-black text-sm sm:text-base tracking-wider uppercase shadow-xl flex items-center gap-2 active:scale-95 transition-transform"
+              className="w-full sm:w-auto justify-center px-6 py-3 sm:px-8 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 disabled:opacity-40 text-white font-black text-xs sm:text-base tracking-wider uppercase shadow-xl flex items-center gap-2 active:scale-95 transition-transform"
             >
-              <Swords className="w-5 h-5" />
+              <Swords className="w-4 h-4 sm:w-5 sm:h-5" />
               <span>TUNG CHIÊU TẤN CÔNG</span>
             </button>
           </div>

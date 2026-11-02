@@ -23,65 +23,66 @@ export const GameLobby: React.FC<GameLobbyProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-zinc-100 p-4 sm:p-6 lg:p-8 select-none flex flex-col justify-between">
-      <div className="max-w-[1600px] mx-auto w-full space-y-8">
+    <div className="min-h-screen bg-transparent text-zinc-100 p-2.5 sm:p-6 lg:p-8 select-none flex flex-col justify-between">
+      <div className="max-w-[1600px] mx-auto w-full space-y-4 sm:space-y-8">
         {/* Top Navigation Header */}
-        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#121522]/90 backdrop-blur-md border border-zinc-800/90 rounded-3xl px-6 py-4 shadow-xl">
+        <header className="flex flex-wrap items-center justify-between gap-2.5 sm:gap-4 bg-[#121522]/90 backdrop-blur-md border border-zinc-800/90 rounded-2xl sm:rounded-3xl px-3.5 py-2.5 sm:px-6 sm:py-4 shadow-xl">
           {/* Brand & Identity */}
-          <div className="flex items-center gap-4">
-            <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 via-zinc-900 to-red-500/20 border-2 border-amber-400/60 flex items-center justify-center font-mono font-black text-amber-400 text-2xl shadow-[0_0_20px_rgba(245,158,11,0.35)] shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-4">
+            <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-amber-500/20 via-zinc-900 to-red-500/20 border-2 border-amber-400/60 flex items-center justify-center font-mono font-black text-amber-400 text-lg sm:text-2xl shadow-[0_0_20px_rgba(245,158,11,0.35)] shrink-0">
               🏴‍☠️
             </div>
             <div>
-              <div className="flex items-center gap-2.5">
-                <h2 className="text-base sm:text-xl font-black text-white tracking-wide">
+              <div className="flex items-center gap-1.5 sm:gap-2.5">
+                <h2 className="text-sm sm:text-xl font-black text-white tracking-wide">
                   Đại Hải Trình Toán 7
                 </h2>
-                <span className="px-2.5 py-0.5 rounded-md text-xs font-mono uppercase bg-amber-400/10 border border-amber-400/40 text-amber-300 font-bold">
-                  One Piece Grand Line
+                <span className="px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-mono uppercase bg-amber-400/10 border border-amber-400/40 text-amber-300 font-bold">
+                  Grand Line
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-zinc-300 mt-0.5 font-medium">
+              <p className="text-xs sm:text-sm text-zinc-300 mt-0.5 font-medium hidden sm:block">
                 10 Vùng biển Tân Thế Giới • Thu thập Khối Poneglyph & Truyền Thuyết Joy Boy
               </p>
             </div>
           </div>
 
           {/* Player Stats & Controls */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             <button
               onClick={onOpenDashboard}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 border border-zinc-700/80 text-zinc-100 text-sm font-bold transition-all active:scale-95 shadow-md"
+              className="flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 border border-zinc-700/80 text-zinc-100 text-xs sm:text-sm font-bold transition-all active:scale-95 shadow-md"
             >
-              <BarChart3 className="w-4 h-4 text-amber-400" />
-              <span>Kho Báu & Tranh</span>
+              <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
+              <span className="hidden xs:inline sm:inline">Kho Báu & Tranh</span>
+              <span className="xs:hidden sm:hidden">Kho Báu</span>
             </button>
 
             {/* Total Stars Counter */}
-            <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-zinc-850/90 border border-zinc-700 text-amber-400 font-mono text-sm font-extrabold shadow-inner">
-              <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+            <div className="flex items-center gap-1 sm:gap-2 px-2.5 py-2 sm:px-3.5 sm:py-2.5 rounded-xl sm:rounded-2xl bg-zinc-850/90 border border-zinc-700 text-amber-400 font-mono text-xs sm:text-sm font-extrabold shadow-inner">
+              <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
               <span>{totalStars}</span>
             </div>
 
             {/* Berries (Beli) Counter */}
-            <div className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-sm font-extrabold shadow-inner">
-              <span className="text-amber-400 font-black text-base">฿</span>
+            <div className="flex items-center gap-1 sm:gap-1.5 px-2.5 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-xs sm:text-sm font-extrabold shadow-inner">
+              <span className="text-amber-400 font-black text-sm sm:text-base">฿</span>
               <span>{playerCoins.toLocaleString()}</span>
             </div>
 
             {/* Sound Toggle Button */}
             <button
               onClick={toggleSound}
-              className="p-2.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-zinc-400 hover:text-white transition-all active:scale-95 shadow-md"
+              className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-zinc-400 hover:text-white transition-all active:scale-95 shadow-md"
               title={isMuted ? 'Bật âm thanh' : 'Tắt âm thanh'}
             >
-              {isMuted ? <VolumeX className="w-5 h-5 text-zinc-500" /> : <Volume2 className="w-5 h-5 text-zinc-200" />}
+              {isMuted ? <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-500" /> : <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-200" />}
             </button>
           </div>
         </header>
 
         {/* Hero Mission Card with One Piece Wallpaper Accent */}
-        <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#161a29]/95 via-[#111420]/95 to-[#0b0d16]/95 border border-zinc-800/90 p-8 sm:p-12 lg:p-14 shadow-2xl backdrop-blur-md">
+        <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#161a29]/95 via-[#111420]/95 to-[#0b0d16]/95 border border-zinc-800/90 p-5 sm:p-12 lg:p-14 shadow-2xl backdrop-blur-md">
           {/* Subtle Right Background Artwork */}
           <div className="absolute -right-4 -bottom-4 w-[520px] h-full opacity-30 pointer-events-none overflow-hidden rounded-3xl hidden lg:block">
             <img
@@ -92,29 +93,29 @@ export const GameLobby: React.FC<GameLobbyProps> = ({
             <div className="absolute inset-0 bg-gradient-to-r from-[#111420] via-[#111420]/60 to-transparent" />
           </div>
 
-          <div className="max-w-2xl space-y-6 relative z-10">
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs sm:text-sm font-mono font-bold tracking-wide">
-              <Anchor className="w-4 h-4 text-amber-400" />
-              <span>HẢI TRÌNH 10 CHUYÊN ĐỀ TOÁN 7 CHUẨN GDPT 2018</span>
+          <div className="max-w-2xl space-y-4 sm:space-y-6 relative z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-[11px] sm:text-sm font-mono font-bold tracking-wide">
+              <Anchor className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
+              <span>HẢI TRÌNH 10 CHUYÊN ĐỀ TOÁN 7</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.15]">
+            <h1 className="text-2xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
               Giương Buồm Chinh Phục Đại Hải Trình & Kho Báu One Piece
             </h1>
 
-            <p className="text-sm sm:text-base lg:text-lg text-zinc-300 leading-relaxed font-normal">
+            <p className="text-xs sm:text-base lg:text-lg text-zinc-300 leading-relaxed font-normal">
               Giải mã các khối đá Poneglyph số học huyền thoại, đột kích căn cứ tiền đồn bằng bài toán thực tế và thách thức Trùm Tứ Hoàng bằng các đề thi toán tổng hợp chuẩn hóa.
             </p>
 
-            <div className="pt-2">
+            <div className="pt-1 sm:pt-2">
               <button
                 type="button"
                 onClick={onStartAdventure}
-                className="group px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-950 font-black text-base sm:text-lg flex items-center gap-3.5 shadow-2xl shadow-amber-500/20 transition-all active:scale-95"
+                className="w-full sm:w-auto justify-center group px-6 py-3.5 sm:px-8 sm:py-4 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-950 font-black text-sm sm:text-lg flex items-center gap-3 shadow-2xl shadow-amber-500/20 transition-all active:scale-95"
               >
-                <Compass className="w-6 h-6 text-zinc-950 group-hover:rotate-45 transition-transform" />
+                <Compass className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-950 group-hover:rotate-45 transition-transform" />
                 <span>Mở Hải Đồ Thế Giới & Khởi Hành</span>
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
           </div>

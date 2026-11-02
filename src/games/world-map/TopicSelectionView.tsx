@@ -22,55 +22,57 @@ export const TopicSelectionView: React.FC<TopicSelectionViewProps> = ({
   onOpenDashboard,
 }) => {
   return (
-    <div className="min-h-screen bg-transparent text-zinc-100 p-4 sm:p-6 lg:p-8 select-none flex flex-col justify-between">
-      <div className="max-w-[1600px] mx-auto w-full space-y-8">
+    <div className="min-h-screen bg-transparent text-zinc-100 p-2.5 sm:p-6 lg:p-8 select-none flex flex-col justify-between">
+      <div className="max-w-[1600px] mx-auto w-full space-y-4 sm:space-y-8">
         {/* Top Header */}
-        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#141624]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl px-6 py-4 shadow-xl">
+        <header className="flex flex-wrap items-center justify-between gap-2.5 sm:gap-4 bg-[#141624]/95 backdrop-blur-md border border-zinc-800/90 rounded-2xl sm:rounded-3xl px-3 py-2.5 sm:px-6 sm:py-4 shadow-xl">
           <button
             onClick={onBackToLobby}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-xs sm:text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
           >
-            <ArrowLeft className="w-4 h-4 text-zinc-300" />
-            <span>Sảnh chính</span>
+            <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-300" />
+            <span className="hidden xs:inline sm:inline">Sảnh chính</span>
+            <span className="xs:hidden sm:hidden">Sảnh</span>
           </button>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             <button
               onClick={onOpenDashboard}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
+              className="flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-xs sm:text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
             >
-              <BarChart3 className="w-4 h-4 text-amber-400" />
-              <span>Kho Báu & Tranh</span>
+              <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
+              <span className="hidden sm:inline">Kho Báu & Tranh</span>
+              <span className="sm:hidden">Kho Báu</span>
             </button>
 
-            <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-zinc-850 border border-zinc-700 text-amber-400 font-mono text-sm font-extrabold shadow-inner">
-              <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+            <div className="flex items-center gap-1 px-2.5 py-1.5 sm:px-3.5 sm:py-2.5 rounded-xl sm:rounded-2xl bg-zinc-850 border border-zinc-700 text-amber-400 font-mono text-xs sm:text-sm font-extrabold shadow-inner">
+              <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-400 text-amber-400" />
               <span>{totalStars}</span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-sm font-extrabold shadow-inner">
-              <span className="text-base font-black text-amber-400">฿</span>
+            <div className="flex items-center gap-1 px-2.5 py-1.5 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-xs sm:text-sm font-extrabold shadow-inner">
+              <span className="text-sm sm:text-base font-black text-amber-400">฿</span>
               <span>{playerCoins.toLocaleString()}</span>
             </div>
           </div>
         </header>
 
         {/* Section Heading */}
-        <div className="rounded-3xl bg-[#141624]/95 backdrop-blur-md border border-zinc-800/90 p-8 space-y-3 shadow-xl">
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1 rounded-full text-xs sm:text-sm font-mono text-amber-300 bg-amber-500/10 border border-amber-500/30 uppercase font-bold">
-            <Layers className="w-4 h-4 text-amber-400" />
-            <span>10 Vùng Biển Đại Hải Trình (Grand Line Sagas)</span>
+        <div className="rounded-2xl sm:rounded-3xl bg-[#141624]/95 backdrop-blur-md border border-zinc-800/90 p-4 sm:p-8 space-y-2 sm:space-y-3 shadow-xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] sm:text-sm font-mono text-amber-300 bg-amber-500/10 border border-amber-500/30 uppercase font-bold">
+            <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
+            <span>10 VÙNG BIỂN ĐẠI HẢI TRÌNH</span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+          <h1 className="text-xl sm:text-4xl font-black text-white tracking-tight">
             10 Chuyên Đề Trọng Tâm Toán 7 GDPT 2018
           </h1>
-          <p className="text-sm sm:text-base text-zinc-300 max-w-3xl leading-relaxed font-medium">
+          <p className="text-xs sm:text-base text-zinc-300 max-w-3xl leading-relaxed font-medium">
             Mỗi hải trình tương ứng một chuyên đề toán học. Giải mã văn tự cổ Poneglyph và hạ gục Trùm Arc để nâng cao mức tiền thưởng truy nã hải tặc của bạn.
           </p>
         </div>
 
         {/* 10 Topics Grid */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {worlds.map((world, idx) => {
             const worldStars = world.levels.reduce((acc, l) => acc + l.starsEarned, 0);
             const maxWorldStars = world.levels.length * 3;
@@ -84,27 +86,27 @@ export const TopicSelectionView: React.FC<TopicSelectionViewProps> = ({
               <div
                 key={world.id}
                 onClick={() => isUnlocked && onSelectTopic(world.id)}
-                className={`group relative rounded-3xl p-6 sm:p-7 border transition-all duration-150 flex flex-col justify-between ${
+                className={`group relative rounded-2xl sm:rounded-3xl p-4 sm:p-7 border transition-all duration-150 flex flex-col justify-between ${
                   isUnlocked
                     ? 'bg-[#141624]/95 backdrop-blur-md border-zinc-800/90 hover:border-amber-500/60 hover:bg-[#181c2e] cursor-pointer shadow-xl hover:shadow-2xl'
                     : 'bg-[#10121a]/80 border-zinc-850 opacity-40 cursor-not-allowed'
                 }`}
               >
-                <div className="space-y-4">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                      <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-zinc-800/90 border border-zinc-700 flex items-center justify-center shadow-inner shrink-0 p-2.5">
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="flex items-start justify-between gap-3 sm:gap-4">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-zinc-800/90 border border-zinc-700 flex items-center justify-center shadow-inner shrink-0 p-2 sm:p-2.5">
                         {ISLAND_UNIQUE_BADGES[realm.islandCode] ? (
                           React.createElement(ISLAND_UNIQUE_BADGES[realm.islandCode], { className: 'w-full h-full' })
                         ) : (
-                          <span className="font-mono font-black text-2xl text-zinc-200">{realm.themeSymbol}</span>
+                          <span className="font-mono font-black text-xl sm:text-2xl text-zinc-200">{realm.themeSymbol}</span>
                         )}
                       </div>
                       <div>
-                        <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block font-bold">
+                        <span className="text-[10px] sm:text-xs font-mono text-zinc-400 uppercase tracking-wider block font-bold">
                           Hải Trình {formattedNum} • {realm.islandCode}
                         </span>
-                        <h3 className="text-base sm:text-lg font-black text-white group-hover:text-amber-300 transition-colors">
+                        <h3 className="text-sm sm:text-lg font-black text-white group-hover:text-amber-300 transition-colors">
                           {realm.sagaName}
                         </h3>
                       </div>
