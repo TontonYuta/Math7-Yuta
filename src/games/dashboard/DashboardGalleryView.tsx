@@ -3,8 +3,9 @@ import { GameWorld, PlayerProgress } from '../world-map/types';
 import { MYSTERY_IMAGES } from '../mysterious-picture/mysteryImages';
 import { StatsCardGroup } from './StatsCardGroup';
 import { GalleryGridView } from './GalleryGridView';
+import { OnePieceCollectionGallery } from './OnePieceCollectionGallery';
 import { DashboardStats } from './types';
-import { ArrowLeft, BarChart3, Image } from 'lucide-react';
+import { ArrowLeft, BarChart3, Image, Sparkles } from 'lucide-react';
 
 interface DashboardGalleryViewProps {
   worlds: GameWorld[];
@@ -19,7 +20,7 @@ export const DashboardGalleryView: React.FC<DashboardGalleryViewProps> = ({
   playerCoins,
   onBack,
 }) => {
-  const [activeTab, setActiveTab] = useState<'stats' | 'gallery'>('stats');
+  const [activeTab, setActiveTab] = useState<'stats' | 'gallery' | 'collection'>('stats');
 
   const totalLevels = worlds.reduce((acc, w) => acc + w.levels.length, 0);
   const totalLevelsCompleted = Object.values(progress.levelStars).filter((s) => s > 0).length;
@@ -51,8 +52,8 @@ export const DashboardGalleryView: React.FC<DashboardGalleryViewProps> = ({
   const unlockedCount = progress.unlockedGalleryImageIds.length;
 
   return (
-    <div className="min-h-screen bg-transparent text-zinc-100 p-4 sm:p-6 lg:p-10 select-none flex flex-col justify-between">
-      <div className="max-w-7xl mx-auto w-full space-y-8">
+    <div className="min-h-screen bg-transparent text-zinc-100 p-4 sm:p-6 lg:p-8 select-none flex flex-col justify-between">
+      <div className="max-w-[1600px] mx-auto w-full space-y-8">
         {/* Top Header */}
         <header className="flex flex-wrap items-center justify-between gap-4 bg-[#141624]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl px-6 py-4 shadow-xl">
           <button
@@ -64,7 +65,7 @@ export const DashboardGalleryView: React.FC<DashboardGalleryViewProps> = ({
           </button>
 
           {/* Clean Segmented Tabs */}
-          <div className="flex items-center p-1.5 bg-zinc-900/95 rounded-2xl border border-zinc-800 shadow-inner">
+          <div className="flex flex-wrap items-center p-1.5 bg-zinc-900/95 rounded-2xl border border-zinc-800 shadow-inner gap-1">
             <button
               onClick={() => setActiveTab('stats')}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${
@@ -88,6 +89,18 @@ export const DashboardGalleryView: React.FC<DashboardGalleryViewProps> = ({
               <Image className="w-4 h-4" />
               <span>Kho Báu Tranh ({unlockedCount}/{MYSTERY_IMAGES.length})</span>
             </button>
+
+            <button
+              onClick={() => setActiveTab('collection')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${
+                activeTab === 'collection'
+                  ? 'bg-amber-400 text-zinc-950 font-black shadow-md'
+                  : 'text-zinc-400 hover:text-zinc-200'
+              }`}
+            >
+              <Sparkles className="w-4 h-4 text-amber-500" />
+              <span>Bộ Sưu Tập 100 Thẻ One Piece</span>
+            </button>
           </div>
 
           {/* Berries Display */}
@@ -98,18 +111,18 @@ export const DashboardGalleryView: React.FC<DashboardGalleryViewProps> = ({
         </header>
 
         {/* Tab Body */}
-        {activeTab === 'stats' ? (
-          <StatsCardGroup stats={stats} />
-        ) : (
+        {activeTab === 'stats' && <StatsCardGroup stats={stats} />}
+        {activeTab === 'gallery' && (
           <GalleryGridView
             allImages={MYSTERY_IMAGES}
             unlockedImageIds={progress.unlockedGalleryImageIds}
           />
         )}
+        {activeTab === 'collection' && <OnePieceCollectionGallery />}
       </div>
 
       <footer className="text-center py-6 text-xs sm:text-sm text-zinc-400 font-mono">
-        Dữ liệu chiến tích được lưu trữ an toàn trên thiết bị
+        Dữ liệu chiến tích và bộ sưu tập được lưu trữ an toàn trên thiết bị
       </footer>
     </div>
   );

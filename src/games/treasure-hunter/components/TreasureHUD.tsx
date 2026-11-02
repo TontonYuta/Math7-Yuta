@@ -36,7 +36,7 @@ export const TreasureHUD: React.FC<TreasureHUDProps> = ({
   const isLowTime = timeRemaining < 120;
 
   return (
-    <header className="w-full max-w-6xl mx-auto mb-6 bg-[#14161f]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl px-6 py-4 shadow-xl select-none">
+    <header className="w-full max-w-[1600px] mx-auto mb-6 bg-[#14161f]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl px-6 py-4 shadow-xl select-none">
       <div className="flex flex-wrap items-center justify-between gap-4">
         {/* Left: Exit & Mode Title */}
         <div className="flex items-center gap-4">

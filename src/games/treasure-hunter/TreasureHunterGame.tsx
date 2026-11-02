@@ -44,7 +44,7 @@ export const TreasureHunterGame: React.FC<TreasureHunterGameProps> = ({
 
       {/* Floating Status Notification */}
       {feedback.type && (
-        <div className="max-w-xl mx-auto w-full mb-3 px-2">
+        <div className="max-w-2xl mx-auto w-full mb-3 px-2">
           <div
             className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl border text-xs sm:text-sm font-bold shadow-lg animate-fade-in ${
               feedback.type === 'correct'

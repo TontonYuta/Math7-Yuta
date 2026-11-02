@@ -44,7 +44,7 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
 
   return (
     <div className="min-h-screen bg-transparent text-zinc-100 p-3 sm:p-5 lg:p-7 select-none flex flex-col justify-between">
-      <div className={`mx-auto w-full space-y-6 transition-all duration-300 ${viewMode === 'grand-map' ? 'max-w-[1600px] px-2 sm:px-4' : 'max-w-7xl'}`}>
+      <div className="mx-auto w-full space-y-6 transition-all duration-300 max-w-[1600px] px-2 sm:px-4">
         {/* Top Navigation Header */}
         <header className="flex flex-wrap items-center justify-between gap-4 bg-[#14161f]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl px-6 py-4 shadow-xl">
           <div className="flex items-center gap-3">

@@ -30,7 +30,7 @@ export const MysteryHUD: React.FC<MysteryHUDProps> = ({
   };
 
   return (
-    <header className="w-full max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4 px-6 py-4 bg-[#14161f]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl shadow-xl select-none">
+    <header className="w-full max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-4 px-6 py-4 bg-[#14161f]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl shadow-xl select-none">
       <button
         onClick={onExit}
         className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-zinc-100 text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"

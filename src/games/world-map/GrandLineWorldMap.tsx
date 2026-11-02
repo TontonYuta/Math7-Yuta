@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { GameWorld } from './types';
 import { getRealmMeta } from './levelData';
 import { MYSTERY_IMAGES } from '../mysterious-picture/mysteryImages';
 import { IslandMarker } from './IslandMarker';
+import { FloatingLuffyNavigator } from './FloatingLuffyNavigator';
 import { Compass, Swords, ArrowRight, Star, ShieldAlert } from 'lucide-react';
-import { ISLAND_UNIQUE_BADGES, generateWindingBezierPath, LuffyStrawHatPawn } from './onePieceAssets';
+import { ISLAND_UNIQUE_BADGES, generateWindingBezierPath } from './onePieceAssets';
 
 interface GrandLineWorldMapProps {
   worlds: GameWorld[];
@@ -28,6 +29,19 @@ export const GrandLineWorldMap: React.FC<GrandLineWorldMapProps> = ({
     color: '#0284c7',
     levels: [],
   };
+
+  const [isAutoPatrol, setIsAutoPatrol] = useState(false);
+
+  // Auto patrol along the 10 islands
+  useEffect(() => {
+    if (!isAutoPatrol || worlds.length === 0) return;
+    const interval = setInterval(() => {
+      const currentIdx = worlds.findIndex((w) => w.id === activeWorldId);
+      const nextIdx = (currentIdx + 1) % worlds.length;
+      onSelectWorld(worlds[nextIdx].id);
+    }, 3600);
+    return () => clearInterval(interval);
+  }, [isAutoPatrol, activeWorldId, worlds, onSelectWorld]);
 
   const activeIdx = Math.max(0, worlds.findIndex((w) => w.id === activeWorld.id));
   const activeRealm = getRealmMeta(activeWorld.id, activeIdx);
@@ -145,6 +159,15 @@ export const GrandLineWorldMap: React.FC<GrandLineWorldMapProps> = ({
             />
           );
         })}
+
+        {/* Animated Floating Luffy Navigator Sailing the Grand Line */}
+        <FloatingLuffyNavigator
+          coords={activeRealm.mapCoords}
+          islandName={activeWorld.name}
+          sagaName={activeRealm.sagaName}
+          isAutoPatrol={isAutoPatrol}
+          onToggleAutoPatrol={() => setIsAutoPatrol((prev) => !prev)}
+        />
       </div>
 
       {/* Selected Island Deep Dock Info Card */}
