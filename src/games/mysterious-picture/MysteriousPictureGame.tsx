@@ -79,6 +79,7 @@ export const MysteriousPictureGame: React.FC<MysteriousPictureGameProps> = ({
             question={activeTile.question}
             onClose={handleCloseModal}
             onSubmit={handleSubmitAnswer}
+            backLabel="Quay lại bàn cờ"
           />
         )}
 

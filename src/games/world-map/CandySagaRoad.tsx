@@ -77,7 +77,7 @@ export const CandySagaRoad: React.FC<CandySagaRoadProps> = ({
                     <h4 className="text-xs sm:text-sm font-black text-amber-200">
                       {level.bossName || level.title}
                     </h4>
-                    <p className="text-[10px] text-stone-400">Đề thi kiểm tra toàn diện</p>
+                    <p className="text-[10px] text-stone-400">Đề thi học kì</p>
                   </div>
                 </div>
               </div>

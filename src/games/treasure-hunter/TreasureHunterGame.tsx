@@ -77,6 +77,7 @@ export const TreasureHunterGame: React.FC<TreasureHunterGameProps> = ({
           question={gameState.activeQuestionCell.question}
           onClose={closeQuestionModal}
           onSubmit={submitAnswer}
+          backLabel="Quay lại mê cung"
         />
       )}
 

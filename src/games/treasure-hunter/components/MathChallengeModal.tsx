@@ -9,12 +9,14 @@ interface MathChallengeModalProps {
   question: Question;
   onClose: () => void;
   onSubmit: (userAnswer: string) => void;
+  backLabel?: string;
 }
 
 export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
   question,
   onClose,
   onSubmit,
+  backLabel,
 }) => {
   const [selectedMcq, setSelectedMcq] = useState<string>('');
   const [fillValue, setFillValue] = useState<string>('');
@@ -64,7 +66,7 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-2 rounded-2xl hover:bg-black/30 text-amber-200 hover:text-white transition-colors active:scale-90"
+            className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-2xl hover:bg-black/30 text-amber-200 hover:text-white transition-colors active:scale-90"
             title="Đóng (Không giải)"
           >
             <X className="w-6 h-6" />
@@ -152,16 +154,16 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-300 font-bold text-xs sm:text-sm transition-all"
+            className="px-4 py-2.5 min-h-[44px] rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-300 font-bold text-xs sm:text-sm transition-all flex items-center justify-center active:scale-95"
           >
-            Quay lại mê cung
+            {backLabel || 'Quay lại'}
           </button>
 
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={handleClear}
-              className="px-5 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-700 active:scale-95 text-stone-200 font-bold text-sm transition-all shadow flex items-center gap-2 border border-stone-600"
+              className="px-5 py-2.5 min-h-[44px] rounded-xl bg-stone-800 hover:bg-stone-700 active:scale-95 text-stone-200 font-bold text-sm transition-all shadow flex items-center gap-2 border border-stone-600"
             >
               <RotateCcw className="w-4 h-4 text-emerald-400" />
               <span>Sửa đáp án</span>
@@ -171,7 +173,7 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
               type="button"
               disabled={isMcq ? !selectedMcq : !fillValue.trim()}
               onClick={() => handleSubmit()}
-              className="px-8 py-3 rounded-2xl bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 disabled:opacity-40 disabled:cursor-not-allowed active:scale-95 text-white font-black text-sm sm:text-base tracking-wider uppercase transition-all shadow-xl flex items-center gap-2"
+              className="px-8 py-3 min-h-[44px] rounded-2xl bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 disabled:opacity-40 disabled:cursor-not-allowed active:scale-95 text-white font-black text-sm sm:text-base tracking-wider uppercase transition-all shadow-xl flex items-center gap-2"
             >
               <CheckCircle2 className="w-5 h-5" />
               <span>TRẢ LỜI NGAY</span>

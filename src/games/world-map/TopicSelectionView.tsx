@@ -63,7 +63,7 @@ export const TopicSelectionView: React.FC<TopicSelectionViewProps> = ({
             CHỌN CHUYÊN ĐỀ ĐỂ BẮT ĐẦU VƯỢT ẢI
           </h1>
           <p className="text-xs sm:text-sm text-stone-300 max-w-xl mx-auto">
-            Mỗi chuyên đề là một hành trình phiêu lưu xen kẽ giữa các ải <strong>Bức Tranh Bí Ẩn</strong>, <strong>Vượt Chướng Ngại Vật</strong> và đấu trường <strong>Săn Boss</strong>!
+            Mỗi chuyên đề kết hợp mảnh ghép số học, mê cung toán đố và màn trùm tổng hợp.
           </p>
         </div>
 
@@ -116,24 +116,24 @@ export const TopicSelectionView: React.FC<TopicSelectionViewProps> = ({
                   </p>
 
                   <div className="flex flex-wrap gap-2 text-[11px] font-semibold text-stone-400">
-                    <span className="px-2 py-0.5 rounded-lg bg-stone-800 border border-stone-700">
-                      {world.levels.length} Ải thử thách
+                    <span className="px-2.5 py-1 rounded-lg bg-stone-800 border border-stone-700">
+                      {world.levels.length} ải thử thách
                     </span>
-                    <span className="px-2 py-0.5 rounded-lg bg-stone-800 border border-stone-700">
-                      🖼️ Mảnh ghép + 🐿️ Mê cung + 👑 Boss
+                    <span className="px-2.5 py-1 rounded-lg bg-stone-800 border border-stone-700">
+                      Mảnh ghép • Mê cung • Trùm Boss
                     </span>
                   </div>
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-stone-800/80 flex items-center justify-between">
                   <span className="text-xs font-bold text-stone-400">
-                    {isCompleted ? '🏆 Đã hoàn thành xuất sắc' : isUnlocked ? 'Đang thám hiểm' : 'Chưa mở khóa'}
+                    {isCompleted ? 'Đã hoàn thành' : isUnlocked ? 'Đang thám hiểm' : 'Chưa mở khóa'}
                   </span>
 
                   {isUnlocked && (
                     <button
                       type="button"
-                      className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 group-hover:from-amber-400 group-hover:to-amber-500 text-stone-950 font-black text-xs uppercase tracking-wider shadow flex items-center gap-1.5 transition-transform active:scale-95"
+                      className="px-4 py-2 min-h-[44px] rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 group-hover:from-amber-400 group-hover:to-amber-500 text-stone-950 font-black text-xs uppercase tracking-wider shadow flex items-center gap-1.5 transition-transform active:scale-95"
                     >
                       <span>Vào Chuyên Đề</span>
                       <span>→</span>

@@ -30,12 +30,13 @@ export const LevelDetailModal: React.FC<LevelDetailModalProps> = ({
         }`}
       >
         {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full bg-stone-850 hover:bg-stone-750 text-stone-300 hover:text-white transition-colors"
-        >
-          <X className="w-5 h-5" />
-        </button>
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-2xl bg-stone-850 hover:bg-stone-750 text-stone-300 hover:text-white transition-colors active:scale-90"
+            title="Đóng"
+          >
+            <X className="w-5 h-5" />
+          </button>
 
         {/* Level Emblem / Avatar */}
         <div className="pt-2 pb-3">
@@ -103,7 +104,7 @@ export const LevelDetailModal: React.FC<LevelDetailModalProps> = ({
             <span className="text-stone-400">Mục tiêu:</span>
             <span className="font-bold text-amber-300">
               {isBoss
-                ? 'Đánh bại Boss toàn diện'
+                ? 'Hạ gục Boss để hoàn thành đề tổng hợp'
                 : isPicture
                 ? 'Lật mở 9 mảnh ghép kiệt tác'
                 : 'Dẫn sóc vượt mê cung tới rương'}

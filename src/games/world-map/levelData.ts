@@ -54,7 +54,7 @@ export function buildGameWorlds(): GameWorld[] {
       worldId: chap.id,
       levelNumber: levels.length + 1,
       title: `MÀN BOSS: ${bossMeta.name}`,
-      subtitle: bossMeta.bossType === 'midterm' ? 'Đề thi Giữa Kì tổng hợp' : bossMeta.bossType === 'final' ? 'Đề thi Học Kì toàn diện' : 'Đề tổng ôn chuyên đề',
+      subtitle: bossMeta.bossType === 'midterm' ? 'Đề thi Giữa Kì' : bossMeta.bossType === 'final' ? 'Đề thi Cuối Kì' : 'Đề tổng ôn chuyên đề',
       gameType: 'boss',
       isBoss: true,
       bossType: bossMeta.bossType,
