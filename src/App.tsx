@@ -10,7 +10,7 @@ import { useWorldProgress } from './games/world-map/useWorldProgress';
 import { GameLevel } from './games/world-map/types';
 import { TOAN7_QUESTIONS_DATABASE, TOAN7_EXAM_SETS } from './data/toan7/index';
 import { Question } from './types/exam';
-import { AnimeWorldBackground } from './components/background/AnimeWorldBackground';
+import { OnePieceWorldBackground } from './components/background/OnePieceWorldBackground';
 
 export default function App() {
   const [activeScreen, setActiveScreen] = useState<'lobby' | 'topic-select' | 'world-map' | 'treasure' | 'picture' | 'boss' | 'dashboard'>('lobby');
@@ -101,7 +101,7 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#07090e] text-zinc-100 font-sans selection:bg-amber-400 selection:text-zinc-950 overflow-x-hidden">
-      <AnimeWorldBackground />
+      <OnePieceWorldBackground />
       <main className="relative z-10 w-full min-h-screen">
         {activeScreen === 'lobby' && (
         <GameLobby

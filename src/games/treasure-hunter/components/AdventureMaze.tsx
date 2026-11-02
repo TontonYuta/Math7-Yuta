@@ -88,14 +88,14 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
                 }`}
                 title={`Tọa độ [${r + 1}, ${c + 1}]`}
               >
-                {/* 1. Player Pawn: Shinobi Pirate Hat */}
+                {/* 1. Player Pawn: Straw Hat (Luffy Mũ Rơm) */}
                 {isPlayer && (
                   <div className="flex items-center justify-center text-sm font-bold">
                     👒
                   </div>
                 )}
 
-                {/* 2. Goal: Treasure Chest One Piece */}
+                {/* 2. Goal: Kho báu One Piece */}
                 {!isPlayer && isChest && (
                   <div className="flex items-center justify-center text-sm animate-bounce">
                     📦
@@ -109,7 +109,7 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
                   </div>
                 )}
 
-                {/* 4. Question Barrier Node: Scroll / Jutsu */}
+                {/* 4. Question Barrier Node: Khối Poneglyph / Trạm gác Hải Quân */}
                 {!isPlayer && !isChest && !isBlocked && isQuestion && !isCompleted && (
                   <div className="flex items-center justify-center text-xs">
                     📜

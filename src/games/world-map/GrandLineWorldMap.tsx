@@ -3,16 +3,16 @@ import { GameWorld } from './types';
 import { getRealmMeta } from './levelData';
 import { MYSTERY_IMAGES } from '../mysterious-picture/mysteryImages';
 import { IslandMarker } from './IslandMarker';
-import { Compass, Swords, ArrowRight, Star } from 'lucide-react';
+import { Compass, Swords, ArrowRight, Star, ShieldAlert } from 'lucide-react';
 
-interface ShinobiGrandLineMapProps {
+interface GrandLineWorldMapProps {
   worlds: GameWorld[];
   activeWorldId: string;
   onSelectWorld: (worldId: string) => void;
   onEnterWorldTrail: (worldId: string) => void;
 }
 
-export const ShinobiGrandLineMap: React.FC<ShinobiGrandLineMapProps> = ({
+export const GrandLineWorldMap: React.FC<GrandLineWorldMapProps> = ({
   worlds,
   activeWorldId,
   onSelectWorld,
@@ -58,23 +58,23 @@ export const ShinobiGrandLineMap: React.FC<ShinobiGrandLineMapProps> = ({
           }}
         />
 
-        {/* Decorative Compass & Atmosphere */}
-        <div className="absolute top-4 left-4 flex items-center gap-2 pointer-events-none z-10 opacity-70">
-          <Compass className="w-5 h-5 text-amber-400/80 animate-[spin_60s_linear_infinite]" />
-          <span className="text-[11px] font-mono tracking-widest text-zinc-400 uppercase">
-            Hải Đồ Đại Hải Trình x Nhẫn Giới
+        {/* Decorative Compass & Log Pose Atmosphere */}
+        <div className="absolute top-4 left-4 flex items-center gap-2 pointer-events-none z-10 opacity-80">
+          <Compass className="w-5 h-5 text-amber-400 animate-[spin_60s_linear_infinite]" />
+          <span className="text-[11px] font-mono tracking-widest text-zinc-300 font-bold uppercase">
+            Hải Đồ Đại Hải Trình (Grand Line Map)
           </span>
         </div>
 
-        <div className="absolute top-4 right-4 pointer-events-none z-10 opacity-60">
-          <span className="text-[10px] font-mono text-zinc-500 uppercase px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800">
-            Log Pose Route • 10 Lãnh Địa
+        <div className="absolute top-4 right-4 pointer-events-none z-10 opacity-70">
+          <span className="text-[10px] font-mono text-amber-400 uppercase px-2.5 py-0.5 rounded bg-zinc-900/90 border border-amber-500/30">
+            Log Pose Route • 10 Vùng Biển
           </span>
         </div>
 
         {/* Calm Belt subtle indicators */}
-        <div className="absolute bottom-2 left-6 text-[9px] font-mono text-zinc-600 pointer-events-none">
-          Vành Đai Tĩnh Lặng (Calm Belt) • Vĩ Độ 0°00'N
+        <div className="absolute bottom-2 left-6 text-[9px] font-mono text-zinc-500 pointer-events-none">
+          Vành Đai Tĩnh Lặng (Calm Belt) • Vùng Trú Ngụ Của Vua Biển Sea Kings
         </div>
 
         {/* Grand Line Sea Route Vector Lines */}
@@ -92,7 +92,7 @@ export const ShinobiGrandLineMap: React.FC<ShinobiGrandLineMapProps> = ({
               <polyline
                 points={linePoints}
                 fill="none"
-                stroke="rgba(245, 158, 11, 0.7)"
+                stroke="rgba(245, 158, 11, 0.75)"
                 strokeWidth="2"
                 strokeDasharray="6 6"
                 strokeLinecap="round"
@@ -125,12 +125,12 @@ export const ShinobiGrandLineMap: React.FC<ShinobiGrandLineMapProps> = ({
       </div>
 
       {/* Selected Island Deep Dock Info Card */}
-      <div className="rounded-3xl bg-[#141620] border border-zinc-800/90 p-5 sm:p-6 shadow-xl flex flex-col md:flex-row items-center gap-6">
+      <div className="rounded-3xl bg-[#141624]/95 backdrop-blur-md border border-zinc-800 p-5 sm:p-6 shadow-xl flex flex-col md:flex-row items-center gap-6">
         {/* Island Anime Preview Thumbnail */}
         <div className="relative w-full md:w-56 h-36 rounded-2xl overflow-hidden border border-zinc-700/80 shrink-0 bg-zinc-900 shadow-md">
           <img
-            src={activeMysteryImg?.imageUrl || '/assets/anime/chap_1_naruto_luffy.jpg'}
-            alt={activeRealm.realmName}
+            src={activeMysteryImg?.imageUrl || '/assets/onepiece/op_01_east_blue.jpg'}
+            alt={activeRealm.sagaName}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
@@ -145,29 +145,35 @@ export const ShinobiGrandLineMap: React.FC<ShinobiGrandLineMapProps> = ({
           </div>
         </div>
 
-        {/* Island Details & Lore */}
-        <div className="flex-1 w-full space-y-2.5">
+        {/* Island Details & Canon Lore */}
+        <div className="flex-1 w-full space-y-2">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300">
+            <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-amber-300 font-bold">
               {activeRealm.islandCode}
             </span>
             <span className="text-xs font-mono text-zinc-400">
-              {activeWorld.levels ? activeWorld.levels.length : 0} Ải Vượt Thử Thách
+              {activeWorld.levels ? activeWorld.levels.length : 0} Ải Hải Trình
             </span>
           </div>
 
           <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight flex items-center gap-2">
             <span>{activeRealm.themeSymbol}</span>
-            <span>{activeRealm.realmName}</span>
+            <span>{activeRealm.sagaName}</span>
           </h2>
 
-          <p className="text-xs sm:text-sm text-zinc-300 font-medium">
+          <p className="text-xs sm:text-sm text-zinc-300 font-medium line-clamp-2">
             {activeWorld.shortName}: {activeWorld.description}
           </p>
 
-          <div className="flex items-center gap-2 text-xs text-red-400 font-mono pt-1">
-            <Swords className="w-4 h-4 shrink-0 text-red-400" />
-            <span>Trùm Cai Quản: <strong className="text-white">{activeRealm.bossName}</strong></span>
+          <div className="flex flex-wrap items-center gap-3 text-xs pt-1 font-mono">
+            <div className="flex items-center gap-1 text-red-400">
+              <Swords className="w-3.5 h-3.5 text-red-400" />
+              <span>Trùm: <strong className="text-white">{activeRealm.bossName}</strong></span>
+            </div>
+            <div className="flex items-center gap-1 text-amber-400">
+              <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+              <span>Tiền thưởng: <strong>{activeRealm.bountyReward}</strong></span>
+            </div>
           </div>
         </div>
 
@@ -182,7 +188,7 @@ export const ShinobiGrandLineMap: React.FC<ShinobiGrandLineMapProps> = ({
             <ArrowRight className="w-4 h-4" />
           </button>
           <span className="text-[10px] font-mono text-zinc-500">
-            Khám phá chi tiết các ải trên đảo
+            Giương buồm con tàu Thousand Sunny
           </span>
         </div>
       </div>

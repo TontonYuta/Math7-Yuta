@@ -76,10 +76,10 @@ export const MysteryHUD: React.FC<MysteryHUDProps> = ({
           </span>
         </div>
 
-        {/* Coins */}
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-850 border border-zinc-750 text-yellow-400 text-xs font-mono font-bold">
-          <Coins className="w-3.5 h-3.5" />
-          <span>{coins}</span>
+        {/* Berries (Beli) */}
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono font-bold shadow-sm">
+          <span className="text-amber-400 font-extrabold text-sm leading-none">฿</span>
+          <span>{coins.toLocaleString()}</span>
         </div>
       </div>
     </header>

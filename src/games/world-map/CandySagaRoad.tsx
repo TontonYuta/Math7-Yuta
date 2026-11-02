@@ -56,7 +56,7 @@ export const CandySagaRoad: React.FC<CandySagaRoadProps> = ({
                   >
                     <Swords className={`w-8 h-8 mb-1 ${isLocked ? 'text-zinc-600' : 'text-red-400'}`} />
                     <span className="text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-300">
-                      {isLocked ? 'KHÓA' : 'QUYẾT CHIẾN TRÙM'}
+                      {isLocked ? 'KHÓA' : 'QUYẾT ĐẤU TRÙM ARC'}
                     </span>
                   </div>
 
@@ -64,8 +64,8 @@ export const CandySagaRoad: React.FC<CandySagaRoadProps> = ({
                     <h4 className="text-xs font-bold text-white">
                       {level.bossName || level.title}
                     </h4>
-                    <span className="text-[10px] font-mono text-zinc-400 block">
-                      Đề tổng hợp & Thu phục Haki
+                    <span className="text-[10px] font-mono text-amber-400 block font-semibold">
+                      Đề tổng hợp • Nhận Bounty
                     </span>
                   </div>
                 </div>

@@ -90,7 +90,7 @@ export const IslandMarker: React.FC<IslandMarkerProps> = ({
               : 'bg-zinc-950/80 border-zinc-800 text-zinc-300 group-hover:text-white'
           }`}
         >
-          {realm.realmName}
+          {realm.sagaName}
         </div>
       </div>
     </div>

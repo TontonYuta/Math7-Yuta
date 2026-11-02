@@ -27,12 +27,14 @@ export const DashboardGalleryView: React.FC<DashboardGalleryViewProps> = ({
 
   const playerRank =
     progress.totalStars >= 60
-      ? 'Chuyên Gia Toán 7'
+      ? 'Vua Hải Tặc (Pirate King)'
+      : progress.totalStars >= 45
+      ? 'Tứ Hoàng (Yonko)'
       : progress.totalStars >= 30
-      ? 'Học Giả Toán Học'
-      : progress.totalStars >= 10
-      ? 'Học Viên Nòng Cốt'
-      : 'Thành Viên Mới';
+      ? 'Thất Vũ Hải (Shichibukai)'
+      : progress.totalStars >= 15
+      ? 'Siêu Tân Tinh (Supernova)'
+      : 'Tân Binh Biển Đông (Rookie)';
 
   const stats: DashboardStats = {
     totalStars: progress.totalStars,
@@ -52,13 +54,13 @@ export const DashboardGalleryView: React.FC<DashboardGalleryViewProps> = ({
     <div className="min-h-screen bg-transparent text-zinc-100 p-4 sm:p-8 select-none flex flex-col justify-between">
       <div className="max-w-4xl mx-auto w-full space-y-6">
         {/* Top Header */}
-        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#14161f] border border-zinc-800 rounded-2xl px-5 py-3.5 shadow-lg">
+        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#141624]/90 backdrop-blur-md border border-zinc-800 rounded-2xl px-5 py-3.5 shadow-xl">
           <button
             onClick={onBack}
             className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all active:scale-95 border border-zinc-700"
           >
             <ArrowLeft className="w-4 h-4 text-zinc-400" />
-            <span>Quay lại Bản đồ</span>
+            <span>Quay lại Hải Đồ</span>
           </button>
 
           {/* Clean Segmented Tabs */}
@@ -67,31 +69,31 @@ export const DashboardGalleryView: React.FC<DashboardGalleryViewProps> = ({
               onClick={() => setActiveTab('stats')}
               className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'stats'
-                  ? 'bg-zinc-100 text-zinc-950 font-bold shadow-sm'
+                  ? 'bg-amber-400 text-zinc-950 font-bold shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
               <BarChart3 className="w-3.5 h-3.5" />
-              <span>Báo Cáo Tiến Độ</span>
+              <span>Tiến Độ Hải Trình</span>
             </button>
 
             <button
               onClick={() => setActiveTab('gallery')}
               className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'gallery'
-                  ? 'bg-zinc-100 text-zinc-950 font-bold shadow-sm'
+                  ? 'bg-amber-400 text-zinc-950 font-bold shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
               <Image className="w-3.5 h-3.5" />
-              <span>Bộ Sưu Tập Tranh ({unlockedCount}/{MYSTERY_IMAGES.length})</span>
+              <span>Kho Báu Tranh ({unlockedCount}/{MYSTERY_IMAGES.length})</span>
             </button>
           </div>
 
-          {/* Coins Display */}
-          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-850 border border-zinc-750 text-yellow-400 text-xs font-mono font-bold">
-            <Coins className="w-3.5 h-3.5" />
-            <span>{playerCoins}</span>
+          {/* Berries Display */}
+          <div className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-zinc-850 border border-zinc-750 text-amber-300 text-xs font-mono font-bold">
+            <span className="text-sm font-black">฿</span>
+            <span>{playerCoins.toLocaleString()}</span>
           </div>
         </header>
 

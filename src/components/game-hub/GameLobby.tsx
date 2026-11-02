@@ -35,14 +35,14 @@ export const GameLobby: React.FC<GameLobbyProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-sm sm:text-base font-bold text-white tracking-wide">
-                  Đại Hải Trình x Nhẫn Giới Toán 7
+                  Đại Hải Trình Toán 7
                 </h2>
                 <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-amber-400/10 border border-amber-400/40 text-amber-300 font-bold">
-                  Shinobi Grand Line
+                  One Piece Grand Line
                 </span>
               </div>
               <p className="text-xs text-zinc-400">
-                10 Vùng đất Hải trình • Thu thập Khối Poneglyph & Nhẫn Thuật
+                10 Vùng biển Tân Thế Giới • Thu thập Khối Poneglyph & Truyền Thuyết Joy Boy
               </p>
             </div>
           </div>
@@ -80,13 +80,13 @@ export const GameLobby: React.FC<GameLobbyProps> = ({
           </div>
         </header>
 
-        {/* Hero Mission Card with Anime Wallpaper Accent */}
+        {/* Hero Mission Card with One Piece Wallpaper Accent */}
         <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#161a29]/95 via-[#111420]/95 to-[#0b0d16]/95 border border-zinc-800 p-6 sm:p-10 shadow-2xl backdrop-blur-md">
           {/* Subtle Right Background Artwork */}
           <div className="absolute -right-4 -bottom-4 w-96 h-full opacity-25 pointer-events-none overflow-hidden rounded-3xl hidden md:block">
             <img
-              src="/assets/anime/chap_1_naruto_luffy.jpg"
-              alt="Luffy and Naruto"
+              src="/assets/onepiece/op_01_east_blue.jpg"
+              alt="Straw Hat Pirates East Blue"
               className="w-full h-full object-cover object-top filter contrast-125"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#111420] via-transparent to-transparent" />
@@ -99,11 +99,11 @@ export const GameLobby: React.FC<GameLobbyProps> = ({
             </div>
 
             <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
-              Giương Buồm Chinh Phục Đại Hải Trình & Đỉnh Cao Nhẫn Giới
+              Giương Buồm Chinh Phục Đại Hải Trình & Kho Báu One Piece
             </h1>
 
             <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
-              Giải mã các khối đá Poneglyph số học, đột kích mê cung căn cứ pháo đài bằng bài toán thực tế và thách thức Trùm Tứ Hoàng bằng các đề thi tổng hợp.
+              Giải mã các khối đá Poneglyph số học, đột kích căn cứ hải tặc bằng bài toán thực tế và thách thức Trùm Tứ Hoàng bằng các đề thi toán tổng hợp.
             </p>
 
             <div className="pt-2">
@@ -128,7 +128,7 @@ export const GameLobby: React.FC<GameLobbyProps> = ({
             </div>
             <h3 className="text-sm font-bold text-white">Ải Lẻ: Giải Mã Poneglyph</h3>
             <p className="text-xs text-zinc-400 leading-relaxed">
-              Tính toán số học chuẩn xác trên lưới 9 ô để bẻ gãy phong ấn và mở khóa kiệt tác tranh anime độ nét cao.
+              Tính toán số học chuẩn xác trên lưới 9 ô để bẻ gãy phong ấn cổ đại và mở khóa kiệt tác tranh One Piece huyền thoại.
             </p>
           </div>
 
@@ -136,9 +136,9 @@ export const GameLobby: React.FC<GameLobbyProps> = ({
             <div className="w-9 h-9 rounded-xl bg-zinc-800/80 flex items-center justify-center text-blue-400 border border-blue-500/30 text-lg">
               🏯
             </div>
-            <h3 className="text-sm font-bold text-white">Ải Chẵn: Mê Cung Đột Kích</h3>
+            <h3 className="text-sm font-bold text-white">Ải Chẵn: Mê Cung Thâm Nhập</h3>
             <p className="text-xs text-zinc-400 leading-relaxed">
-              Điều khiển ninja/hải tặc luồn lách qua mê cung pháo đài, giải quyết các bài toán đố thực tế và thu thập rương báu.
+              Điều khiển hoa tiêu luồn lách qua mê cung tiền đồn, giải quyết các bài toán đố thực tế và thu thập rương kho báu.
             </p>
           </div>
 
@@ -148,7 +148,7 @@ export const GameLobby: React.FC<GameLobbyProps> = ({
             </div>
             <h3 className="text-sm font-bold text-white">Màn Boss: Đại Chiến Tứ Hoàng</h3>
             <p className="text-xs text-zinc-400 leading-relaxed">
-              Quyết chiến trùm cuối mỗi đảo với bộ đề ôn tập Giữa kì và Cuối kì, tôi luyện Haki và nhận thưởng huy hiệu tối thượng.
+              Quyết chiến trùm cuối mỗi Saga với bộ đề ôn tập Giữa kì và Cuối kì, tôi luyện Haki và nhận thưởng tiền truy nã khổng lồ.
             </p>
           </div>
         </section>
@@ -156,7 +156,7 @@ export const GameLobby: React.FC<GameLobbyProps> = ({
 
       {/* Footer */}
       <footer className="text-center py-4 text-xs text-zinc-500 font-mono">
-        Sản phẩm rèn luyện Toán 7 • Thiết kế theo phong cách Naruto x One Piece
+        Sản phẩm rèn luyện Toán 7 • Chủ đề Đại Hải Trình One Piece (Manga Eiichiro Oda)
       </footer>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GameWorld, GameLevel } from './types';
 import { CandySagaRoad } from './CandySagaRoad';
-import { ShinobiGrandLineMap } from './ShinobiGrandLineMap';
+import { GrandLineWorldMap } from './GrandLineWorldMap';
 import { LevelDetailModal } from './LevelDetailModal';
 import { Star, ArrowLeft, ChevronLeft, ChevronRight, BarChart3, Coins, Layers, Map as MapIcon, Route } from 'lucide-react';
 
@@ -100,10 +100,10 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
             <button
               onClick={onOpenDashboard}
               className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all active:scale-95 border border-zinc-700/80"
-              title="Bảng thống kê và bộ sưu tập tranh"
+              title="Kho báu và bộ sưu tập tranh"
             >
               <BarChart3 className="w-3.5 h-3.5 text-zinc-400" />
-              <span>Hồ sơ & Tranh</span>
+              <span>Kho Báu & Tranh</span>
             </button>
 
             <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-850 border border-zinc-700 text-amber-400 font-mono text-xs font-bold">
@@ -111,16 +111,16 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
               <span>{totalStars}</span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-850 border border-zinc-700 text-zinc-200 font-mono text-xs font-bold">
-              <Coins className="w-3.5 h-3.5 text-yellow-400" />
-              <span>{playerCoins}</span>
+            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-850 border border-zinc-700 text-amber-300 font-mono text-xs font-bold">
+              <span className="text-sm font-black">฿</span>
+              <span>{playerCoins.toLocaleString()}</span>
             </div>
           </div>
         </header>
 
-        {/* View Mode 1: Interactive Shinobi Grand Line Map */}
+        {/* View Mode 1: Interactive One Piece Grand Line Map */}
         {viewMode === 'grand-map' && (
-          <ShinobiGrandLineMap
+          <GrandLineWorldMap
             worlds={worlds}
             activeWorldId={currentWorldId}
             onSelectWorld={onSelectWorld}
@@ -191,8 +191,8 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
         />
       )}
 
-      <footer className="text-center py-4 text-xs text-zinc-600 font-mono">
-        Hệ thống Đại Hải Trình x Nhẫn Giới Toán 7 GDPT 2018
+      <footer className="text-center py-4 text-xs text-zinc-500 font-mono">
+        Hệ thống Đại Hải Trình One Piece Toán 7 • Chinh phục kho báu tri thức
       </footer>
     </div>
   );

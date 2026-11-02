@@ -127,9 +127,9 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
             </div>
           </div>
 
-          {/* Player Hearts / Chakra */}
+          {/* Player Hearts / Pirate Will */}
           <div className="flex flex-col items-end gap-1">
-            <span className="text-[10px] font-mono text-amber-400 font-bold uppercase">Chakra</span>
+            <span className="text-[10px] font-mono text-amber-400 font-bold uppercase">Ý Chí Hải Tặc</span>
             <div className="flex items-center gap-1">
               {Array.from({ length: 3 }).map((_, i) => (
                 <Heart
@@ -149,11 +149,11 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
           <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-zinc-850 border border-amber-400/50 flex items-center justify-center text-3xl shadow">
             👒
           </div>
-          <span className="text-xs font-mono text-amber-300 block font-bold">Chiến Binh Mũ Rơm</span>
+          <span className="text-xs font-mono text-amber-300 block font-bold">Thuyền Trưởng Mũ Rơm</span>
         </div>
 
-        <div className="text-red-400 font-mono text-xs uppercase tracking-widest px-2.5 py-1 rounded bg-red-950/40 border border-red-800/60 font-bold">
-          ⚡ HAKI ĐỐI ĐẦU ⚡
+        <div className="text-red-400 font-mono text-xs uppercase tracking-widest px-3 py-1 rounded bg-red-950/50 border border-red-800/80 font-bold shadow-[0_0_12px_rgba(239,68,68,0.3)]">
+          ⚡ ĐẠI CHIẾN HAKI BÁ VƯƠNG ⚡
         </div>
 
         {/* Boss */}

@@ -22,10 +22,10 @@ export const StatsCardGroup: React.FC<StatsCardGroupProps> = ({ stats }) => {
               <span className="px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-amber-400 font-mono text-[11px] font-bold uppercase">
                 {stats.playerRank}
               </span>
-              <span className="text-xs font-mono text-zinc-500">Toán 7 Tactical</span>
+              <span className="text-xs font-mono text-amber-300 font-bold">Lệnh Truy Nã Hải Tặc</span>
             </div>
             <h2 className="text-lg sm:text-xl font-bold text-white mt-1">
-              Bảng Tổng Kết Chiến Tích
+              Bảng Tổng Kết Chiến Tích Grand Line
             </h2>
             <p className="text-xs text-zinc-400">
               Tổng tiến độ hoàn thành chương trình: {percentComplete}%

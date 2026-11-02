@@ -19,10 +19,10 @@ export const GalleryGridView: React.FC<GalleryGridViewProps> = ({
         <div>
           <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
             <Image className="w-4 h-4 text-amber-400" />
-            <span>Bộ Sưu Tập Hình Ảnh Đã Mở Khóa</span>
+            <span>Kho Báu Kiệt Tác Tranh One Piece</span>
           </h3>
           <p className="text-xs text-zinc-400">
-            Đã mở khóa {unlockedImageIds.length} / {allImages.length} kiệt tác tranh Naruto x One Piece & toán học
+            Đã mở khóa {unlockedImageIds.length} / {allImages.length} kiệt tác tranh One Piece huyền thoại qua các ải Poneglyph
           </p>
         </div>
       </div>
