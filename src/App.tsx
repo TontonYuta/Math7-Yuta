@@ -100,9 +100,10 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen text-zinc-100 font-sans selection:bg-amber-400 selection:text-zinc-950">
+    <div className="relative min-h-screen bg-[#07090e] text-zinc-100 font-sans selection:bg-amber-400 selection:text-zinc-950 overflow-x-hidden">
       <AnimeWorldBackground />
-      {activeScreen === 'lobby' && (
+      <main className="relative z-10 w-full min-h-screen">
+        {activeScreen === 'lobby' && (
         <GameLobby
           onStartAdventure={() => setActiveScreen('world-map')}
           onOpenDashboard={() => setActiveScreen('dashboard')}
@@ -174,6 +175,7 @@ export default function App() {
           onBack={() => setActiveScreen('topic-select')}
         />
       )}
+      </main>
     </div>
   );
 }

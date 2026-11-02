@@ -23,15 +23,17 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-html.dark {
+html {
   color-scheme: dark;
 }
 
-body, #root {
+html, body, #root {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f8fafc;
-  color: #0f172a;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  background-color: #07090e !important;
+  color: #f4f4f5 !important;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -41,11 +43,6 @@ body, #root {
 button, input, optgroup, select, textarea {
   font-family: inherit;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-}
-
-html.dark body {
-  background-color: #09090b;
-  color: #f4f4f5;
 }
 
 /* KaTeX formula typography styling */
