@@ -6,12 +6,14 @@ interface GameLobbyProps {
   onStartAdventure: () => void;
   onOpenDashboard: () => void;
   playerCoins: number;
+  totalStars?: number;
 }
 
 export const GameLobby: React.FC<GameLobbyProps> = ({
   onStartAdventure,
   onOpenDashboard,
   playerCoins,
+  totalStars = 0,
 }) => {
   const [isMuted, setIsMuted] = React.useState(!soundFx.isSoundEnabled());
 
@@ -60,6 +62,12 @@ export const GameLobby: React.FC<GameLobbyProps> = ({
               <BarChart3 className="w-4 h-4 text-amber-300" />
               <span>Thống Kê & Tranh</span>
             </button>
+
+            {/* Stars */}
+            <div className="flex items-center gap-1.5 bg-amber-950/60 border border-amber-500/40 px-3.5 py-2 rounded-2xl text-amber-300 font-bold shadow-inner">
+              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+              <span className="font-mono text-sm sm:text-base font-black">{totalStars}</span>
+            </div>
 
             {/* Coins */}
             <div className="flex items-center gap-1.5 bg-yellow-950/60 border border-yellow-500/40 px-3.5 py-2 rounded-2xl text-yellow-300 font-bold shadow-inner">

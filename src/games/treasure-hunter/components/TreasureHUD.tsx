@@ -45,11 +45,11 @@ export const TreasureHUD: React.FC<TreasureHUDProps> = ({
         <div className="flex items-center gap-3">
           <button
             onClick={onExit}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-stone-800/80 hover:bg-stone-700 border-2 border-stone-600 text-stone-200 text-xs sm:text-sm font-black transition-all shadow-md active:scale-95"
-            title="Trở về Sảnh Trò Chơi"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-stone-800/80 hover:bg-stone-700 border-2 border-stone-600 text-stone-200 text-xs sm:text-sm font-black transition-all shadow-md active:scale-95 min-h-[44px]"
+            title="Trở về bản đồ phiêu lưu"
           >
             <ArrowLeft className="w-4 h-4 text-amber-400" />
-            <span className="hidden sm:inline">Sảnh Game</span>
+            <span>Về Bản Đồ</span>
           </button>
 
           <div>

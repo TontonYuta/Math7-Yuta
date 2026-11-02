@@ -9,12 +9,24 @@ import { soundFx } from '../../sound/soundFx';
 const INITIAL_TIME = 20 * 60; // 20 minutes in seconds
 const MAX_LIVES = 3;
 
-export function useMysteryGame(questionsPool: Question[]) {
+export function useMysteryGame(
+  questionsPool: Question[],
+  targetImageId?: string,
+  onVictory?: (score: number, stars: number) => void
+) {
   // Filter for arithmetic questions or fallback to entire pool
   const arithmeticPool = useMemo(() => {
     const filtered = questionsPool.filter((q) => q.gameCategory === 'arithmetic');
     return filtered.length >= 9 ? filtered : questionsPool;
   }, [questionsPool]);
+
+  const chosenImage = useMemo(() => {
+    if (targetImageId) {
+      const match = MYSTERY_IMAGES.find((img) => img.id === targetImageId);
+      if (match) return match;
+    }
+    return MYSTERY_IMAGES[0];
+  }, [targetImageId]);
 
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
 
@@ -44,7 +56,7 @@ export function useMysteryGame(questionsPool: Question[]) {
     const tiles = initTiles(arithmeticPool);
     return {
       tiles,
-      currentImage: MYSTERY_IMAGES[0],
+      currentImage: chosenImage,
       revealedCount: 0,
       totalTiles: 9,
       activeTile: null,
@@ -112,14 +124,19 @@ export function useMysteryGame(questionsPool: Question[]) {
           if (isWon) {
             soundFx.playVictory();
             confetti({ particleCount: 200, spread: 100, origin: { y: 0.5 } });
+            const finalScore = prev.score + 15 + 50;
+            const finalStars = prev.lives >= 2 ? 3 : 2;
+            if (onVictory) {
+              onVictory(finalScore, finalStars);
+            }
           }
 
           return {
             ...prev,
             tiles: newTiles,
             revealedCount: newRevealed,
-            score: prev.score + 15,
-            coins: prev.coins + 25,
+            score: prev.score + 15 + (isWon ? 50 : 0),
+            coins: prev.coins + 25 + (isWon ? 50 : 0),
             activeTile: null,
             status: isWon ? 'won' : prev.status,
           };

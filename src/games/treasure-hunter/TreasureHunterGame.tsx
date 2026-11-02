@@ -10,11 +10,13 @@ import { AlertCircle, CheckCircle } from 'lucide-react';
 interface TreasureHunterGameProps {
   questionsPool: Question[];
   onExit: () => void;
+  onCompleteLevel?: (score: number, stars: number) => void;
 }
 
 export const TreasureHunterGame: React.FC<TreasureHunterGameProps> = ({
   questionsPool,
   onExit,
+  onCompleteLevel,
 }) => {
   const {
     gameState,
@@ -24,7 +26,7 @@ export const TreasureHunterGame: React.FC<TreasureHunterGameProps> = ({
     submitAnswer,
     closeQuestionModal,
     restartGame,
-  } = useTreasureGame(questionsPool);
+  } = useTreasureGame(questionsPool, onCompleteLevel);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-stone-950 via-stone-900 to-black text-stone-100 flex flex-col p-2 sm:p-5 select-none">

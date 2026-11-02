@@ -8,12 +8,14 @@ import { MathChallengeModal } from '../treasure-hunter/components/MathChallengeM
 
 interface MysteriousPictureGameProps {
   questionsPool: Question[];
+  targetImageId?: string;
   onExit: () => void;
   onCompleteLevel?: (score: number, stars: number) => void;
 }
 
 export const MysteriousPictureGame: React.FC<MysteriousPictureGameProps> = ({
   questionsPool,
+  targetImageId,
   onExit,
   onCompleteLevel,
 }) => {
@@ -23,7 +25,7 @@ export const MysteriousPictureGame: React.FC<MysteriousPictureGameProps> = ({
     handleCloseModal,
     handleSubmitAnswer,
     restartGame,
-  } = useMysteryGame(questionsPool);
+  } = useMysteryGame(questionsPool, targetImageId, onCompleteLevel);
 
   const {
     tiles,

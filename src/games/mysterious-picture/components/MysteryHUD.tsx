@@ -35,10 +35,11 @@ export const MysteryHUD: React.FC<MysteryHUDProps> = ({
       {/* Exit Button */}
       <button
         onClick={onExit}
-        className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-stone-800 hover:bg-stone-700 border border-stone-600 text-stone-200 text-xs sm:text-sm font-black transition-all active:scale-95"
+        className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-stone-800 hover:bg-stone-700 border border-stone-600 text-stone-200 text-xs sm:text-sm font-black transition-all active:scale-95 min-h-[44px]"
+        title="Trở về bản đồ phiêu lưu"
       >
         <ArrowLeft className="w-4 h-4 text-amber-400" />
-        <span>Rút lui</span>
+        <span>Về Bản Đồ</span>
       </button>
 
       {/* Center Image Mission Info */}

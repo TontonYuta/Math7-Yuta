@@ -105,6 +105,7 @@ export default function App() {
           onStartAdventure={() => setActiveScreen('topic-select')}
           onOpenDashboard={() => setActiveScreen('dashboard')}
           playerCoins={playerCoins}
+          totalStars={totalStars}
         />
       )}
 
@@ -140,12 +141,14 @@ export default function App() {
         <TreasureHunterGame
           questionsPool={wordProblemQuestions}
           onExit={() => setActiveScreen('world-map')}
+          onCompleteLevel={handleTreasureVictory}
         />
       )}
 
       {activeScreen === 'picture' && (
         <MysteriousPictureGame
           questionsPool={arithmeticQuestions}
+          targetImageId={selectedLevel?.galleryImageId}
           onExit={() => setActiveScreen('world-map')}
           onCompleteLevel={handlePictureVictory}
         />

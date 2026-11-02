@@ -9,7 +9,10 @@ import { soundFx } from '../../sound/soundFx';
 const INITIAL_TIME = 20 * 60; // 20 minutes
 const MAX_LIVES = 3;
 
-export function useTreasureGame(questionsPool: Question[]) {
+export function useTreasureGame(
+  questionsPool: Question[],
+  onVictory?: (score: number, stars: number) => void
+) {
   const [gameState, setGameState] = useState<TreasureGameState>(() => {
     const { grid, playerPos, chestPos } = generateTreasureMaze(questionsPool);
     return {
@@ -92,14 +95,19 @@ export function useTreasureGame(questionsPool: Question[]) {
       if (cell.row === chestPos.row && cell.col === chestPos.col) {
         soundFx.playVictory();
         confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+        const finalScore = gameState.score + 50;
+        const finalStars = gameState.lives === 3 ? 3 : gameState.lives === 2 ? 2 : 1;
         setGameState((prev) => ({
           ...prev,
           playerPos: { row: cell.row, col: cell.col },
-          score: prev.score + 50,
+          score: finalScore,
           coins: prev.coins + 100,
           status: 'won',
           stepsTaken: prev.stepsTaken + 1,
         }));
+        if (onVictory) {
+          onVictory(finalScore, finalStars);
+        }
         return;
       }
 
@@ -137,7 +145,7 @@ export function useTreasureGame(questionsPool: Question[]) {
         confetti({ particleCount: 70, spread: 60, origin: { y: 0.65 } });
         setFeedback({
           type: 'correct',
-          message: '🌟 Xuất sắc! Đường đi đã được mở khóa (+10 điểm, +15 xu)',
+          message: 'Đường đi đã được mở khóa (+10 điểm, +15 xu)',
         });
 
         setGameState((prev) => {
