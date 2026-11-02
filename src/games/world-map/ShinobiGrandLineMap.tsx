@@ -1,0 +1,181 @@
+import React from 'react';
+import { GameWorld, GameLevel } from './types';
+import { ANIME_REALMS_CONFIG } from './levelData';
+import { MYSTERY_IMAGES } from '../mysterious-picture/mysteryImages';
+import { IslandMarker } from './IslandMarker';
+import { Compass, Swords, ArrowRight, Shield, Star, Sparkles } from 'lucide-react';
+
+interface ShinobiGrandLineMapProps {
+  worlds: GameWorld[];
+  activeWorldId: string;
+  onSelectWorld: (worldId: string) => void;
+  onEnterWorldTrail: (worldId: string) => void;
+}
+
+export const ShinobiGrandLineMap: React.FC<ShinobiGrandLineMapProps> = ({
+  worlds,
+  activeWorldId,
+  onSelectWorld,
+  onEnterWorldTrail,
+}) => {
+  const activeWorld = worlds.find((w) => w.id === activeWorldId) || worlds[0];
+  const activeIdx = worlds.findIndex((w) => w.id === activeWorld.id);
+  const activeRealm = ANIME_REALMS_CONFIG[activeWorld.id];
+  const activeMysteryImg = MYSTERY_IMAGES[activeIdx % MYSTERY_IMAGES.length];
+
+  const worldStars = activeWorld.levels.reduce((acc, l) => acc + l.starsEarned, 0);
+  const maxWorldStars = activeWorld.levels.length * 3;
+
+  // Path coordinates for connecting the 10 islands sequentially
+  const linePoints = worlds
+    .map((w) => {
+      const cfg = ANIME_REALMS_CONFIG[w.id];
+      return cfg ? `${cfg.mapCoords.x},${cfg.mapCoords.y}` : null;
+    })
+    .filter(Boolean)
+    .join(' ');
+
+  return (
+    <div className="relative w-full flex flex-col gap-6 select-none">
+      {/* Visual Canvas Area */}
+      <div className="relative w-full h-[430px] sm:h-[480px] rounded-3xl overflow-hidden border border-zinc-800/90 bg-[#090b11] shadow-2xl">
+        {/* Ocean Grid Background & Vignette */}
+        <div
+          className="absolute inset-0 opacity-20 pointer-events-none"
+          style={{
+            backgroundImage: `radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.15) 0%, transparent 70%),
+              linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)`,
+            backgroundSize: '100% 100%, 40px 40px, 40px 40px',
+          }}
+        />
+
+        {/* Decorative Compass & Atmosphere */}
+        <div className="absolute top-4 left-4 flex items-center gap-2 pointer-events-none z-10 opacity-70">
+          <Compass className="w-5 h-5 text-amber-400/80 animate-[spin_60s_linear_infinite]" />
+          <span className="text-[11px] font-mono tracking-widest text-zinc-400 uppercase">
+            Hải Đồ Đại Hải Trình x Nhẫn Giới
+          </span>
+        </div>
+
+        <div className="absolute top-4 right-4 pointer-events-none z-10 opacity-60">
+          <span className="text-[10px] font-mono text-zinc-500 uppercase px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800">
+            Log Pose Route • 10 Lãnh Địa
+          </span>
+        </div>
+
+        {/* Calm Belt subtle indicators */}
+        <div className="absolute bottom-2 left-6 text-[9px] font-mono text-zinc-600 pointer-events-none">
+          Vành Đai Tĩnh Lặng (Calm Belt) • Vĩ Độ 0°00'N
+        </div>
+
+        {/* Grand Line Sea Route Vector Lines */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
+          {/* Outer glow line */}
+          <polyline
+            points={linePoints}
+            fill="none"
+            stroke="rgba(245, 158, 11, 0.2)"
+            strokeWidth="6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          {/* Main dashed nautical path */}
+          <polyline
+            points={linePoints}
+            fill="none"
+            stroke="rgba(245, 158, 11, 0.7)"
+            strokeWidth="2"
+            strokeDasharray="6 6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+
+        {/* 10 Island Markers on the Map */}
+        {worlds.map((world, idx) => {
+          const wStars = world.levels.reduce((acc, l) => acc + l.starsEarned, 0);
+          const maxStars = world.levels.length * 3;
+          const isUnlocked = world.levels.some((l) => l.isUnlocked);
+          const isCompleted = wStars === maxStars && maxStars > 0;
+
+          return (
+            <IslandMarker
+              key={world.id}
+              world={world}
+              isActive={world.id === activeWorld.id}
+              isUnlocked={isUnlocked}
+              isCompleted={isCompleted}
+              totalWorldStars={wStars}
+              maxWorldStars={maxStars}
+              onSelect={onSelectWorld}
+            />
+          );
+        })}
+      </div>
+
+      {/* Selected Island Deep Dock Info Card */}
+      <div className="rounded-3xl bg-[#141620] border border-zinc-800/90 p-5 sm:p-6 shadow-xl flex flex-col md:flex-row items-center gap-6">
+        {/* Island Anime Preview Thumbnail */}
+        <div className="relative w-full md:w-56 h-36 rounded-2xl overflow-hidden border border-zinc-700/80 shrink-0 bg-zinc-900 shadow-md">
+          <img
+            src={activeMysteryImg.imageUrl}
+            alt={activeRealm.realmName}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
+          <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900/90 border border-zinc-700 text-amber-400 font-bold">
+              Hải Trình {activeIdx + 1}
+            </span>
+            <span className="text-[10px] font-mono text-zinc-300 flex items-center gap-1">
+              <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+              <span>{worldStars}/{maxWorldStars}</span>
+            </span>
+          </div>
+        </div>
+
+        {/* Island Details & Lore */}
+        <div className="flex-1 w-full space-y-2.5">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300">
+              {activeRealm.islandCode}
+            </span>
+            <span className="text-xs font-mono text-zinc-400">
+              {activeWorld.levels.length} Ải Vượt Thử Thách
+            </span>
+          </div>
+
+          <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight flex items-center gap-2">
+            <span>{activeRealm.themeSymbol}</span>
+            <span>{activeRealm.realmName}</span>
+          </h2>
+
+          <p className="text-xs sm:text-sm text-zinc-300 font-medium">
+            {activeWorld.shortName}: {activeWorld.description}
+          </p>
+
+          <div className="flex items-center gap-2 text-xs text-red-400 font-mono pt-1">
+            <Swords className="w-4 h-4 shrink-0 text-red-400" />
+            <span>Trùm Cai Quản: <strong className="text-white">{activeRealm.bossName}</strong></span>
+          </div>
+        </div>
+
+        {/* Action Button */}
+        <div className="w-full md:w-auto shrink-0 flex flex-col items-center gap-2">
+          <button
+            type="button"
+            onClick={() => onEnterWorldTrail(activeWorld.id)}
+            className="w-full md:w-auto px-6 py-3.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-zinc-950 font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95"
+          >
+            <span>Cập Bến & Vượt Ải</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+          <span className="text-[10px] font-mono text-zinc-500">
+            Khám phá chi tiết các ải trên đảo
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};

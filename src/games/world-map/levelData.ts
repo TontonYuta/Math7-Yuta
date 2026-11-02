@@ -2,25 +2,136 @@ import { GameWorld, GameLevel } from './types';
 import { TOAN7_CHAPTERS_METADATA } from '../../data/toan7/chaptersMetadata';
 import { MYSTERY_IMAGES } from '../mysterious-picture/mysteryImages';
 
-const WORLD_ICONS = ['🏝️', '🌲', '📐', '🏛️', '📊', '⚖️', '🏰', '🎲', '⛰️', '🪐'];
-const BOSS_TITLES: Record<string, { name: string; icon: string; examSetId: string; bossType: 'topic' | 'midterm' | 'final' }> = {
-  chuong_1_so_huu_ti: { name: 'Trùm Rồng Số Hữu Tỉ', icon: '🐉', examSetId: 'toan7_pt_01', bossType: 'topic' },
-  chuong_2_so_thuc: { name: 'Đại Tướng Căn Bậc Hai', icon: '👹', examSetId: 'toan7_pt_02', bossType: 'midterm' },
-  chuong_3_goc_song_song: { name: 'Thần Thú Góc Song Song', icon: '🦅', examSetId: 'toan7_pt_02', bossType: 'midterm' },
-  chuong_4_tam_giac_bang_nhau: { name: 'Chúa Tể Tam Giác Bằng Nhau', icon: '🛡️', examSetId: 'toan7_pt_03', bossType: 'final' },
-  chuong_5_thu_thap_du_lieu: { name: 'Đại Ma Vương Học Kì 1', icon: '👑', examSetId: 'toan7_pt_03', bossType: 'final' },
-  chuong_6_ti_le_thuc: { name: 'Dị Nhân Tỉ Lệ Thức', icon: '⚖️', examSetId: 'toan7_pt_04', bossType: 'midterm' },
-  chuong_7_bieu_thuc_dai_so: { name: 'Hắc Ma Đa Thức Một Biến', icon: '🧙‍♂️', examSetId: 'toan7_pt_04', bossType: 'midterm' },
-  chuong_8_bien_co_xac_suat: { name: 'Quái Thú Xác Suất May Rủi', icon: '🎲', examSetId: 'toan7_pt_05', bossType: 'final' },
-  chuong_9_quan_he_tam_giac: { name: 'Vệ Binh Đường Đồng Quy', icon: '⚔️', examSetId: 'toan7_pt_05', bossType: 'final' },
-  chuong_10_hinh_khoi_thuc_tien: { name: 'Long Vương Cuối Kì 2 (Điểm 10)', icon: '🐲', examSetId: 'toan7_pt_06', bossType: 'final' },
+export interface AnimeWorldMeta {
+  realmName: string;
+  islandCode: string;
+  themeSymbol: string;
+  bossName: string;
+  bossIcon: string;
+  bossType: 'topic' | 'midterm' | 'final';
+  examSetId: string;
+  mapCoords: { x: number; y: number }; // Percentage on Grand Line Map canvas
+}
+
+export const ANIME_REALMS_CONFIG: Record<string, AnimeWorldMeta> = {
+  chuong_1_so_huu_ti: {
+    realmName: 'Làng Cối Xay Gió & Làng Lá',
+    islandCode: 'KONOHA_FOOSHA',
+    themeSymbol: '🍃',
+    bossName: 'Liên Minh Buggy & Quỷ Kiếm Zabuza',
+    bossIcon: '⚔️',
+    bossType: 'topic',
+    examSetId: 'toan7_pt_01',
+    mapCoords: { x: 12, y: 78 },
+  },
+  chuong_2_so_thuc: {
+    realmName: 'Sa Mạc Alabasta & Làng Cát',
+    islandCode: 'ALABASTA_SUNA',
+    themeSymbol: '🏜️',
+    bossName: 'Chúa Tể Cát Crocodile & Gaara',
+    bossIcon: '🦂',
+    bossType: 'midterm',
+    examSetId: 'toan7_pt_02',
+    mapCoords: { x: 25, y: 62 },
+  },
+  chuong_3_goc_song_song: {
+    realmName: 'Đảo Trên Trời Skypiea & Làng Mây',
+    islandCode: 'SKYPIEA_KUMO',
+    themeSymbol: '⚡',
+    bossName: 'Lôi Thần Enel & Raikage Đệ Tứ',
+    bossIcon: '⚡',
+    bossType: 'midterm',
+    examSetId: 'toan7_pt_02',
+    mapCoords: { x: 38, y: 35 },
+  },
+  chuong_4_tam_giac_bang_nhau: {
+    realmName: 'Đảo Tư Pháp Enies Lobby & Thủy Quốc',
+    islandCode: 'ENIES_LOBBY',
+    themeSymbol: '⚖️',
+    bossName: 'Thủ Lĩnh Lục Thức Rob Lucci CP9',
+    bossIcon: '🐆',
+    bossType: 'final',
+    examSetId: 'toan7_pt_03',
+    mapCoords: { x: 50, y: 58 },
+  },
+  chuong_5_thu_thap_du_lieu: {
+    realmName: 'Quần Đảo Sabaody & Rừng Cây Khổng Lồ',
+    islandCode: 'SABAODY_FOREST',
+    themeSymbol: '🌳',
+    bossName: 'Đô Đốc Ánh Sáng Kizaru & Orochimaru',
+    bossIcon: '✨',
+    bossType: 'final',
+    examSetId: 'toan7_pt_03',
+    mapCoords: { x: 62, y: 74 },
+  },
+  chuong_6_ti_le_thuc: {
+    realmName: 'Nhà Ngục Đại Tầng Impel Down',
+    islandCode: 'IMPEL_DOWN',
+    themeSymbol: '⛓️',
+    bossName: 'Giám Ngục Độc Dược Magellan',
+    bossIcon: '☠️',
+    bossType: 'midterm',
+    examSetId: 'toan7_pt_04',
+    mapCoords: { x: 55, y: 88 },
+  },
+  chuong_7_bieu_thuc_dai_so: {
+    realmName: 'Tổng Bộ Hải Quân Marineford & Hội Nghị Kage',
+    islandCode: 'MARINEFORD',
+    themeSymbol: '⚓',
+    bossName: 'Đại Đô Đốc Akainu & Lãnh Đạo Danzo',
+    bossIcon: '🌋',
+    bossType: 'midterm',
+    examSetId: 'toan7_pt_04',
+    mapCoords: { x: 68, y: 44 },
+  },
+  chuong_8_bien_co_xac_suat: {
+    realmName: 'Đảo Người Cá Biển Sâu & Làng Mưa Ame',
+    islandCode: 'FISHMAN_AME',
+    themeSymbol: '🌧️',
+    bossName: 'Thần Tượng Pain Lục Đạo Luân Hồi',
+    bossIcon: '👁️',
+    bossType: 'final',
+    examSetId: 'toan7_pt_05',
+    mapCoords: { x: 78, y: 68 },
+  },
+  chuong_9_quan_he_tam_giac: {
+    realmName: 'Vương Quốc Wano & Thung Lũng Tận Cùng',
+    islandCode: 'WANO_KUNI',
+    themeSymbol: '🐲',
+    bossName: 'Tứ Hoàng Kaido & Uchiha Madara Susanoo',
+    bossIcon: '🔥',
+    bossType: 'final',
+    examSetId: 'toan7_pt_05',
+    mapCoords: { x: 88, y: 42 },
+  },
+  chuong_10_hinh_khoi_thuc_tien: {
+    realmName: 'Đảo Kho Báu Laugh Tale & Lục Đạo Hiền Nhân',
+    islandCode: 'LAUGH_TALE',
+    themeSymbol: '👑',
+    bossName: 'Vua Hải Tặc Roger & Lục Đạo Tiên Nhân',
+    bossIcon: '🌟',
+    bossType: 'final',
+    examSetId: 'toan7_pt_06',
+    mapCoords: { x: 92, y: 18 },
+  },
 };
 
 export function buildGameWorlds(): GameWorld[] {
   return TOAN7_CHAPTERS_METADATA.map((chap, chapIdx) => {
+    const realmMeta = ANIME_REALMS_CONFIG[chap.id] || {
+      realmName: chap.shortName,
+      islandCode: `ISLAND_${chapIdx + 1}`,
+      themeSymbol: '🧭',
+      bossName: `Đại Tướng Lĩnh ${chap.shortName}`,
+      bossIcon: '👑',
+      bossType: 'topic' as const,
+      examSetId: 'toan7_pt_01',
+      mapCoords: { x: 10 + chapIdx * 8, y: 50 },
+    };
+
     const worldImage = MYSTERY_IMAGES[chapIdx % MYSTERY_IMAGES.length];
 
-    // Alternating levels within each chapter: Picture -> Treasure -> Picture -> Treasure ...
+    // Alternating levels within each chapter
     const levels: GameLevel[] = chap.topics.map((top, topIdx) => {
       const isPicture = topIdx % 2 === 0;
       const gameType = isPicture ? 'picture' : 'treasure';
@@ -29,8 +140,12 @@ export function buildGameWorlds(): GameWorld[] {
         id: `${chap.id}_lvl_${topIdx + 1}`,
         worldId: chap.id,
         levelNumber: topIdx + 1,
-        title: isPicture ? `Ải ${topIdx + 1}: Mảnh Ghép ${top.shortName}` : `Ải ${topIdx + 1}: Mê Cung ${top.shortName}`,
-        subtitle: isPicture ? 'Tính toán số học để lật mở kiệt tác tranh bí ẩn' : 'Vượt chướng ngại vật & giải toán đố lời văn',
+        title: isPicture
+          ? `Ải ${topIdx + 1}: Giải Mã Poneglyph - ${top.shortName}`
+          : `Ải ${topIdx + 1}: Đột Kích Căn Cứ - ${top.shortName}`,
+        subtitle: isPicture
+          ? 'Giải toán số học mở khóa phong ấn tranh huyền thoại'
+          : 'Vượt chướng ngại vật & giải bài toán đố lời văn',
         topicId: top.id,
         gameType,
         galleryImageId: isPicture ? worldImage.id : undefined,
@@ -42,25 +157,23 @@ export function buildGameWorlds(): GameWorld[] {
     });
 
     // Append Boss Level
-    const bossMeta = BOSS_TITLES[chap.id] || {
-      name: `Boss Tổng Hợp ${chap.shortName}`,
-      icon: '👑',
-      examSetId: 'toan7_pt_01',
-      bossType: 'topic' as const,
-    };
-
     levels.push({
       id: `${chap.id}_boss`,
       worldId: chap.id,
       levelNumber: levels.length + 1,
-      title: `MÀN BOSS: ${bossMeta.name}`,
-      subtitle: bossMeta.bossType === 'midterm' ? 'Đề thi Giữa Kì' : bossMeta.bossType === 'final' ? 'Đề thi Cuối Kì' : 'Đề tổng ôn chuyên đề',
+      title: `QUYẾT CHIẾN TRÙM: ${realmMeta.bossName}`,
+      subtitle:
+        realmMeta.bossType === 'midterm'
+          ? 'Chiến dịch đề thi Giữa Kì trọng tâm'
+          : realmMeta.bossType === 'final'
+          ? 'Đại chiến đề thi Cuối Kì toàn diện'
+          : 'Tổng ôn chuyên đề & thu phục Haki Bá Vương',
       gameType: 'boss',
       isBoss: true,
-      bossType: bossMeta.bossType,
-      bossName: bossMeta.name,
-      bossIcon: bossMeta.icon,
-      examSetId: bossMeta.examSetId,
+      bossType: realmMeta.bossType,
+      bossName: realmMeta.bossName,
+      bossIcon: realmMeta.bossIcon,
+      examSetId: realmMeta.examSetId,
       starsEarned: 0,
       isUnlocked: false,
       highscore: 0,
@@ -69,11 +182,11 @@ export function buildGameWorlds(): GameWorld[] {
     return {
       id: chap.id,
       worldNumber: chapIdx + 1,
-      name: `Thế Giới ${chapIdx + 1}: ${chap.shortName}`,
+      name: `Hải Trình ${chapIdx + 1}: ${realmMeta.realmName}`,
       shortName: chap.shortName,
-      description: chap.description,
+      description: `${chap.description} • Căn cứ: ${realmMeta.realmName}`,
       color: chap.color,
-      themeIcon: WORLD_ICONS[chapIdx % WORLD_ICONS.length],
+      themeIcon: realmMeta.themeSymbol,
       levels,
     };
   });

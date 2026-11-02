@@ -102,7 +102,7 @@ export default function App() {
     <div className="min-h-screen bg-[#0c0d12] text-zinc-100 font-sans selection:bg-amber-400 selection:text-zinc-950">
       {activeScreen === 'lobby' && (
         <GameLobby
-          onStartAdventure={() => setActiveScreen('topic-select')}
+          onStartAdventure={() => setActiveScreen('world-map')}
           onOpenDashboard={() => setActiveScreen('dashboard')}
           playerCoins={playerCoins}
           totalStars={totalStars}

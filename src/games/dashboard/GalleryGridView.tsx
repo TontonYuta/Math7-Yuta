@@ -22,7 +22,7 @@ export const GalleryGridView: React.FC<GalleryGridViewProps> = ({
             <span>Bộ Sưu Tập Hình Ảnh Đã Mở Khóa</span>
           </h3>
           <p className="text-xs text-zinc-400">
-            Đã mở khóa {unlockedImageIds.length} / {allImages.length} hình ảnh chủ đề danh lam và toán học
+            Đã mở khóa {unlockedImageIds.length} / {allImages.length} kiệt tác tranh Naruto x One Piece & toán học
           </p>
         </div>
       </div>
@@ -87,7 +87,7 @@ export const GalleryGridView: React.FC<GalleryGridViewProps> = ({
                   {img.title}
                 </h4>
                 <p className="text-[11px] text-zinc-400 line-clamp-2">
-                  {isUnlocked ? img.description : 'Giải ải Mảnh Ghép Số Học để mở khóa hình ảnh này.'}
+                  {isUnlocked ? img.description : 'Giải ải Ma Trận Poneglyph để mở khóa kiệt tác này.'}
                 </p>
               </div>
             </div>
