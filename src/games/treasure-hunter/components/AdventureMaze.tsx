@@ -1,7 +1,7 @@
 import React from 'react';
 import { MazeCell, Position } from '../types';
 import { GRID_SIZE } from '../mazeGenerator';
-import { Sparkles, Lock, Footprints } from 'lucide-react';
+import { Lock, Target, HelpCircle, User } from 'lucide-react';
 
 interface AdventureMazeProps {
   grid: MazeCell[][];
@@ -26,22 +26,21 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
 
   return (
     <div
-      className={`relative w-full max-w-xl mx-auto p-3 sm:p-5 bg-gradient-to-b from-stone-900 via-stone-950 to-black rounded-3xl border-4 border-amber-800/80 shadow-2xl transition-transform duration-200 select-none ${
+      className={`relative w-full max-w-xl mx-auto p-4 bg-[#14161f] rounded-2xl border border-zinc-800 shadow-xl transition-transform select-none ${
         shake ? 'animate-shake' : ''
       }`}
     >
-      {/* Wooden Frame Header Tag */}
-      <div className="flex items-center justify-between pb-3 px-2 border-b border-amber-900/40 text-xs font-bold text-amber-300">
-        <span className="flex items-center gap-1.5">
-          <Footprints className="w-4 h-4 text-amber-500" />
-          <span>Bấm ô kề bên để dẫn đường cho sóc thợ mỏ</span>
+      {/* Maze Header */}
+      <div className="flex items-center justify-between pb-3 px-1 border-b border-zinc-800 text-xs text-zinc-400">
+        <span className="font-mono">
+          Nhấp vào ô liền kề để di chuyển dũng sĩ
         </span>
-        <span className="text-stone-400 font-mono">Bản đồ 8x8</span>
+        <span className="font-mono text-zinc-500">Lưới 8x8</span>
       </div>
 
       {/* Grid Canvas */}
       <div
-        className="grid gap-1 sm:gap-2 p-2 sm:p-3 mt-3 bg-stone-900/90 rounded-2xl border-2 border-stone-800 shadow-inner aspect-square"
+        className="grid gap-1.5 p-2.5 mt-3 bg-[#0d0e14] rounded-xl border border-zinc-800/80 aspect-square"
         style={{
           gridTemplateColumns: `repeat(${GRID_SIZE}, minmax(0, 1fr))`,
           gridTemplateRows: `repeat(${GRID_SIZE}, minmax(0, 1fr))`,
@@ -59,20 +58,20 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
 
             const canClick = adjacent && !isObstacle && !isBlocked;
 
-            let tileStyle = 'bg-stone-800/70 border-stone-700/50';
+            let tileStyle = 'bg-[#181a24] border-zinc-800/60 text-zinc-600';
 
             if (isObstacle) {
-              tileStyle = 'bg-emerald-950/90 border-emerald-800/60 shadow-inner';
+              tileStyle = 'bg-zinc-900 border-zinc-850 opacity-40';
             } else if (isBlocked) {
-              tileStyle = 'bg-red-950/90 border-red-800/70 opacity-90';
+              tileStyle = 'bg-red-950/40 border-red-800/50 text-red-400';
             } else if (isPlayer) {
-              tileStyle = 'bg-amber-500/30 border-amber-400 ring-2 ring-amber-400 ring-offset-2 ring-offset-stone-900 z-10';
+              tileStyle = 'bg-sky-500/20 border-sky-400 ring-2 ring-sky-400/50 z-10 text-white';
             } else if (isChest) {
-              tileStyle = 'bg-yellow-500/20 border-yellow-400 animate-pulse';
+              tileStyle = 'bg-amber-500/20 border-amber-400 text-amber-300';
             } else if (canClick && isQuestion && !isCompleted) {
-              tileStyle = 'bg-amber-600/40 border-amber-400 hover:bg-amber-500/50 ring-2 ring-amber-400/80 cursor-pointer animate-pulse';
+              tileStyle = 'bg-amber-950/30 border-amber-500/80 hover:bg-amber-950/50 text-amber-400 cursor-pointer animate-pulse';
             } else if (canClick) {
-              tileStyle = 'bg-stone-700/90 border-amber-500/60 hover:bg-stone-600 cursor-pointer shadow-md';
+              tileStyle = 'bg-zinc-800 border-zinc-600 hover:bg-zinc-700 cursor-pointer text-zinc-300';
             }
 
             return (
@@ -81,75 +80,43 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
                 type="button"
                 disabled={!canClick}
                 onClick={() => onCellClick(cell)}
-                className={`relative flex items-center justify-center rounded-xl border text-center transition-all duration-150 ${tileStyle} ${
+                className={`relative flex items-center justify-center rounded-lg border text-center transition-all duration-150 ${tileStyle} ${
                   canClick ? 'hover:scale-105 active:scale-95' : 'cursor-default'
                 }`}
-                title={`Vị trí [Hàng ${r + 1}, Cột ${c + 1}]`}
+                title={`Vị trí [${r + 1}, ${c + 1}]`}
               >
-                {/* 1. Player (Squirrel Explorer) */}
+                {/* 1. Player Pawn */}
                 {isPlayer && (
-                  <div className="relative flex items-center justify-center text-2xl sm:text-3xl filter drop-shadow animate-bounce">
-                    <span>🐿️</span>
-                    <span className="absolute -bottom-1 w-4 h-1 bg-black/40 rounded-full blur-[1px]"></span>
+                  <div className="flex items-center justify-center text-sky-400">
+                    <User className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
                   </div>
                 )}
 
-                {/* 2. Goal: Royal Treasure Chest */}
+                {/* 2. Goal: Target / Chest */}
                 {!isPlayer && isChest && (
-                  <div className="flex flex-col items-center justify-center text-2xl sm:text-3xl filter drop-shadow hover:scale-110 transition-transform">
-                    <span>👑</span>
+                  <div className="flex items-center justify-center text-amber-400">
+                    <Target className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
                   </div>
                 )}
 
-                {/* 3. Obstacle: Dense Hedge */}
-                {!isPlayer && !isChest && isObstacle && (
-                  <div className="text-lg sm:text-2xl opacity-90 select-none">
-                    <span>🌳</span>
-                  </div>
-                )}
-
-                {/* 4. Blocked Path: Rubble & Lock */}
+                {/* 3. Blocked / Barrier */}
                 {!isPlayer && !isChest && isBlocked && (
-                  <div className="flex flex-col items-center justify-center text-red-400">
-                    <Lock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <div className="flex items-center justify-center text-red-400">
+                    <Lock className="w-3.5 h-3.5" />
                   </div>
                 )}
 
-                {/* 5. Question Star Node */}
+                {/* 4. Question Barrier Node */}
                 {!isPlayer && !isChest && !isBlocked && isQuestion && !isCompleted && (
-                  <div className="relative flex items-center justify-center">
-                    <span className="text-lg sm:text-2xl drop-shadow">⭐</span>
-                    <span className="absolute text-[9px] sm:text-[11px] font-black text-amber-950 font-mono -mt-0.5">
-                      ?
-                    </span>
+                  <div className="flex items-center justify-center text-amber-400">
+                    <HelpCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
-                )}
-
-                {/* 6. Cleared Star Path */}
-                {!isPlayer && !isChest && isCompleted && (
-                  <div className="flex items-center justify-center opacity-80">
-                    <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
-                  </div>
-                )}
-
-                {/* 7. Stepping Hint on Valid Adjacent Empty Cell */}
-                {!isPlayer && !isChest && canClick && !isQuestion && (
-                  <div className="w-2 h-2 rounded-full bg-amber-400/80 animate-ping"></div>
                 )}
               </button>
             );
           })
         )}
       </div>
-
-      {/* Quick Legend Guide */}
-      <footer className="mt-4 pt-3 border-t border-stone-800 flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-[11px] text-stone-400 font-semibold">
-        <span className="flex items-center gap-1">🐿️ Bạn</span>
-        <span className="flex items-center gap-1">⭐ Câu đố Toán</span>
-        <span className="flex items-center gap-1">🌳 Chướng ngại</span>
-        <span className="flex items-center gap-1">🔒 Bị chặn</span>
-        <span className="flex items-center gap-1">👑 Kho báu</span>
-      </footer>
     </div>
   );
 };

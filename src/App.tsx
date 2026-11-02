@@ -99,7 +99,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100 font-sans selection:bg-amber-500 selection:text-stone-950">
+    <div className="min-h-screen bg-[#0c0d12] text-zinc-100 font-sans selection:bg-amber-400 selection:text-zinc-950">
       {activeScreen === 'lobby' && (
         <GameLobby
           onStartAdventure={() => setActiveScreen('topic-select')}

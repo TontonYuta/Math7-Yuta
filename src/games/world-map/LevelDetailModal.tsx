@@ -1,6 +1,6 @@
 import React from 'react';
 import { GameLevel } from './types';
-import { X, Play, Star, Swords, Sparkles, Image, Footprints } from 'lucide-react';
+import { X, Play, Star, Swords, Grid3X3, Compass } from 'lucide-react';
 
 interface LevelDetailModalProps {
   level: GameLevel;
@@ -17,121 +17,103 @@ export const LevelDetailModal: React.FC<LevelDetailModalProps> = ({
 }) => {
   const isBoss = level.gameType === 'boss' || !!level.isBoss;
   const isPicture = level.gameType === 'picture';
+  const formattedNum = level.levelNumber.toString().padStart(2, '0');
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in select-none">
-      <div
-        className={`relative w-full max-w-md rounded-3xl p-6 text-center shadow-2xl border-4 transition-transform scale-100 ${
-          isBoss
-            ? 'bg-gradient-to-b from-stone-900 via-red-950 to-stone-950 border-red-500 shadow-[0_0_50px_rgba(239,68,68,0.3)]'
-            : isPicture
-            ? 'bg-gradient-to-b from-stone-900 via-amber-950 to-stone-950 border-amber-500 shadow-[0_0_50px_rgba(245,158,11,0.3)]'
-            : 'bg-gradient-to-b from-stone-900 via-emerald-950 to-stone-950 border-emerald-500 shadow-[0_0_50px_rgba(16,185,129,0.3)]'
-        }`}
-      >
-        {/* Close Button */}
+      <div className="relative w-full max-w-md rounded-2xl bg-[#14161f] border border-zinc-700/90 p-6 shadow-2xl text-zinc-100">
+        {/* Top Header */}
+        <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider">
+              {worldName}
+            </span>
+            <span className="text-zinc-600">•</span>
+            <span className="text-xs font-mono font-bold text-amber-400">
+              {isBoss ? 'Trùm Boss' : `Ải ${formattedNum}`}
+            </span>
+          </div>
+
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-2xl bg-stone-850 hover:bg-stone-750 text-stone-300 hover:text-white transition-colors active:scale-90"
+            className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-lg bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 hover:text-white flex items-center justify-center transition-colors active:scale-95"
             title="Đóng"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
+        </div>
 
-        {/* Level Emblem / Avatar */}
-        <div className="pt-2 pb-3">
-          <div
-            className={`w-20 h-20 mx-auto rounded-3xl flex items-center justify-center text-4xl shadow-2xl border-4 ${
-              isBoss
-                ? 'bg-gradient-to-br from-red-600 to-amber-700 border-red-300 animate-pulse'
-                : isPicture
-                ? 'bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 border-amber-200 shadow-[0_8px_0_#92400e]'
-                : 'bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 border-emerald-200 shadow-[0_8px_0_#064e3b]'
-            }`}
-          >
-            {isBoss ? '👑' : isPicture ? '🖼️' : '🐿️'}
+        {/* Level Icon Emblem */}
+        <div className="py-5 flex flex-col items-center gap-3">
+          <div className="w-16 h-16 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-200 shadow-inner">
+            {isBoss ? (
+              <Swords className="w-7 h-7 text-red-400" />
+            ) : isPicture ? (
+              <Grid3X3 className="w-7 h-7 text-amber-400" />
+            ) : (
+              <Compass className="w-7 h-7 text-sky-400" />
+            )}
+          </div>
+
+          <div className="text-center space-y-1">
+            <h3 className="text-base sm:text-lg font-bold text-white">
+              {isBoss ? level.bossName : level.title}
+            </h3>
+            <p className="text-xs text-zinc-400 px-2 leading-relaxed">
+              {level.subtitle}
+            </p>
           </div>
         </div>
 
-        {/* Level Name & Subtitle */}
-        <div className="space-y-1 mb-3">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400">
-            {worldName} • {isBoss ? 'MÀN BOSS' : `ẢI ${level.levelNumber}`}
-          </span>
-          <h3 className="text-lg sm:text-xl font-black text-amber-100">
-            {isBoss ? level.bossName : level.title}
-          </h3>
-          <p className="text-xs text-stone-300 px-2">
-            {level.subtitle}
-          </p>
+        {/* Stars Status Indicator */}
+        <div className="flex justify-center mb-5">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-zinc-850 border border-zinc-800">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <Star
+                key={i}
+                className={`w-4 h-4 ${
+                  i < level.starsEarned
+                    ? 'text-amber-400 fill-amber-400'
+                    : 'text-zinc-700'
+                }`}
+              />
+            ))}
+            <span className="text-xs font-mono font-bold text-zinc-300 ml-1">
+              {level.starsEarned}/3 sao
+            </span>
+          </div>
         </div>
 
-        {/* Mode Tag */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-900/90 border border-stone-700 text-xs font-bold text-amber-300 mb-4 shadow-sm">
-          {isBoss ? (
-            <Swords className="w-3.5 h-3.5 text-red-400" />
-          ) : isPicture ? (
-            <Image className="w-3.5 h-3.5 text-yellow-400" />
-          ) : (
-            <Footprints className="w-3.5 h-3.5 text-emerald-400" />
-          )}
-          <span>
-            {isBoss
-              ? 'Đấu Trường Đề Tổng Hợp'
-              : isPicture
-              ? 'Thử Thách: Tính Toán Số Học'
-              : 'Thử Thách: Toán Đố Lời Văn & Mê Cung'}
-          </span>
-        </div>
-
-        {/* Candy Crush 3 Stars Display */}
-        <div className="py-2.5 px-6 mx-auto inline-flex items-center gap-2 bg-stone-950/80 rounded-2xl border border-stone-800 mb-4">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <Star
-              key={i}
-              className={`w-7 h-7 filter drop-shadow ${
-                i < level.starsEarned
-                  ? 'text-yellow-400 fill-yellow-400 scale-110 animate-bounce'
-                  : 'text-stone-700 fill-stone-800'
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Goals & Rewards */}
-        <div className="bg-stone-850/80 rounded-2xl p-3 border border-stone-700/60 text-left text-xs space-y-1.5 mb-5 text-stone-300">
+        {/* Goals & Reward Box */}
+        <div className="rounded-xl bg-zinc-850/80 border border-zinc-800 p-3.5 space-y-2 mb-6 text-xs text-zinc-300">
           <div className="flex items-center justify-between">
-            <span className="text-stone-400">Mục tiêu:</span>
-            <span className="font-bold text-amber-300">
+            <span className="text-zinc-500">Hình thức:</span>
+            <span className="font-medium text-zinc-200">
               {isBoss
-                ? 'Hạ gục Boss để hoàn thành đề tổng hợp'
+                ? 'Đấu trường đề tổng hợp'
                 : isPicture
-                ? 'Lật mở 9 mảnh ghép kiệt tác'
-                : 'Dẫn sóc vượt mê cung tới rương'}
+                ? 'Tính toán số học 9 mảnh ghép'
+                : 'Giải toán đố vượt mê cung'}
             </span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-stone-400">Phần thưởng:</span>
-            <span className="font-bold text-yellow-400">🪙 +50 ~ +100 Xu {isPicture ? '• 🖼️ Tranh sưu tập' : ''}</span>
+            <span className="text-zinc-500">Phần thưởng:</span>
+            <span className="font-mono font-semibold text-yellow-400">
+              +50 ~ +100 Xu {isPicture ? '• Mở khóa tranh' : ''}
+            </span>
           </div>
         </div>
 
-        {/* Big Juicy Play Button */}
+        {/* CTA Launch Button */}
         <button
           onClick={() => {
             onClose();
             onStartLevel(level);
           }}
-          className={`w-full py-4 rounded-2xl text-white font-black text-base sm:text-lg tracking-wider uppercase shadow-2xl flex items-center justify-center gap-3 active:scale-95 transition-all ${
-            isBoss
-              ? 'bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 hover:from-red-500 hover:to-amber-500 shadow-[0_8px_0_#7f1d1d]'
-              : isPicture
-              ? 'bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-stone-950 font-black shadow-[0_8px_0_#92400e]'
-              : 'bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-600 hover:from-emerald-400 hover:to-teal-500 shadow-[0_8px_0_#064e3b]'
-          }`}
+          className="w-full py-3.5 rounded-xl bg-zinc-100 hover:bg-white text-zinc-950 font-bold text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg active:scale-95"
         >
-          {isBoss ? <Swords className="w-6 h-6" /> : <Play className="w-6 h-6 fill-current" />}
-          <span>{isBoss ? 'KHIÊU CHIẾN BOSS NGAY' : 'CHƠI NGAY'}</span>
+          <Play className="w-4 h-4 fill-zinc-950" />
+          <span>{isBoss ? 'Bắt đầu khiêu chiến' : 'CHƠI NGAY'}</span>
         </button>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { MysteryTile, MysteryImageItem } from '../types';
 import { MathRenderer } from '../../../components/MathRenderer';
-import { Sparkles, HelpCircle } from 'lucide-react';
 
 interface PictureGridProps {
   tiles: MysteryTile[];
@@ -15,7 +14,7 @@ export const PictureGrid: React.FC<PictureGridProps> = ({
   onSelectTile,
 }) => {
   return (
-    <div className="relative w-full max-w-2xl mx-auto aspect-square rounded-3xl overflow-hidden border-4 border-amber-600/80 shadow-[0_20px_50px_rgba(0,0,0,0.8)] select-none">
+    <div className="relative w-full max-w-xl mx-auto aspect-square rounded-2xl overflow-hidden border border-zinc-700/90 shadow-2xl select-none bg-zinc-950">
       {/* 1. Underlying Mystery Masterpiece Artwork */}
       <img
         src={currentImage.imageUrl}
@@ -23,53 +22,52 @@ export const PictureGrid: React.FC<PictureGridProps> = ({
         className="absolute inset-0 w-full h-full object-cover filter brightness-95"
       />
 
-      {/* 2. Mystery 3x3 Covering Tiles */}
-      <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-2 p-2 sm:p-3 bg-stone-950/20 backdrop-blur-[1px]">
+      {/* 2. 3x3 Covering Tiles */}
+      <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-2.5 p-3 bg-black/30 backdrop-blur-[1px]">
         {tiles.map((tile) => {
           const isRevealed = tile.isRevealed;
 
           if (isRevealed) {
-            // Revealed Tile - Transparent Hole
             return (
               <div
                 key={tile.id}
-                className="relative rounded-2xl border border-white/20 shadow-inner transition-all duration-700 pointer-events-none opacity-0"
+                className="relative rounded-xl border border-white/10 transition-all duration-500 pointer-events-none opacity-0"
               />
             );
           }
 
-          // Unrevealed Mystery Tile Card
           return (
             <button
               key={tile.id}
               type="button"
               onClick={() => onSelectTile(tile)}
-              className={`group relative flex flex-col items-center justify-between p-2 sm:p-3 rounded-2xl bg-gradient-to-b from-stone-900 via-stone-850 to-stone-900 border-2 border-amber-500/70 shadow-xl transition-all duration-200 hover:scale-[1.03] active:scale-95 hover:border-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] ${
-                tile.isWrongShake ? 'animate-shake border-red-500 ring-2 ring-red-500' : ''
+              className={`group relative flex flex-col items-center justify-between p-3 rounded-xl bg-[#14161f]/95 hover:bg-[#181a26] border transition-all duration-150 active:scale-95 ${
+                tile.isWrongShake
+                  ? 'animate-shake border-red-500 ring-2 ring-red-500/50'
+                  : 'border-zinc-800 hover:border-zinc-600 shadow-md'
               }`}
             >
-              {/* Top Tile Badge */}
               <div className="w-full flex items-center justify-between">
-                <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-400/50 flex items-center justify-center font-black text-xs sm:text-sm">
-                  {tile.id + 1}
+                <span className="px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 font-mono font-bold text-xs">
+                  Mảnh {tile.id + 1}
                 </span>
-                <Sparkles className="w-3.5 h-3.5 text-amber-400/60 group-hover:text-amber-300" />
+                <span className="text-[10px] font-mono text-zinc-500">
+                  [{tile.row + 1},{tile.col + 1}]
+                </span>
               </div>
 
-              {/* Arithmetic Expression Preview with KaTeX */}
               <div className="my-auto px-1 py-1 text-center max-w-full overflow-hidden">
-                <div className="text-xs sm:text-sm font-semibold text-amber-100 line-clamp-2">
+                <div className="text-xs font-medium text-zinc-200 line-clamp-2">
                   <MathRenderer
                     content={tile.question.content}
-                    className="!text-amber-100 font-medium text-xs sm:text-sm"
+                    className="!text-zinc-200 font-medium text-xs"
                   />
                 </div>
               </div>
 
-              {/* Bottom Tap Prompt */}
-              <div className="w-full pt-1 border-t border-stone-800 text-center">
-                <span className="text-[10px] font-bold text-amber-400 group-hover:text-yellow-300 uppercase tracking-wider">
-                  Mở mảnh ghép →
+              <div className="w-full pt-1.5 border-t border-zinc-800/80 text-center">
+                <span className="text-[10px] font-mono font-semibold text-zinc-400 group-hover:text-amber-400 uppercase tracking-wider">
+                  Giải bài toán →
                 </span>
               </div>
             </button>

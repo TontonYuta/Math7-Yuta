@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { GameWorld, PlayerProgress } from '../world-map/types';
-import { MysteryImageItem } from '../mysterious-picture/types';
 import { MYSTERY_IMAGES } from '../mysterious-picture/mysteryImages';
 import { StatsCardGroup } from './StatsCardGroup';
 import { GalleryGridView } from './GalleryGridView';
 import { DashboardStats } from './types';
-import { ArrowLeft, BarChart3, Image, Star, Coins } from 'lucide-react';
+import { ArrowLeft, BarChart3, Image, Coins } from 'lucide-react';
 
 interface DashboardGalleryViewProps {
   worlds: GameWorld[];
@@ -22,19 +21,18 @@ export const DashboardGalleryView: React.FC<DashboardGalleryViewProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'stats' | 'gallery'>('stats');
 
-  // Compute total statistics
   const totalLevels = worlds.reduce((acc, w) => acc + w.levels.length, 0);
   const totalLevelsCompleted = Object.values(progress.levelStars).filter((s) => s > 0).length;
   const maxStars = totalLevels * 3;
 
   const playerRank =
     progress.totalStars >= 60
-      ? 'Đại Hiệp Toán Học'
+      ? 'Chuyên Gia Toán 7'
       : progress.totalStars >= 30
-      ? 'Pháp Sư Tính Toán'
+      ? 'Học Giả Toán Học'
       : progress.totalStars >= 10
-      ? 'Thợ Săn Kho Báu'
-      : 'Dũng Sĩ Tập Sự';
+      ? 'Học Viên Nòng Cốt'
+      : 'Thành Viên Mới';
 
   const stats: DashboardStats = {
     totalStars: progress.totalStars,
@@ -51,53 +49,53 @@ export const DashboardGalleryView: React.FC<DashboardGalleryViewProps> = ({
   const unlockedCount = progress.unlockedGalleryImageIds.length;
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100 flex flex-col p-3 sm:p-6 select-none bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(180,83,9,0.2),rgba(0,0,0,0))]">
+    <div className="min-h-screen bg-[#0c0d12] text-zinc-100 p-4 sm:p-8 select-none flex flex-col justify-between">
       <div className="max-w-4xl mx-auto w-full space-y-6">
         {/* Top Header */}
-        <header className="flex flex-wrap items-center justify-between gap-4 bg-stone-900/95 border-2 border-amber-600/60 rounded-3xl p-3 sm:p-4 shadow-xl backdrop-blur-md">
+        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#14161f] border border-zinc-800 rounded-2xl px-5 py-3.5 shadow-lg">
           <button
             onClick={onBack}
-            className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-stone-800 hover:bg-stone-700 border border-stone-600 text-stone-200 text-xs sm:text-sm font-black transition-all active:scale-95"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all active:scale-95 border border-zinc-700"
           >
-            <ArrowLeft className="w-4 h-4 text-amber-400" />
+            <ArrowLeft className="w-4 h-4 text-zinc-400" />
             <span>Quay lại Bản đồ</span>
           </button>
 
-          {/* Navigation Tabs */}
-          <div className="flex items-center p-1 bg-stone-950 rounded-2xl border border-stone-800">
+          {/* Clean Segmented Tabs */}
+          <div className="flex items-center p-1 bg-zinc-900 rounded-xl border border-zinc-800">
             <button
               onClick={() => setActiveTab('stats')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'stats'
-                  ? 'bg-amber-500 text-stone-950 shadow-md'
-                  : 'text-stone-400 hover:text-stone-200'
+                  ? 'bg-zinc-100 text-zinc-950 font-bold shadow-sm'
+                  : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
-              <BarChart3 className="w-4 h-4" />
-              <span>Thống Kê Chiến Báo</span>
+              <BarChart3 className="w-3.5 h-3.5" />
+              <span>Báo Cáo Tiến Độ</span>
             </button>
 
             <button
               onClick={() => setActiveTab('gallery')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === 'gallery'
-                  ? 'bg-amber-500 text-stone-950 shadow-md'
-                  : 'text-stone-400 hover:text-stone-200'
+                  ? 'bg-zinc-100 text-zinc-950 font-bold shadow-sm'
+                  : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
-              <Image className="w-4 h-4" />
+              <Image className="w-3.5 h-3.5" />
               <span>Bộ Sưu Tập Tranh ({unlockedCount}/{MYSTERY_IMAGES.length})</span>
             </button>
           </div>
 
           {/* Coins Display */}
-          <div className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-yellow-950/80 border border-yellow-500/60 text-yellow-300 font-bold">
-            <span>🪙</span>
-            <span className="font-mono text-base font-black">{playerCoins}</span>
+          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-850 border border-zinc-750 text-yellow-400 text-xs font-mono font-bold">
+            <Coins className="w-3.5 h-3.5" />
+            <span>{playerCoins}</span>
           </div>
         </header>
 
-        {/* Tab Content */}
+        {/* Tab Body */}
         {activeTab === 'stats' ? (
           <StatsCardGroup stats={stats} />
         ) : (
@@ -107,6 +105,10 @@ export const DashboardGalleryView: React.FC<DashboardGalleryViewProps> = ({
           />
         )}
       </div>
+
+      <footer className="text-center py-4 text-xs text-zinc-600 font-mono">
+        Dữ liệu chiến tích được lưu trữ an toàn trên thiết bị
+      </footer>
     </div>
   );
 };

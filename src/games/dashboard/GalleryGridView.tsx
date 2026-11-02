@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MysteryImageItem } from '../mysterious-picture/types';
-import { Lock, Sparkles, X, CheckCircle2, Image } from 'lucide-react';
+import { Lock, X, CheckCircle2, Image } from 'lucide-react';
 
 interface GalleryGridViewProps {
   allImages: MysteryImageItem[];
@@ -17,18 +17,18 @@ export const GalleryGridView: React.FC<GalleryGridViewProps> = ({
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-lg sm:text-xl font-black text-amber-200 flex items-center gap-2">
-            <Image className="w-5 h-5 text-amber-400" />
-            <span>BỘ SƯU TẬP KIỆT TÁC TRANH ĐÃ MỞ KHÓA</span>
+          <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+            <Image className="w-4 h-4 text-amber-400" />
+            <span>Bộ Sưu Tập Hình Ảnh Đã Mở Khóa</span>
           </h3>
-          <p className="text-xs text-stone-400">
-            Đã thu thập {unlockedImageIds.length} / {allImages.length} bức tranh phong cảnh & toán học kỳ vĩ
+          <p className="text-xs text-zinc-400">
+            Đã mở khóa {unlockedImageIds.length} / {allImages.length} hình ảnh chủ đề danh lam và toán học
           </p>
         </div>
       </div>
 
       {/* Grid of Artworks */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {allImages.map((img) => {
           const isUnlocked = unlockedImageIds.includes(img.id);
 
@@ -36,14 +36,14 @@ export const GalleryGridView: React.FC<GalleryGridViewProps> = ({
             <div
               key={img.id}
               onClick={() => isUnlocked && setLightboxImage(img)}
-              className={`group relative rounded-3xl overflow-hidden border-2 transition-all duration-200 flex flex-col justify-between ${
+              className={`group relative rounded-xl overflow-hidden border transition-all duration-150 flex flex-col justify-between ${
                 isUnlocked
-                  ? 'border-amber-500/60 bg-stone-900 shadow-xl hover:scale-[1.02] cursor-pointer hover:border-amber-400 hover:shadow-[0_0_25px_rgba(245,158,11,0.3)]'
-                  : 'border-stone-800 bg-stone-900/40 opacity-70 cursor-not-allowed'
+                  ? 'border-zinc-800 bg-[#14161f] hover:border-zinc-600 cursor-pointer shadow-md'
+                  : 'border-zinc-850 bg-[#101218] opacity-50 cursor-not-allowed'
               }`}
             >
               {/* Picture Thumbnail */}
-              <div className="relative aspect-video w-full overflow-hidden bg-stone-950">
+              <div className="relative aspect-video w-full overflow-hidden bg-zinc-950">
                 {isUnlocked ? (
                   <img
                     src={img.imageUrl}
@@ -51,25 +51,25 @@ export const GalleryGridView: React.FC<GalleryGridViewProps> = ({
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-stone-950 text-stone-600 gap-2">
-                    <Lock className="w-8 h-8 text-stone-700" />
-                    <span className="text-[11px] font-bold uppercase tracking-wider">Chưa mở khóa</span>
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-zinc-950 text-zinc-600 gap-1.5">
+                    <Lock className="w-6 h-6 text-zinc-700" />
+                    <span className="text-[10px] font-mono uppercase tracking-wider">Đã khóa</span>
                   </div>
                 )}
 
                 {/* Badge Tag */}
-                <div className="absolute top-2.5 left-2.5">
+                <div className="absolute top-2 left-2">
                   <span
-                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider shadow ${
+                    className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider ${
                       isUnlocked
-                        ? 'bg-emerald-500 text-stone-950 flex items-center gap-1'
-                        : 'bg-stone-800 text-stone-400 border border-stone-700'
+                        ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1'
+                        : 'bg-zinc-800 text-zinc-500 border border-zinc-700'
                     }`}
                   >
                     {isUnlocked ? (
                       <>
                         <CheckCircle2 className="w-3 h-3" />
-                        <span>Đã sở hữu</span>
+                        <span>Đã mở</span>
                       </>
                     ) : (
                       <span>Khóa</span>
@@ -79,15 +79,15 @@ export const GalleryGridView: React.FC<GalleryGridViewProps> = ({
               </div>
 
               {/* Picture Description Info */}
-              <div className="p-3.5 space-y-1 bg-stone-900">
-                <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">
+              <div className="p-3.5 space-y-1 bg-[#14161f]">
+                <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">
                   {img.worldName || 'Toán 7'}
                 </span>
-                <h4 className="text-sm font-black text-amber-100 line-clamp-1 group-hover:text-amber-200">
+                <h4 className="text-xs sm:text-sm font-bold text-white line-clamp-1 group-hover:text-amber-300 transition-colors">
                   {img.title}
                 </h4>
-                <p className="text-[11px] text-stone-400 line-clamp-2">
-                  {isUnlocked ? img.description : 'Vượt qua ải Bức Tranh Bí Ẩn để mở khóa kiệt tác này.'}
+                <p className="text-[11px] text-zinc-400 line-clamp-2">
+                  {isUnlocked ? img.description : 'Giải ải Mảnh Ghép Số Học để mở khóa hình ảnh này.'}
                 </p>
               </div>
             </div>
@@ -95,18 +95,18 @@ export const GalleryGridView: React.FC<GalleryGridViewProps> = ({
         })}
       </div>
 
-      {/* Lightbox Zoom Modal */}
+      {/* Lightbox Modal */}
       {lightboxImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-fade-in select-none">
-          <div className="relative w-full max-w-3xl rounded-3xl overflow-hidden bg-stone-900 border-4 border-amber-500 shadow-2xl space-y-4 p-5 sm:p-6 text-stone-100">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm animate-fade-in select-none">
+          <div className="relative w-full max-w-2xl rounded-2xl overflow-hidden bg-[#14161f] border border-zinc-700 p-5 space-y-4 text-zinc-100 shadow-2xl">
             <button
               onClick={() => setLightboxImage(null)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-black/60 text-stone-200 hover:text-white"
+              className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white flex items-center justify-center transition-colors"
             >
-              <X className="w-6 h-6" />
+              <X className="w-4 h-4" />
             </button>
 
-            <div className="rounded-2xl overflow-hidden aspect-video border border-stone-700 shadow-2xl">
+            <div className="rounded-xl overflow-hidden aspect-video border border-zinc-800 shadow">
               <img
                 src={lightboxImage.imageUrl}
                 alt={lightboxImage.title}
@@ -115,13 +115,13 @@ export const GalleryGridView: React.FC<GalleryGridViewProps> = ({
             </div>
 
             <div className="space-y-1">
-              <span className="text-xs font-bold text-amber-400 uppercase">
+              <span className="text-[11px] font-mono text-zinc-500 uppercase">
                 {lightboxImage.worldName}
               </span>
-              <h3 className="text-xl sm:text-2xl font-black text-amber-100">
+              <h3 className="text-base sm:text-lg font-bold text-white">
                 {lightboxImage.title}
               </h3>
-              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+              <p className="text-xs text-zinc-400 leading-relaxed">
                 {lightboxImage.description}
               </p>
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { GameLevel } from './types';
-import { Star, Lock, Swords, Flame, Sparkles } from 'lucide-react';
+import { Star, Lock, Swords, Grid3X3, Compass } from 'lucide-react';
 
 interface CandySagaRoadProps {
   levels: GameLevel[];
@@ -11,144 +11,129 @@ export const CandySagaRoad: React.FC<CandySagaRoadProps> = ({
   levels,
   onOpenLevelPreview,
 }) => {
-  // Candy Crush horizontal winding positions (percentages from left)
-  // Alternating wave: 25% -> 50% -> 75% -> 50% -> ...
-  const getHorizontalOffset = (index: number, total: number, isBoss: boolean) => {
+  const getHorizontalOffset = (index: number, isBoss: boolean) => {
     if (isBoss) return '50%';
-    const pattern = [25, 50, 75, 50];
+    const pattern = [35, 65, 35, 65];
     return `${pattern[index % pattern.length]}%`;
   };
 
-  // Find current active level (the first unlocked level that hasn't earned 3 stars, or the highest unlocked level)
-  const currentLevel = levels.find((l) => l.isUnlocked && l.starsEarned < 3) ||
+  const currentLevel =
+    levels.find((l) => l.isUnlocked && l.starsEarned < 3) ||
     [...levels].reverse().find((l) => l.isUnlocked) ||
     levels[0];
 
   return (
-    <div className="relative w-full max-w-xl mx-auto py-8 px-4 flex flex-col items-center">
-      {/* Background Candy Winding Dashed Trail */}
-      <div className="absolute inset-y-12 left-1/2 -translate-x-1/2 w-4 bg-gradient-to-b from-amber-600/30 via-yellow-500/20 to-red-600/30 rounded-full border border-dashed border-amber-500/40 pointer-events-none" />
+    <div className="relative w-full max-w-xl mx-auto py-8 px-4 flex flex-col items-center select-none">
+      {/* Central Guide Line */}
+      <div className="absolute inset-y-8 left-1/2 -translate-x-1/2 w-0.5 bg-zinc-800/80 pointer-events-none" />
 
-      {/* Levels list rendered vertically */}
+      {/* Levels Road Stack (bottom to top progression) */}
       <div className="relative w-full flex flex-col-reverse gap-10">
         {levels.map((level, idx) => {
           const isBoss = !!level.isBoss;
           const isLocked = !level.isUnlocked;
           const isCurrent = level.id === currentLevel.id;
-          const hOffset = getHorizontalOffset(idx, levels.length, isBoss);
+          const hOffset = getHorizontalOffset(idx, isBoss);
+          const formattedNum = level.levelNumber.toString().padStart(2, '0');
 
           if (isBoss) {
-            // Candy Crush Boss Fortress Portal
             return (
-              <div
-                key={level.id}
-                className="w-full flex justify-center pt-4 z-10"
-              >
+              <div key={level.id} className="w-full flex justify-center pt-2 z-10">
                 <div
                   onClick={() => !isLocked && onOpenLevelPreview(level)}
-                  className={`group relative flex flex-col items-center cursor-pointer transition-transform ${
-                    isLocked ? 'opacity-60 cursor-not-allowed' : 'hover:scale-105 active:scale-95'
+                  className={`group relative flex flex-col items-center cursor-pointer transition-all ${
+                    isLocked ? 'opacity-50 cursor-not-allowed' : 'hover:scale-[1.02] active:scale-95'
                   }`}
                 >
-                  {/* Boss Flaming Aura */}
-                  {!isLocked && (
-                    <div className="absolute -inset-4 bg-gradient-to-r from-red-600/40 to-amber-600/40 rounded-full blur-xl animate-pulse pointer-events-none" />
-                  )}
-
-                  {/* Boss Castle / Portal Button */}
                   <div
-                    className={`relative w-28 h-28 sm:w-32 sm:h-32 rounded-3xl border-4 flex flex-col items-center justify-center shadow-2xl transition-all ${
+                    className={`w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 flex flex-col items-center justify-center p-3 transition-all ${
                       isLocked
-                        ? 'bg-stone-850 border-stone-700 text-stone-500 shadow-[0_8px_0_#292524]'
-                        : 'bg-gradient-to-br from-red-600 via-rose-700 to-amber-700 border-yellow-400 text-white shadow-[0_10px_0_#7f1d1d]'
+                        ? 'bg-[#101218] border-zinc-800 text-zinc-600'
+                        : isCurrent
+                        ? 'bg-[#1a1418] border-red-500/80 ring-2 ring-red-500/30 text-white shadow-xl'
+                        : 'bg-[#161318] border-red-700/60 hover:border-red-500 text-white shadow-md'
                     }`}
                   >
-                    <div className="text-4xl sm:text-5xl drop-shadow-md">
-                      {isLocked ? '🔒' : '👑'}
-                    </div>
-
-                    <span className="text-[10px] sm:text-xs font-black tracking-wider uppercase text-yellow-300 mt-1">
-                      {isLocked ? 'ĐÃ KHÓA' : 'TRÙM CUỐI'}
+                    <Swords className={`w-8 h-8 mb-1 ${isLocked ? 'text-zinc-600' : 'text-red-400'}`} />
+                    <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-zinc-300">
+                      {isLocked ? 'KHÓA' : 'TRÙM BOSS'}
                     </span>
                   </div>
 
-                  {/* Boss Label & Details */}
-                  <div className="mt-2 text-center bg-stone-900/90 px-4 py-1.5 rounded-2xl border border-red-500/50 shadow-md">
-                    <h4 className="text-xs sm:text-sm font-black text-amber-200">
+                  <div className="mt-2 text-center bg-[#14161f] px-3.5 py-1.5 rounded-xl border border-zinc-800 shadow">
+                    <h4 className="text-xs font-bold text-white">
                       {level.bossName || level.title}
                     </h4>
-                    <p className="text-[10px] text-stone-400">Đề thi học kì</p>
+                    <span className="text-[10px] font-mono text-zinc-500 block">
+                      Đề tổng hợp chuyên đề
+                    </span>
                   </div>
                 </div>
               </div>
             );
           }
 
-          // Regular Candy Node
           return (
-            <div
-              key={level.id}
-              className="relative w-full h-24 flex items-center z-10"
-            >
+            <div key={level.id} className="relative w-full h-20 flex items-center z-10">
               <div
                 style={{ left: hOffset }}
                 className="absolute -translate-x-1/2 flex flex-col items-center"
               >
-                {/* Bouncing Mascot Indicator for Current Level */}
+                {/* Current Active Indicator Pill */}
                 {isCurrent && !isLocked && (
-                  <div className="absolute -top-11 flex flex-col items-center animate-bounce z-20">
-                    <span className="text-2xl filter drop-shadow">🐿️</span>
-                    <span className="px-2 py-0.5 rounded-full bg-amber-400 text-stone-950 text-[10px] font-black uppercase tracking-wider shadow-md">
-                      BẠN Ở ĐÂY
-                    </span>
+                  <div className="absolute -top-7 px-2 py-0.5 rounded bg-zinc-100 text-zinc-950 text-[10px] font-mono font-bold uppercase tracking-wider shadow whitespace-nowrap z-20">
+                    Vị trí hiện tại
                   </div>
                 )}
 
-                {/* Candy Crush 3D Glossy Node */}
+                {/* Sleek Node Button */}
                 <button
                   type="button"
                   onClick={() => !isLocked && onOpenLevelPreview(level)}
                   disabled={isLocked}
-                  className={`group relative w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 flex items-center justify-center transition-all duration-150 active:scale-95 ${
+                  className={`group relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl border-2 flex flex-col items-center justify-center transition-all duration-150 active:scale-95 ${
                     isLocked
-                      ? 'bg-gradient-to-b from-stone-700 to-stone-850 border-stone-600 text-stone-500 shadow-[0_6px_0_#292524] cursor-not-allowed opacity-65'
+                      ? 'bg-[#101218] border-zinc-850 text-zinc-600 cursor-not-allowed opacity-60'
                       : isCurrent
-                      ? 'bg-gradient-to-b from-amber-400 via-amber-500 to-amber-600 border-yellow-200 text-stone-950 font-black shadow-[0_8px_0_#92400e] ring-4 ring-amber-400/50 scale-105'
-                      : 'bg-gradient-to-b from-amber-500 to-amber-700 border-amber-300 text-white font-black shadow-[0_6px_0_#78350f] hover:scale-105'
+                      ? 'bg-zinc-800 border-amber-400 ring-2 ring-amber-400/40 text-white shadow-lg'
+                      : 'bg-[#14161f] border-zinc-700/80 hover:border-zinc-500 text-zinc-200 hover:bg-[#1a1c27]'
                   }`}
                 >
-                  {/* Gloss highlight crescent */}
-                  <div className="absolute top-1 left-2 right-2 h-4 sm:h-5 bg-white/35 rounded-full pointer-events-none" />
-
                   {isLocked ? (
-                    <Lock className="w-6 h-6 text-stone-400" />
+                    <Lock className="w-4 h-4 text-zinc-600" />
                   ) : (
-                    <div className="flex flex-col items-center">
-                      <span className="text-xs">{level.gameType === 'picture' ? '🖼️' : '🐿️'}</span>
-                      <span className="text-sm sm:text-base font-black drop-shadow-sm leading-none mt-0.5">
-                        {level.levelNumber}
+                    <>
+                      <div className="text-zinc-400 group-hover:text-amber-400 transition-colors">
+                        {level.gameType === 'picture' ? (
+                          <Grid3X3 className="w-3.5 h-3.5" />
+                        ) : (
+                          <Compass className="w-3.5 h-3.5" />
+                        )}
+                      </div>
+                      <span className="font-mono text-xs sm:text-sm font-bold text-white leading-none mt-0.5">
+                        {formattedNum}
                       </span>
-                    </div>
+                    </>
                   )}
                 </button>
 
-                {/* Candy Stars Pedestal */}
-                <div className="mt-1.5 flex items-center gap-1 bg-stone-900/85 px-2 py-0.5 rounded-full border border-stone-700/80 shadow">
+                {/* Subtle Stars Bar */}
+                <div className="mt-1.5 flex items-center gap-1 bg-[#14161f] px-2 py-0.5 rounded-md border border-zinc-800">
                   {Array.from({ length: 3 }).map((_, starIdx) => (
                     <Star
                       key={starIdx}
-                      className={`w-3.5 h-3.5 ${
+                      className={`w-3 h-3 ${
                         starIdx < level.starsEarned
-                          ? 'text-yellow-400 fill-yellow-400'
-                          : 'text-stone-700 fill-stone-800'
+                          ? 'text-amber-400 fill-amber-400'
+                          : 'text-zinc-700'
                       }`}
                     />
                   ))}
                 </div>
 
-                {/* Level Title Snippet */}
-                <span className="text-[11px] font-bold text-stone-300 mt-1 max-w-[120px] text-center truncate group-hover:text-amber-300">
-                  {level.title}
+                {/* Concise Level Title */}
+                <span className="text-[10px] font-medium text-zinc-400 mt-1 max-w-[110px] text-center truncate">
+                  {level.gameType === 'picture' ? 'Mảnh ghép' : 'Mê cung'} {formattedNum}
                 </span>
               </div>
             </div>

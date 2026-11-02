@@ -29,7 +29,7 @@ export const TreasureHunterGame: React.FC<TreasureHunterGameProps> = ({
   } = useTreasureGame(questionsPool, onCompleteLevel);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-stone-950 via-stone-900 to-black text-stone-100 flex flex-col p-2 sm:p-5 select-none">
+    <div className="min-h-screen bg-[#0c0d12] text-zinc-100 flex flex-col p-2 sm:p-5 select-none">
       {/* Top Arcade HUD */}
       <TreasureHUD
         score={gameState.score}

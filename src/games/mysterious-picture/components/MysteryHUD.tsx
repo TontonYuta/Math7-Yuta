@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Timer, ArrowLeft, Trophy, Image, Sparkles } from 'lucide-react';
+import { Heart, Timer, ArrowLeft, Image, Grid3X3, Coins } from 'lucide-react';
 
 interface MysteryHUDProps {
   score: number;
@@ -31,55 +31,54 @@ export const MysteryHUD: React.FC<MysteryHUDProps> = ({
   };
 
   return (
-    <header className="w-full max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 bg-stone-900/95 border-2 border-amber-600/60 rounded-3xl shadow-xl backdrop-blur-md select-none">
-      {/* Exit Button */}
+    <header className="w-full max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-[#14161f] border border-zinc-800 rounded-2xl shadow-lg select-none">
       <button
         onClick={onExit}
-        className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-stone-800 hover:bg-stone-700 border border-stone-600 text-stone-200 text-xs sm:text-sm font-black transition-all active:scale-95 min-h-[44px]"
-        title="Trở về bản đồ phiêu lưu"
+        className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all active:scale-95 border border-zinc-700"
+        title="Trở về bản đồ"
       >
-        <ArrowLeft className="w-4 h-4 text-amber-400" />
+        <ArrowLeft className="w-4 h-4 text-zinc-400" />
         <span>Về Bản Đồ</span>
       </button>
 
-      {/* Center Image Mission Info */}
-      <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-amber-950/60 border border-amber-500/40 text-amber-200 text-xs font-bold">
-        <Image className="w-4 h-4 text-amber-400" />
+      {/* Target Artwork Title */}
+      <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-850 border border-zinc-750 text-zinc-300 text-xs font-mono">
+        <Image className="w-3.5 h-3.5 text-zinc-400" />
         <span className="truncate max-w-[200px]">{imageTitle}</span>
       </div>
 
-      {/* Progress: Mảnh ghép đã mở */}
-      <div className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-stone-800 border border-stone-700 text-xs font-bold text-stone-200">
-        <Sparkles className="w-4 h-4 text-amber-400" />
-        <span>Mảnh ghép:</span>
-        <span className="text-amber-300 font-mono font-black">{revealedCount}/{totalTiles}</span>
+      {/* Tiles Count */}
+      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-850 border border-zinc-750 text-xs text-zinc-300 font-mono font-bold">
+        <Grid3X3 className="w-3.5 h-3.5 text-amber-400" />
+        <span>Tiến độ:</span>
+        <span className="text-amber-400">{revealedCount}/{totalTiles}</span>
       </div>
 
       {/* Stats Group */}
-      <div className="flex items-center gap-3">
-        {/* Hearts */}
-        <div className="flex items-center gap-1 px-3 py-1.5 rounded-2xl bg-red-950/70 border border-red-500/50">
+      <div className="flex items-center gap-2.5">
+        {/* Lives / Hearts */}
+        <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-zinc-850 border border-zinc-750">
           {Array.from({ length: maxLives }).map((_, i) => (
             <Heart
               key={i}
-              className={`w-4 h-4 ${
-                i < lives ? 'text-red-500 fill-red-500 animate-pulse' : 'text-stone-700'
+              className={`w-3.5 h-3.5 ${
+                i < lives ? 'text-red-500 fill-red-500' : 'text-zinc-700'
               }`}
             />
           ))}
         </div>
 
         {/* Timer */}
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-stone-800 border border-stone-700 text-stone-200 text-xs sm:text-sm font-mono font-bold">
-          <Timer className="w-4 h-4 text-amber-400" />
-          <span className={timeRemaining < 120 ? 'text-red-400 animate-pulse' : 'text-amber-200'}>
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-850 border border-zinc-750 text-xs font-mono font-bold text-zinc-200">
+          <Timer className="w-3.5 h-3.5 text-zinc-400" />
+          <span className={timeRemaining < 120 ? 'text-red-400' : 'text-zinc-200'}>
             {formatTime(timeRemaining)}
           </span>
         </div>
 
         {/* Coins */}
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-yellow-950/70 border border-yellow-500/50 text-yellow-300 text-xs sm:text-sm font-bold font-mono">
-          <span>🪙</span>
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-850 border border-zinc-750 text-yellow-400 text-xs font-mono font-bold">
+          <Coins className="w-3.5 h-3.5" />
           <span>{coins}</span>
         </div>
       </div>

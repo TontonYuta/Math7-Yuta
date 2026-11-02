@@ -42,7 +42,7 @@ export const MysteriousPictureGame: React.FC<MysteriousPictureGameProps> = ({
   } = gameState;
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100 flex flex-col p-3 sm:p-6 select-none bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(180,83,9,0.25),rgba(0,0,0,0))]">
+    <div className="min-h-screen bg-[#0c0d12] text-zinc-100 flex flex-col p-3 sm:p-6 select-none">
       <div className="max-w-4xl mx-auto w-full space-y-6 flex flex-col items-center flex-1">
         {/* Mystery HUD Header */}
         <MysteryHUD
@@ -59,12 +59,12 @@ export const MysteriousPictureGame: React.FC<MysteriousPictureGameProps> = ({
 
         {/* Game Title Tag */}
         <div className="text-center space-y-1">
-          <h2 className="text-lg sm:text-2xl font-black text-amber-200 tracking-wide uppercase flex items-center justify-center gap-2">
-            <span>🖼️</span>
-            <span>BỨC TRANH BÍ ẨN: {currentImage.title}</span>
+          <h2 className="text-base sm:text-lg font-bold text-white tracking-tight flex items-center justify-center gap-2">
+            <span>Ma Trận Mảnh Ghép:</span>
+            <span className="text-amber-400">{currentImage.title}</span>
           </h2>
-          <p className="text-xs sm:text-sm text-stone-400">
-            Giải đúng các phép tính số học bên dưới để lật mở từng mảnh ghép của kiệt tác!
+          <p className="text-xs text-zinc-400">
+            Giải đúng các phép tính số học để giải mã từng ô trên ma trận hình ảnh.
           </p>
         </div>
 

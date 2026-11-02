@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GameWorld, GameLevel } from './types';
 import { CandySagaRoad } from './CandySagaRoad';
 import { LevelDetailModal } from './LevelDetailModal';
-import { Star, ArrowLeft, ChevronLeft, ChevronRight, Compass, BarChart3 } from 'lucide-react';
+import { Star, ArrowLeft, ChevronLeft, ChevronRight, BarChart3, Coins, Layers } from 'lucide-react';
 
 interface WorldMapViewProps {
   worlds: GameWorld[];
@@ -31,6 +31,7 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
 
   const activeWorld = worlds.find((w) => w.id === currentWorldId) || worlds[0];
   const activeIdx = worlds.findIndex((w) => w.id === activeWorld.id);
+  const formattedChapNum = (activeIdx + 1).toString().padStart(2, '0');
 
   const prevWorld = () => {
     if (activeIdx > 0) onSelectWorld(worlds[activeIdx - 1].id);
@@ -40,77 +41,71 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100 flex flex-col p-3 sm:p-6 select-none bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,53,15,0.25),rgba(255,255,255,0))]">
+    <div className="min-h-screen bg-[#0c0d12] text-zinc-100 p-4 sm:p-8 select-none flex flex-col justify-between">
       <div className="max-w-4xl mx-auto w-full space-y-6">
-        {/* Top Candy Saga Bar */}
-        <header className="flex flex-wrap items-center justify-between gap-4 bg-stone-900/90 border-2 border-amber-600/60 rounded-3xl p-3 sm:p-4 shadow-xl backdrop-blur-md">
+        {/* Top Navigation Header */}
+        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#14161f] border border-zinc-800/80 rounded-2xl px-5 py-3.5 shadow-lg">
           <div className="flex items-center gap-2">
             <button
               onClick={onBackToLobby}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-stone-800 hover:bg-stone-700 border border-stone-600 text-stone-200 text-xs sm:text-sm font-black transition-all active:scale-95"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all active:scale-95 border border-zinc-700/80"
+              title="Về sảnh chính"
             >
-              <ArrowLeft className="w-4 h-4 text-amber-400" />
+              <ArrowLeft className="w-4 h-4 text-zinc-400" />
               <span>Sảnh</span>
             </button>
 
             <button
               onClick={onOpenTopicSelect}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-amber-600/30 hover:bg-amber-600/50 border border-amber-500/60 text-amber-200 text-xs sm:text-sm font-black transition-all active:scale-95"
-              title="Quay lại danh sách 10 Chuyên đề"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all active:scale-95 border border-zinc-700/80"
+              title="Quay lại danh sách 10 chuyên đề"
             >
-              <Compass className="w-4 h-4 text-amber-300" />
+              <Layers className="w-3.5 h-3.5 text-amber-400" />
               <span>Đổi Chuyên Đề</span>
             </button>
           </div>
 
-          <div className="flex items-center gap-3">
-            {/* Dashboard & Gallery Shortcut */}
+          <div className="flex items-center gap-2.5">
             <button
               onClick={onOpenDashboard}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-amber-600/30 hover:bg-amber-600/50 border border-amber-500/60 text-amber-200 text-xs sm:text-sm font-black transition-all active:scale-95 shadow"
-              title="Bảng Thống Kê & Bộ Sưu Tập Tranh"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all active:scale-95 border border-zinc-700/80"
+              title="Bảng thống kê và bộ sưu tập tranh"
             >
-              <BarChart3 className="w-4 h-4 text-amber-300" />
-              <span>Thống Kê & Tranh</span>
+              <BarChart3 className="w-3.5 h-3.5 text-zinc-400" />
+              <span>Hồ sơ & Tranh</span>
             </button>
 
-            {/* Stars */}
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-amber-950/80 border border-amber-500/60 text-amber-300 font-bold shadow-inner">
-              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              <span className="font-mono text-sm sm:text-base font-black">{totalStars}</span>
+            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-850 border border-zinc-700 text-amber-400 font-mono text-xs font-bold">
+              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              <span>{totalStars}</span>
             </div>
 
-            {/* Coins */}
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-yellow-950/80 border border-yellow-500/60 text-yellow-300 font-bold shadow-inner">
-              <span className="text-sm sm:text-base">🪙</span>
-              <span className="font-mono text-sm sm:text-base font-black">{playerCoins}</span>
+            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-850 border border-zinc-700 text-zinc-200 font-mono text-xs font-bold">
+              <Coins className="w-3.5 h-3.5 text-yellow-400" />
+              <span>{playerCoins}</span>
             </div>
           </div>
         </header>
 
-        {/* Candy Crush World / Episode Navigator */}
-        <div className="relative rounded-3xl bg-gradient-to-r from-amber-950 via-stone-900 to-amber-900 border-4 border-amber-600/70 p-5 sm:p-7 shadow-2xl flex items-center justify-between gap-4">
+        {/* Chapter Navigator Banner */}
+        <div className="rounded-2xl bg-[#14161f] border border-zinc-800 p-5 sm:p-6 flex items-center justify-between gap-4 shadow-xl">
           <button
             onClick={prevWorld}
             disabled={activeIdx === 0}
-            className="p-3 rounded-2xl bg-stone-800/90 hover:bg-stone-700 disabled:opacity-30 disabled:cursor-not-allowed border border-stone-600 transition-all active:scale-95 shadow-lg"
-            title="Thế giới trước"
+            className="p-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 disabled:opacity-30 disabled:cursor-not-allowed border border-zinc-700 text-zinc-300 transition-all active:scale-95"
+            title="Chuyên đề trước"
           >
-            <ChevronLeft className="w-6 h-6 text-amber-300" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
 
-          <div className="text-center space-y-1.5">
-            <span className="text-4xl sm:text-5xl block animate-bounce filter drop-shadow">
-              {activeWorld.themeIcon}
-            </span>
-            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-500/40">
-              <Compass className="w-3.5 h-3.5" />
-              <span>CHƯƠNG {activeIdx + 1} / {worlds.length}</span>
+          <div className="text-center space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-zinc-800 text-zinc-400 font-mono text-[11px] border border-zinc-700">
+              <span>CHUYÊN ĐỀ {formattedChapNum} / {worlds.length.toString().padStart(2, '0')}</span>
             </div>
-            <h1 className="text-xl sm:text-3xl font-black text-amber-100 uppercase tracking-wide">
+            <h1 className="text-base sm:text-xl font-bold text-white tracking-tight">
               {activeWorld.name}
             </h1>
-            <p className="text-xs sm:text-sm text-stone-300 max-w-lg mx-auto line-clamp-2">
+            <p className="text-xs text-zinc-400 max-w-lg mx-auto line-clamp-2">
               {activeWorld.description}
             </p>
           </div>
@@ -118,15 +113,15 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
           <button
             onClick={nextWorld}
             disabled={activeIdx === worlds.length - 1}
-            className="p-3 rounded-2xl bg-stone-800/90 hover:bg-stone-700 disabled:opacity-30 disabled:cursor-not-allowed border border-stone-600 transition-all active:scale-95 shadow-lg"
-            title="Thế giới tiếp theo"
+            className="p-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 disabled:opacity-30 disabled:cursor-not-allowed border border-zinc-700 text-zinc-300 transition-all active:scale-95"
+            title="Chuyên đề tiếp theo"
           >
-            <ChevronRight className="w-6 h-6 text-amber-300" />
+            <ChevronRight className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Candy Crush Saga Winding Adventure Road */}
-        <section className="bg-stone-900/60 border-2 border-amber-600/40 rounded-3xl p-4 sm:p-8 backdrop-blur-sm shadow-2xl">
+        {/* Roadmap Nodes Sequence */}
+        <section className="bg-[#14161f] border border-zinc-800 rounded-2xl p-4 sm:p-8 shadow-xl">
           <CandySagaRoad
             levels={activeWorld.levels}
             onOpenLevelPreview={(lvl) => setSelectedPreviewLevel(lvl)}
@@ -134,7 +129,7 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
         </section>
       </div>
 
-      {/* Candy Crush Level Goal & Launch Preview Modal */}
+      {/* Level Detail Modal */}
       {selectedPreviewLevel && (
         <LevelDetailModal
           level={selectedPreviewLevel}
@@ -146,6 +141,10 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
           }}
         />
       )}
+
+      <footer className="text-center py-4 text-xs text-zinc-600 font-mono">
+        Nhấn vào ải để xem chi tiết và bắt đầu thử thách
+      </footer>
     </div>
   );
 };

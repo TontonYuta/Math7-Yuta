@@ -1,6 +1,6 @@
 import React from 'react';
 import { DashboardStats } from './types';
-import { Star, Trophy, Award, Image, Footprints, Swords, Flame, Coins } from 'lucide-react';
+import { Star, Trophy, Award, Image, Compass, Swords } from 'lucide-react';
 
 interface StatsCardGroupProps {
   stats: DashboardStats;
@@ -12,36 +12,36 @@ export const StatsCardGroup: React.FC<StatsCardGroupProps> = ({ stats }) => {
   return (
     <div className="space-y-4">
       {/* Hero Rank Card */}
-      <div className="relative rounded-3xl bg-gradient-to-r from-amber-900/80 via-stone-900 to-amber-950 border-4 border-amber-500/70 p-5 sm:p-6 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="rounded-2xl bg-[#14161f] border border-zinc-800 p-6 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4 text-center sm:text-left">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-gradient-to-br from-amber-500 to-amber-700 border-2 border-amber-300 flex items-center justify-center text-4xl sm:text-5xl shadow-xl">
-            🐿️
+          <div className="w-14 h-14 rounded-2xl bg-zinc-850 border border-zinc-700 flex items-center justify-center text-amber-400 text-2xl shadow">
+            <Trophy className="w-7 h-7" />
           </div>
           <div>
             <div className="flex items-center justify-center sm:justify-start gap-2">
-              <span className="px-2.5 py-0.5 rounded-full bg-amber-400 text-stone-950 text-xs font-black uppercase">
+              <span className="px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-amber-400 font-mono text-[11px] font-bold uppercase">
                 {stats.playerRank}
               </span>
-              <span className="text-xs text-stone-400">Dũng sĩ Toán 7</span>
+              <span className="text-xs font-mono text-zinc-500">Toán 7 Tactical</span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-black text-amber-100 mt-1">
-              Bảng Thành Tích & Chiến Báo
+            <h2 className="text-lg sm:text-xl font-bold text-white mt-1">
+              Bảng Tổng Kết Chiến Tích
             </h2>
-            <p className="text-xs text-stone-300">
-              Tiến độ hoàn thành toàn bộ hành trình Toán 7: {percentComplete}%
+            <p className="text-xs text-zinc-400">
+              Tổng tiến độ hoàn thành chương trình: {percentComplete}%
             </p>
           </div>
         </div>
 
         {/* Progress bar */}
-        <div className="w-full sm:w-56 space-y-1.5 text-xs text-stone-300">
-          <div className="flex justify-between font-bold">
+        <div className="w-full sm:w-56 space-y-1.5 text-xs text-zinc-400">
+          <div className="flex justify-between font-mono">
             <span>Tiến độ ải:</span>
-            <span className="text-amber-300">{stats.totalLevelsCompleted} / {stats.totalLevels} Ải</span>
+            <span className="text-zinc-200 font-bold">{stats.totalLevelsCompleted} / {stats.totalLevels} ải</span>
           </div>
-          <div className="w-full h-3 bg-stone-800 rounded-full overflow-hidden border border-stone-700">
+          <div className="w-full h-2 bg-zinc-850 rounded-full overflow-hidden border border-zinc-800">
             <div
-              className="h-full bg-gradient-to-r from-amber-500 to-yellow-400 transition-all duration-500"
+              className="h-full bg-amber-400 transition-all duration-300"
               style={{ width: `${percentComplete}%` }}
             />
           </div>
@@ -50,47 +50,43 @@ export const StatsCardGroup: React.FC<StatsCardGroupProps> = ({ stats }) => {
 
       {/* Grid of 4 Core Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-        {/* Stars */}
-        <div className="p-4 rounded-2xl bg-stone-900/90 border-2 border-amber-500/40 shadow-lg flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-stone-400 font-bold mb-2">
-            <span>Ngôi Sao Vàng</span>
-            <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+        <div className="p-4 rounded-xl bg-[#14161f] border border-zinc-800 flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs text-zinc-400 mb-2 font-mono">
+            <span>Sao tích lũy</span>
+            <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
           </div>
-          <div className="text-2xl sm:text-3xl font-mono font-black text-yellow-300">
-            {stats.totalStars} <span className="text-xs font-sans text-stone-500">/ {stats.maxStars}</span>
+          <div className="text-xl sm:text-2xl font-mono font-bold text-white">
+            {stats.totalStars} <span className="text-xs font-normal text-zinc-500">/ {stats.maxStars}</span>
           </div>
         </div>
 
-        {/* Calculations Solved */}
-        <div className="p-4 rounded-2xl bg-stone-900/90 border-2 border-amber-600/40 shadow-lg flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-stone-400 font-bold mb-2">
-            <span>Tính Toán Số Học</span>
+        <div className="p-4 rounded-xl bg-[#14161f] border border-zinc-800 flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs text-zinc-400 mb-2 font-mono">
+            <span>Bài số học</span>
             <Image className="w-4 h-4 text-amber-400" />
           </div>
-          <div className="text-2xl sm:text-3xl font-mono font-black text-amber-200">
-            {stats.totalCalculationsSolved} <span className="text-xs font-sans text-stone-500">câu</span>
+          <div className="text-xl sm:text-2xl font-mono font-bold text-white">
+            {stats.totalCalculationsSolved} <span className="text-xs font-normal text-zinc-500">câu</span>
           </div>
         </div>
 
-        {/* Word Problems Solved */}
-        <div className="p-4 rounded-2xl bg-stone-900/90 border-2 border-emerald-600/40 shadow-lg flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-stone-400 font-bold mb-2">
-            <span>Toán Đố Lời Văn</span>
-            <Footprints className="w-4 h-4 text-emerald-400" />
+        <div className="p-4 rounded-xl bg-[#14161f] border border-zinc-800 flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs text-zinc-400 mb-2 font-mono">
+            <span>Bài toán đố</span>
+            <Compass className="w-4 h-4 text-sky-400" />
           </div>
-          <div className="text-2xl sm:text-3xl font-mono font-black text-emerald-300">
-            {stats.totalWordProblemsSolved} <span className="text-xs font-sans text-stone-500">câu</span>
+          <div className="text-xl sm:text-2xl font-mono font-bold text-white">
+            {stats.totalWordProblemsSolved} <span className="text-xs font-normal text-zinc-500">câu</span>
           </div>
         </div>
 
-        {/* Bosses Defeated */}
-        <div className="p-4 rounded-2xl bg-stone-900/90 border-2 border-red-600/40 shadow-lg flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-stone-400 font-bold mb-2">
-            <span>Boss Đã Hạ</span>
+        <div className="p-4 rounded-xl bg-[#14161f] border border-zinc-800 flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs text-zinc-400 mb-2 font-mono">
+            <span>Trùm Boss</span>
             <Swords className="w-4 h-4 text-red-400" />
           </div>
-          <div className="text-2xl sm:text-3xl font-mono font-black text-red-300">
-            {stats.bossesDefeated} <span className="text-xs font-sans text-stone-500">trùm</span>
+          <div className="text-xl sm:text-2xl font-mono font-bold text-white">
+            {stats.bossesDefeated} <span className="text-xs font-normal text-zinc-500">/ 10</span>
           </div>
         </div>
       </div>

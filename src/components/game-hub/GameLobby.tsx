@@ -1,5 +1,5 @@
 import React from 'react';
-import { Compass, Image, Sparkles, Trophy, Award, Flame, Play, Volume2, VolumeX, Shield, Coins, Star, BarChart3 } from 'lucide-react';
+import { Compass, Image, Trophy, Award, Play, Volume2, VolumeX, Shield, Coins, Star, BarChart3, ChevronRight, Target, Grid3X3 } from 'lucide-react';
 import { soundFx } from '../../sound/soundFx';
 
 interface GameLobbyProps {
@@ -23,135 +23,136 @@ export const GameLobby: React.FC<GameLobbyProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-stone-950 via-stone-900 to-black text-stone-100 p-4 sm:p-8 select-none">
-      <div className="max-w-5xl mx-auto space-y-8">
-        {/* Top Arcade Navigation Bar */}
-        <header className="flex flex-wrap items-center justify-between gap-4 bg-stone-900/90 border-2 border-amber-600/60 rounded-3xl p-4 shadow-2xl backdrop-blur-md">
-          {/* Player Badge */}
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-2xl shadow-lg border-2 border-amber-400">
-                <span>🐿️</span>
-              </div>
-              <span className="absolute -bottom-1 -right-1 px-1.5 py-0.2 bg-amber-400 text-stone-950 font-black text-[10px] rounded-full font-mono">
-                Lv.1
-              </span>
+    <div className="min-h-screen bg-[#0c0d12] text-zinc-100 p-4 sm:p-8 select-none flex flex-col justify-between">
+      <div className="max-w-5xl mx-auto w-full space-y-6">
+        {/* Minimalist Top Navigation Header */}
+        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#14161f] border border-zinc-800/80 rounded-2xl px-5 py-3.5 shadow-lg">
+          {/* Brand & Identity */}
+          <div className="flex items-center gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700/80 flex items-center justify-center font-mono font-black text-amber-400 text-base shadow-sm">
+              M7
             </div>
-
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-base sm:text-lg font-black text-amber-200">
-                  Dũng Sĩ Toán 7
+                <h2 className="text-sm sm:text-base font-bold text-white tracking-wide">
+                  Đấu Trường Toán 7
                 </h2>
-                <span className="px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-[10px] text-amber-300 font-bold uppercase">
-                  Violympic Arcade
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-zinc-800 border border-zinc-700 text-zinc-400">
+                  Tactical Arena
                 </span>
               </div>
-              <p className="text-xs text-stone-400 font-medium">
-                Đấu trường học Toán 7 qua trò chơi
+              <p className="text-xs text-zinc-400">
+                Hệ thống rèn luyện toán học theo thử thách
               </p>
             </div>
           </div>
 
-          {/* Stats & Actions */}
-          <div className="flex items-center gap-3">
+          {/* Player Stats & Controls */}
+          <div className="flex items-center gap-2.5">
             <button
               onClick={onOpenDashboard}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-amber-600/30 hover:bg-amber-600/50 border border-amber-500/60 text-amber-200 text-xs sm:text-sm font-black transition-all active:scale-95 shadow"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-800/80 hover:bg-zinc-750 border border-zinc-700/80 text-zinc-200 text-xs font-semibold transition-all active:scale-95"
             >
-              <BarChart3 className="w-4 h-4 text-amber-300" />
-              <span>Thống Kê & Tranh</span>
+              <BarChart3 className="w-3.5 h-3.5 text-zinc-400" />
+              <span>Hồ sơ & Tranh</span>
             </button>
 
-            {/* Stars */}
-            <div className="flex items-center gap-1.5 bg-amber-950/60 border border-amber-500/40 px-3.5 py-2 rounded-2xl text-amber-300 font-bold shadow-inner">
-              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              <span className="font-mono text-sm sm:text-base font-black">{totalStars}</span>
+            {/* Total Stars Counter */}
+            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-850 border border-zinc-700 text-amber-400 font-mono text-xs font-bold shadow-inner">
+              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              <span>{totalStars}</span>
             </div>
 
-            {/* Coins */}
-            <div className="flex items-center gap-1.5 bg-yellow-950/60 border border-yellow-500/40 px-3.5 py-2 rounded-2xl text-yellow-300 font-bold shadow-inner">
-              <Coins className="w-4 h-4 text-yellow-400" />
-              <span className="font-mono text-sm sm:text-base font-black">{playerCoins}</span>
+            {/* Coins Counter */}
+            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-850 border border-zinc-700 text-zinc-200 font-mono text-xs font-bold shadow-inner">
+              <Coins className="w-3.5 h-3.5 text-yellow-400" />
+              <span>{playerCoins}</span>
             </div>
 
-            {/* Sound Toggle */}
+            {/* Sound Toggle Button */}
             <button
               onClick={toggleSound}
-              className="p-2.5 rounded-2xl bg-stone-800 hover:bg-stone-700 border border-stone-600 text-amber-400 transition-all shadow-md active:scale-95"
+              className="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-zinc-400 hover:text-white transition-all active:scale-95"
               title={isMuted ? 'Bật âm thanh' : 'Tắt âm thanh'}
             >
-              {isMuted ? <VolumeX className="w-4 h-4 text-stone-500" /> : <Volume2 className="w-4 h-4 text-amber-400" />}
+              {isMuted ? <VolumeX className="w-4 h-4 text-zinc-500" /> : <Volume2 className="w-4 h-4 text-zinc-300" />}
             </button>
           </div>
         </header>
 
-        {/* Hero Welcome Banner */}
-        <section className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-amber-900/90 via-stone-900 to-amber-950 border-4 border-amber-600/70 p-6 sm:p-8 shadow-2xl text-center sm:text-left">
-          <div className="max-w-2xl relative z-10 space-y-3">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/30 border border-amber-400/50 text-amber-300 text-xs font-black tracking-wider uppercase">
-              <Sparkles className="w-3.5 h-3.5" /> Bản đồ phiêu lưu Candy Saga thống nhất
-            </span>
-            <h1 className="text-2xl sm:text-4xl font-black text-amber-100 tracking-tight leading-snug drop-shadow-md">
-              CHINH PHỤC TOÁN 7 QUA TRÒ CHƠI
+        {/* Hero Mission Card */}
+        <section className="relative overflow-hidden rounded-2xl bg-[#14161f] border border-zinc-800 p-6 sm:p-8 shadow-xl">
+          <div className="max-w-2xl space-y-4">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-zinc-800/80 border border-zinc-700 text-zinc-300 text-xs font-mono">
+              <Target className="w-3.5 h-3.5 text-amber-400" />
+              <span>LỘ TRÌNH 10 CHUYÊN ĐỀ GDPT 2018</span>
+            </div>
+
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+              Chinh phục Toán 7 qua thử thách phân tầng
             </h1>
-            <p className="text-sm sm:text-base text-amber-200/80 leading-relaxed font-medium">
-              Một hành trình duy nhất: Xen kẽ giữa các ải <strong>Bức Tranh Bí Ẩn</strong> (tính toán số học) và <strong>Vượt Chướng Ngại Vật</strong> (toán đố thực tế), kết thúc bằng trận chiến săn Trùm Boss!
+
+            <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-xl">
+              Hệ thống kết hợp bài toán tính toán số học mở tranh, bài toán đố thực tế vượt mê cung và các bài thi tổng hợp.
             </p>
 
             <div className="pt-2">
               <button
                 onClick={onStartAdventure}
-                className="py-4 px-8 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-400 hover:to-amber-600 text-stone-950 font-black tracking-wider uppercase text-base sm:text-lg shadow-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-[0_8px_0_#92400e]"
+                className="px-6 py-3.5 rounded-xl bg-zinc-100 hover:bg-white text-zinc-950 font-bold text-xs sm:text-sm tracking-wide uppercase transition-all flex items-center gap-2.5 shadow-lg active:scale-95 hover:shadow-zinc-100/10"
               >
-                <Play className="w-6 h-6 fill-stone-950" />
-                <span>BẮT ĐẦU PHIÊU LƯU NGAY</span>
+                <Play className="w-4 h-4 fill-zinc-950" />
+                <span>Bắt đầu vượt ải ngay</span>
+                <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
-          <div className="absolute right-4 bottom-2 text-7xl sm:text-9xl opacity-20 select-none pointer-events-none">
-            🗺️
-          </div>
         </section>
 
-        {/* 2 Feature Cards */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-          {/* Card 1: Vòng lặp gameplay xen kẽ */}
-          <div className="rounded-3xl bg-stone-900/90 border-2 border-amber-500/50 p-6 shadow-xl space-y-3">
-            <div className="flex items-center gap-3">
-              <span className="text-3xl">🔄</span>
-              <h3 className="text-lg font-black text-amber-200">
-                Gameplay Xen Kẽ Trong Từng Chuyên Đề
-              </h3>
+        {/* 3 Tactical Mode Overview Cards */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="rounded-2xl bg-[#14161f] border border-zinc-800/80 p-5 space-y-2.5">
+            <div className="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300">
+              <Grid3X3 className="w-4 h-4 text-amber-400" />
             </div>
-            <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
-              Mỗi thế giới tích hợp cả hai dạng bài một cách tự nhiên:
-              Ải lẻ là <strong>Bức Tranh Bí Ẩn</strong> rèn phản xạ tính toán, ải chẵn là <strong>Vượt Chướng Ngại Vật</strong> rèn tư duy toán đố thực tế, và ải đỉnh núi là <strong>Boss Battle</strong>!
+            <h3 className="text-sm font-bold text-white">Mảnh ghép số học</h3>
+            <p className="text-xs text-zinc-400 leading-relaxed">
+              Giải đúng 9 phép tính số học để giải mã từng ô trên ma trận hình ảnh.
             </p>
           </div>
 
-          {/* Card 2: Bộ sưu tập tranh & Thống kê */}
+          <div className="rounded-2xl bg-[#14161f] border border-zinc-800/80 p-5 space-y-2.5">
+            <div className="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300">
+              <Compass className="w-4 h-4 text-sky-400" />
+            </div>
+            <h3 className="text-sm font-bold text-white">Mê cung toán đố</h3>
+            <p className="text-xs text-zinc-400 leading-relaxed">
+              Vượt các chốt chặn thử thách bằng bài toán đố có lời văn và hình học trực quan.
+            </p>
+          </div>
+
           <div
             onClick={onOpenDashboard}
-            className="group rounded-3xl bg-stone-900/90 border-2 border-amber-500/50 p-6 shadow-xl space-y-3 cursor-pointer hover:border-amber-400 transition-all"
+            className="rounded-2xl bg-[#14161f] border border-zinc-800/80 p-5 space-y-2.5 cursor-pointer hover:border-zinc-700 transition-colors"
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-3xl">🖼️</span>
-                <h3 className="text-lg font-black text-amber-200 group-hover:text-amber-100">
-                  Bảo Tàng Kiệt Tác & Thống Kê
-                </h3>
-              </div>
-              <span className="text-xs font-bold text-amber-400 group-hover:translate-x-1 transition-transform">
-                Xem →
-              </span>
+            <div className="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300">
+              <Trophy className="w-4 h-4 text-emerald-400" />
             </div>
-            <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
-              Chiêm ngưỡng 10 bức tranh danh lam thắng cảnh Việt Nam và cội nguồn toán học mở khóa sau mỗi ải, cùng bảng tổng kết chiến tích chi tiết.
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold text-white">Bảo tàng & Thành tích</h3>
+              <span className="text-[11px] text-zinc-500 font-mono">Xem →</span>
+            </div>
+            <p className="text-xs text-zinc-400 leading-relaxed">
+              10 kiệt tác hình ảnh và báo cáo thống kê chi tiết theo từng chuyên đề.
             </p>
           </div>
         </section>
       </div>
+
+      {/* Subtle Footer Note */}
+      <footer className="text-center py-4 text-xs text-zinc-600 font-mono">
+        Math7 Tactical Workspace • GDPT 2018
+      </footer>
     </div>
   );
 };

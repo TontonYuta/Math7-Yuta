@@ -98,30 +98,30 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-stone-950 via-red-950/40 to-black text-stone-100 p-3 sm:p-6 select-none flex flex-col justify-between">
+    <div className="min-h-screen bg-[#0c0d12] text-zinc-100 p-3 sm:p-6 select-none flex flex-col justify-between">
       {/* Top Header / Arena HUD */}
-      <header className="max-w-3xl mx-auto w-full bg-stone-900/90 border-2 border-red-600/60 rounded-3xl p-3 sm:p-4 shadow-2xl backdrop-blur-md">
+      <header className="max-w-3xl mx-auto w-full bg-[#14161f] border border-zinc-800 rounded-2xl p-3 sm:p-4 shadow-lg">
         <div className="flex items-center justify-between gap-4">
           <button
             onClick={onExit}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-bold transition-all"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition-all border border-zinc-700"
           >
-            <ArrowLeft className="w-4 h-4 text-amber-400" />
+            <ArrowLeft className="w-4 h-4 text-zinc-400" />
             <span>Rút lui</span>
           </button>
 
           {/* Boss HP Bar */}
           <div className="flex-1 max-w-md">
-            <div className="flex items-center justify-between text-xs font-bold text-red-300 mb-1">
+            <div className="flex items-center justify-between text-xs font-mono font-bold text-red-400 mb-1">
               <span className="flex items-center gap-1.5">
                 <Flame className="w-3.5 h-3.5 text-red-500 animate-pulse" />
                 <span>{bossName}</span>
               </span>
-              <span className="font-mono">{bossHp} / {maxBossHp} HP</span>
+              <span>{bossHp} / {maxBossHp} HP</span>
             </div>
-            <div className="w-full h-3.5 bg-stone-950 rounded-full border border-red-800 overflow-hidden shadow-inner p-0.5">
+            <div className="w-full h-2.5 bg-zinc-900 rounded-full border border-zinc-800 overflow-hidden p-0.5">
               <div
-                className="h-full bg-gradient-to-r from-red-600 to-amber-500 rounded-full transition-all duration-300"
+                className="h-full bg-red-500 rounded-full transition-all duration-300"
                 style={{ width: `${(bossHp / maxBossHp) * 100}%` }}
               />
             </div>
@@ -132,7 +132,7 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
             {Array.from({ length: 3 }).map((_, i) => (
               <Heart
                 key={i}
-                className={`w-5 h-5 ${i < playerHp ? 'text-red-500 fill-red-500 animate-pulse' : 'text-stone-700 opacity-40'}`}
+                className={`w-4 h-4 ${i < playerHp ? 'text-red-500 fill-red-500' : 'text-zinc-800'}`}
               />
             ))}
           </div>
@@ -140,29 +140,29 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
       </header>
 
       {/* Arena Center: Boss vs Player Battle Showdown */}
-      <div className="max-w-4xl mx-auto w-full flex items-center justify-around py-3">
+      <div className="max-w-3xl mx-auto w-full flex items-center justify-around py-4">
         {/* Player */}
         <div className={`text-center space-y-1 transition-transform ${isPlayerHurt ? 'animate-shake scale-90' : ''}`}>
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-4xl sm:text-5xl shadow-xl">
-            🐿️
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-zinc-850 border border-zinc-700 flex items-center justify-center text-zinc-200 text-2xl shadow">
+            ⚔️
           </div>
-          <span className="text-xs font-bold text-amber-300 block">Dũng Sĩ Sóc</span>
+          <span className="text-xs font-mono text-zinc-400 block">Thí Sinh</span>
         </div>
 
-        <div className="text-red-500 font-black text-2xl animate-pulse">VS</div>
+        <div className="text-zinc-500 font-mono text-sm uppercase tracking-widest">ĐỐI ĐẦU</div>
 
         {/* Boss */}
-        <div className={`text-center space-y-1 transition-transform ${isBossHurt ? 'animate-shake scale-90 filter hue-rotate-90' : ''}`}>
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-red-600/20 border-2 border-red-500 flex items-center justify-center text-4xl sm:text-5xl shadow-2xl animate-pulse">
+        <div className={`text-center space-y-1 transition-transform ${isBossHurt ? 'animate-shake scale-90' : ''}`}>
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-red-950/40 border border-red-700/60 flex items-center justify-center text-3xl shadow">
             {bossIcon}
           </div>
-          <span className="text-xs font-bold text-red-300 block">{bossName}</span>
+          <span className="text-xs font-mono text-red-400 block">{bossName}</span>
         </div>
       </div>
 
-      {/* Question Battle Card - Expanded to max-w-4xl */}
+      {/* Question Battle Card */}
       {status === 'fighting' && currentQ && (
-        <div className="max-w-4xl mx-auto w-full bg-stone-900 border-2 border-red-500/70 rounded-3xl p-5 sm:p-7 shadow-2xl space-y-5">
+        <div className="max-w-3xl mx-auto w-full bg-[#14161f] border border-zinc-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-5">
           <div className="flex items-center justify-between text-xs sm:text-sm text-stone-400 pb-2 border-b border-stone-800">
             <div className="flex items-center gap-2">
               <span className="font-bold text-amber-400">Đòn tấn công {currentIdx + 1} / {battleQuestions.length}</span>
