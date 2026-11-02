@@ -14,16 +14,16 @@ export const PictureGrid: React.FC<PictureGridProps> = ({
   onSelectTile,
 }) => {
   return (
-    <div className="relative w-full max-w-xl mx-auto aspect-square rounded-3xl overflow-hidden border-2 border-amber-600/40 ring-4 ring-amber-500/10 shadow-2xl select-none bg-zinc-950">
+    <div className="relative w-full max-w-2xl sm:max-w-3xl mx-auto aspect-square rounded-3xl overflow-hidden border-2 border-amber-600/50 ring-4 ring-amber-500/20 shadow-2xl select-none bg-zinc-950">
       {/* 1. Underlying Mystery Anime Masterpiece Artwork */}
       <img
         src={currentImage.imageUrl}
         alt={currentImage.title}
-        className="absolute inset-0 w-full h-full object-cover filter brightness-95"
+        className="absolute inset-0 w-full h-full object-cover filter brightness-95 saturate-110"
       />
 
       {/* 2. 3x3 Ancient Poneglyph Seal Covering Tiles */}
-      <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-2.5 p-3 bg-black/40 backdrop-blur-[1px]">
+      <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-3.5 p-4 bg-black/40 backdrop-blur-[1px]">
         {tiles.map((tile) => {
           const isRevealed = tile.isRevealed;
 
@@ -41,35 +41,35 @@ export const PictureGrid: React.FC<PictureGridProps> = ({
               key={tile.id}
               type="button"
               onClick={() => onSelectTile(tile)}
-              className={`group relative flex flex-col items-center justify-between p-3 rounded-2xl bg-[#12141f]/95 hover:bg-[#191c2b] border transition-all duration-150 active:scale-95 shadow-lg ${
+              className={`group relative flex flex-col items-center justify-between p-4 rounded-2xl bg-[#12141f]/95 hover:bg-[#191c2b] border transition-all duration-150 active:scale-95 shadow-xl ${
                 tile.isWrongShake
-                  ? 'animate-shake border-red-500 ring-2 ring-red-500/50'
-                  : 'border-zinc-800 hover:border-amber-500/60'
+                  ? 'animate-shake border-red-500 ring-4 ring-red-500/50'
+                  : 'border-zinc-800 hover:border-amber-400/80 hover:shadow-amber-500/10'
               }`}
             >
               {/* Rune Header */}
               <div className="w-full flex items-center justify-between">
-                <span className="px-2 py-0.5 rounded bg-zinc-900 border border-amber-500/30 text-amber-300 font-mono font-bold text-[11px]">
+                <span className="px-2.5 py-1 rounded-md bg-zinc-900 border border-amber-500/40 text-amber-300 font-mono font-black text-xs sm:text-sm">
                   Phong Ấn {tile.id + 1}
                 </span>
-                <span className="text-[10px] font-mono text-zinc-500">
+                <span className="text-xs font-mono text-zinc-400 font-bold">
                   [{tile.row + 1},{tile.col + 1}]
                 </span>
               </div>
 
               {/* Math Question Snippet */}
-              <div className="my-auto px-1 py-1 text-center max-w-full overflow-hidden">
-                <div className="text-xs font-medium text-zinc-200 line-clamp-2">
+              <div className="my-auto px-2 py-1 text-center max-w-full overflow-hidden">
+                <div className="text-xs sm:text-sm font-semibold text-zinc-100 line-clamp-3 leading-relaxed">
                   <MathRenderer
                     content={tile.question.content}
-                    className="!text-zinc-200 font-medium text-xs"
+                    className="!text-zinc-100 font-semibold text-xs sm:text-sm"
                   />
                 </div>
               </div>
 
               {/* Action Call */}
-              <div className="w-full pt-1.5 border-t border-zinc-800/80 text-center">
-                <span className="text-[10px] font-mono font-bold text-zinc-400 group-hover:text-amber-400 uppercase tracking-wider">
+              <div className="w-full pt-2 border-t border-zinc-800/80 text-center">
+                <span className="text-xs font-mono font-black text-amber-400 group-hover:text-amber-300 uppercase tracking-wider">
                   Giải mã Poneglyph →
                 </span>
               </div>

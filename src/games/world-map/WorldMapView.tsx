@@ -43,76 +43,76 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-zinc-100 p-4 sm:p-8 select-none flex flex-col justify-between">
-      <div className="max-w-5xl mx-auto w-full space-y-6">
+    <div className="min-h-screen bg-transparent text-zinc-100 p-4 sm:p-6 lg:p-10 select-none flex flex-col justify-between">
+      <div className="max-w-7xl mx-auto w-full space-y-8">
         {/* Top Navigation Header */}
-        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#14161f] border border-zinc-800/80 rounded-2xl px-5 py-3.5 shadow-lg">
-          <div className="flex items-center gap-2">
+        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#14161f]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl px-6 py-4 shadow-xl">
+          <div className="flex items-center gap-3">
             <button
               onClick={onBackToLobby}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all active:scale-95 border border-zinc-700/80"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
               title="Về sảnh chính"
             >
-              <ArrowLeft className="w-4 h-4 text-zinc-400" />
+              <ArrowLeft className="w-4 h-4 text-zinc-300" />
               <span>Sảnh</span>
             </button>
 
             <button
               onClick={onOpenTopicSelect}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all active:scale-95 border border-zinc-700/80"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
               title="Danh sách 10 chuyên đề"
             >
-              <Layers className="w-3.5 h-3.5 text-amber-400" />
+              <Layers className="w-4 h-4 text-amber-400" />
               <span>10 Chuyên Đề</span>
             </button>
           </div>
 
           {/* View Mode Switcher */}
-          <div className="flex items-center bg-zinc-900/90 p-1 rounded-xl border border-zinc-800">
+          <div className="flex items-center bg-zinc-900/95 p-1.5 rounded-2xl border border-zinc-800 shadow-inner">
             <button
               type="button"
               onClick={() => setViewMode('grand-map')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${
                 viewMode === 'grand-map'
-                  ? 'bg-amber-400 text-zinc-950 shadow'
+                  ? 'bg-amber-400 text-zinc-950 shadow-md font-black'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
-              <MapIcon className="w-3.5 h-3.5" />
+              <MapIcon className="w-4 h-4" />
               <span>Hải Đồ Thế Giới</span>
             </button>
 
             <button
               type="button"
               onClick={() => setViewMode('island-trail')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${
                 viewMode === 'island-trail'
-                  ? 'bg-amber-400 text-zinc-950 shadow'
+                  ? 'bg-amber-400 text-zinc-950 shadow-md font-black'
                   : 'text-zinc-400 hover:text-white'
               }`}
             >
-              <Route className="w-3.5 h-3.5" />
+              <Route className="w-4 h-4" />
               <span>Chi Tiết Ải Đảo</span>
             </button>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-3">
             <button
               onClick={onOpenDashboard}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all active:scale-95 border border-zinc-700/80"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
               title="Kho báu và bộ sưu tập tranh"
             >
-              <BarChart3 className="w-3.5 h-3.5 text-zinc-400" />
+              <BarChart3 className="w-4 h-4 text-amber-400" />
               <span>Kho Báu & Tranh</span>
             </button>
 
-            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-850 border border-zinc-700 text-amber-400 font-mono text-xs font-bold">
-              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+            <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-zinc-850 border border-zinc-700 text-amber-400 font-mono text-sm font-extrabold shadow-inner">
+              <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
               <span>{totalStars}</span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-850 border border-zinc-700 text-amber-300 font-mono text-xs font-bold">
-              <span className="text-sm font-black">฿</span>
+            <div className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-sm font-extrabold shadow-inner">
+              <span className="text-base font-black text-amber-400">฿</span>
               <span>{playerCoins.toLocaleString()}</span>
             </div>
           </div>
@@ -133,26 +133,26 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
 
         {/* View Mode 2: Island Trail (Candy Saga Style) */}
         {viewMode === 'island-trail' && (
-          <div className="space-y-6">
+          <div className="space-y-8">
             {/* Chapter Navigator Banner */}
-            <div className="rounded-2xl bg-[#14161f] border border-zinc-800 p-5 sm:p-6 flex items-center justify-between gap-4 shadow-xl">
+            <div className="rounded-3xl bg-[#14161f]/95 border border-zinc-800/90 p-6 sm:p-8 flex items-center justify-between gap-6 shadow-2xl backdrop-blur-md">
               <button
                 onClick={prevWorld}
                 disabled={activeIdx === 0}
-                className="p-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 disabled:opacity-30 disabled:cursor-not-allowed border border-zinc-700 text-zinc-300 transition-all active:scale-95"
+                className="p-3.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 disabled:opacity-30 disabled:cursor-not-allowed border border-zinc-700 text-zinc-200 transition-all active:scale-95 shadow-md"
                 title="Hòn đảo trước"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-6 h-6" />
               </button>
 
-              <div className="text-center space-y-1">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-zinc-800 text-zinc-400 font-mono text-[11px] border border-zinc-700">
+              <div className="text-center space-y-2">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/10 text-amber-300 font-mono text-xs sm:text-sm font-bold border border-amber-400/30">
                   <span>HẢI TRÌNH {formattedChapNum} / {worlds.length.toString().padStart(2, '0')}</span>
                 </div>
-                <h1 className="text-base sm:text-xl font-bold text-white tracking-tight">
+                <h1 className="text-xl sm:text-3xl font-black text-white tracking-tight">
                   {activeWorld.name}
                 </h1>
-                <p className="text-xs text-zinc-400 max-w-lg mx-auto line-clamp-2">
+                <p className="text-sm sm:text-base text-zinc-300 max-w-2xl mx-auto line-clamp-2 leading-relaxed">
                   {activeWorld.description}
                 </p>
               </div>
@@ -160,15 +160,15 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
               <button
                 onClick={nextWorld}
                 disabled={activeIdx === worlds.length - 1}
-                className="p-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 disabled:opacity-30 disabled:cursor-not-allowed border border-zinc-700 text-zinc-300 transition-all active:scale-95"
+                className="p-3.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 disabled:opacity-30 disabled:cursor-not-allowed border border-zinc-700 text-zinc-200 transition-all active:scale-95 shadow-md"
                 title="Hòn đảo tiếp theo"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-6 h-6" />
               </button>
             </div>
 
             {/* Roadmap Nodes Sequence */}
-            <section className="bg-[#14161f] border border-zinc-800 rounded-2xl p-4 sm:p-8 shadow-xl">
+            <section className="bg-[#14161f]/95 border border-zinc-800/90 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md">
               <CandySagaRoad
                 levels={activeWorld.levels}
                 onOpenLevelPreview={(lvl) => setSelectedPreviewLevel(lvl)}
@@ -191,7 +191,7 @@ export const WorldMapView: React.FC<WorldMapViewProps> = ({
         />
       )}
 
-      <footer className="text-center py-4 text-xs text-zinc-500 font-mono">
+      <footer className="text-center py-6 text-xs sm:text-sm text-zinc-400 font-mono">
         Hệ thống Đại Hải Trình One Piece Toán 7 • Chinh phục kho báu tri thức
       </footer>
     </div>

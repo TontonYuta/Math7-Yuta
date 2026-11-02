@@ -1,7 +1,7 @@
 import React from 'react';
 import { GameWorld } from './types';
 import { getRealmMeta } from './levelData';
-import { Star, ArrowLeft, Lock, BarChart3, ChevronRight, Layers, Coins, Swords, ShieldAlert } from 'lucide-react';
+import { Star, ArrowLeft, Lock, BarChart3, ChevronRight, Layers, Swords, ShieldAlert } from 'lucide-react';
 
 interface TopicSelectionViewProps {
   worlds: GameWorld[];
@@ -21,55 +21,55 @@ export const TopicSelectionView: React.FC<TopicSelectionViewProps> = ({
   onOpenDashboard,
 }) => {
   return (
-    <div className="min-h-screen bg-transparent text-zinc-100 p-4 sm:p-8 select-none flex flex-col justify-between">
-      <div className="max-w-5xl mx-auto w-full space-y-6">
+    <div className="min-h-screen bg-transparent text-zinc-100 p-4 sm:p-6 lg:p-10 select-none flex flex-col justify-between">
+      <div className="max-w-7xl mx-auto w-full space-y-8">
         {/* Top Header */}
-        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#141624]/90 backdrop-blur-md border border-zinc-800 rounded-2xl px-5 py-3.5 shadow-xl">
+        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#141624]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl px-6 py-4 shadow-xl">
           <button
             onClick={onBackToLobby}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all active:scale-95 border border-zinc-700/80"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
           >
-            <ArrowLeft className="w-4 h-4 text-zinc-400" />
+            <ArrowLeft className="w-4 h-4 text-zinc-300" />
             <span>Sảnh chính</span>
           </button>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-3">
             <button
               onClick={onOpenDashboard}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all active:scale-95 border border-zinc-700/80"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800/90 hover:bg-zinc-700 text-zinc-100 text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
             >
-              <BarChart3 className="w-3.5 h-3.5 text-zinc-400" />
+              <BarChart3 className="w-4 h-4 text-amber-400" />
               <span>Kho Báu & Tranh</span>
             </button>
 
-            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-850 border border-zinc-700 text-amber-400 font-mono text-xs font-bold">
-              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+            <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-zinc-850 border border-zinc-700 text-amber-400 font-mono text-sm font-extrabold shadow-inner">
+              <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
               <span>{totalStars}</span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-850 border border-zinc-700 text-amber-300 font-mono text-xs font-bold">
-              <span className="text-sm font-black">฿</span>
+            <div className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-sm font-extrabold shadow-inner">
+              <span className="text-base font-black text-amber-400">฿</span>
               <span>{playerCoins.toLocaleString()}</span>
             </div>
           </div>
         </header>
 
         {/* Section Heading */}
-        <div className="rounded-3xl bg-[#141624]/90 backdrop-blur-md border border-zinc-800 p-6 space-y-2 shadow-xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded text-[11px] font-mono text-amber-400 bg-amber-500/10 border border-amber-500/30 uppercase font-bold">
-            <Layers className="w-3.5 h-3.5 text-amber-400" />
+        <div className="rounded-3xl bg-[#141624]/95 backdrop-blur-md border border-zinc-800/90 p-8 space-y-3 shadow-xl">
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1 rounded-full text-xs sm:text-sm font-mono text-amber-300 bg-amber-500/10 border border-amber-500/30 uppercase font-bold">
+            <Layers className="w-4 h-4 text-amber-400" />
             <span>10 Vùng Biển Đại Hải Trình (Grand Line Sagas)</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            10 Chuyên Đề Trọng Tâm Toán 7
+          <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+            10 Chuyên Đề Trọng Tâm Toán 7 GDPT 2018
           </h1>
-          <p className="text-xs text-zinc-300 max-w-2xl leading-relaxed">
-            Mỗi hải trình tương ứng một chuyên đề toán học. Giải mã văn tự cổ Poneglyph và hạ gục Trùm Arc để nâng cao mức tiền thưởng truy nã hải tặc.
+          <p className="text-sm sm:text-base text-zinc-300 max-w-3xl leading-relaxed font-medium">
+            Mỗi hải trình tương ứng một chuyên đề toán học. Giải mã văn tự cổ Poneglyph và hạ gục Trùm Arc để nâng cao mức tiền thưởng truy nã hải tặc của bạn.
           </p>
         </div>
 
         {/* 10 Topics Grid */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {worlds.map((world, idx) => {
             const worldStars = world.levels.reduce((acc, l) => acc + l.starsEarned, 0);
             const maxWorldStars = world.levels.length * 3;
@@ -83,81 +83,81 @@ export const TopicSelectionView: React.FC<TopicSelectionViewProps> = ({
               <div
                 key={world.id}
                 onClick={() => isUnlocked && onSelectTopic(world.id)}
-                className={`group relative rounded-2xl p-5 border transition-all duration-150 flex flex-col justify-between ${
+                className={`group relative rounded-3xl p-6 sm:p-7 border transition-all duration-150 flex flex-col justify-between ${
                   isUnlocked
-                    ? 'bg-[#141624]/90 backdrop-blur-md border-zinc-800 hover:border-amber-500/50 hover:bg-[#181c2e] cursor-pointer shadow-lg'
+                    ? 'bg-[#141624]/95 backdrop-blur-md border-zinc-800/90 hover:border-amber-500/60 hover:bg-[#181c2e] cursor-pointer shadow-xl hover:shadow-2xl'
                     : 'bg-[#10121a]/80 border-zinc-850 opacity-40 cursor-not-allowed'
                 }`}
               >
-                <div className="space-y-3">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-11 h-11 rounded-xl bg-zinc-800/80 border border-zinc-700 flex items-center justify-center font-mono font-bold text-xl text-zinc-200">
+                <div className="space-y-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-center gap-4">
+                      <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-zinc-800/90 border border-zinc-700 flex items-center justify-center font-mono font-black text-2xl text-zinc-200 shadow-inner shrink-0">
                         {realm.themeSymbol}
                       </div>
                       <div>
-                        <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">
+                        <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block font-bold">
                           Hải Trình {formattedNum} • {realm.islandCode}
                         </span>
-                        <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-amber-300 transition-colors">
+                        <h3 className="text-base sm:text-lg font-black text-white group-hover:text-amber-300 transition-colors">
                           {realm.sagaName}
                         </h3>
                       </div>
                     </div>
 
                     {isUnlocked ? (
-                      <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-zinc-800 border border-zinc-700 text-amber-400 flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                      <span className="px-3 py-1 rounded-xl text-xs sm:text-sm font-mono font-bold bg-zinc-800 border border-zinc-700 text-amber-400 flex items-center gap-1.5 shadow-sm">
+                        <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                         <span>{worldStars}/{maxWorldStars}</span>
                       </span>
                     ) : (
-                      <Lock className="w-4 h-4 text-zinc-600" />
+                      <Lock className="w-5 h-5 text-zinc-600" />
                     )}
                   </div>
 
-                  <p className="text-xs text-zinc-300 line-clamp-2 leading-relaxed">
-                    <strong className="text-amber-300/90">{world.shortName}:</strong> {world.description}
+                  <p className="text-xs sm:text-sm text-zinc-300 line-clamp-2 leading-relaxed font-medium">
+                    <strong className="text-amber-300 font-bold">{world.shortName}:</strong> {world.description}
                   </p>
 
                   {/* Boss Info snippet */}
-                  <div className="flex flex-wrap items-center gap-3 text-[11px] font-mono text-zinc-400 pt-0.5">
-                    <div className="flex items-center gap-1 text-red-400 truncate">
-                      <Swords className="w-3 h-3 text-red-400 shrink-0" />
+                  <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-mono text-zinc-300 pt-1">
+                    <div className="flex items-center gap-1.5 text-red-400 truncate font-semibold">
+                      <Swords className="w-4 h-4 text-red-400 shrink-0" />
                       <span>{realm.bossName}</span>
                     </div>
-                    <div className="flex items-center gap-1 text-amber-400">
-                      <ShieldAlert className="w-3 h-3 text-amber-400 shrink-0" />
+                    <div className="flex items-center gap-1.5 text-amber-300 font-semibold">
+                      <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0" />
                       <span>{realm.bountyReward}</span>
                     </div>
                   </div>
 
                   {/* Progress Line */}
-                  <div className="space-y-1.5 pt-1">
-                    <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500">
+                  <div className="space-y-2 pt-2">
+                    <div className="flex items-center justify-between text-xs font-mono text-zinc-400 font-semibold">
                       <span>{world.levels.length} ải hải trình</span>
                       <span>{progressPercent}%</span>
                     </div>
-                    <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden shadow-inner">
                       <div
-                        className="h-full bg-amber-400 transition-all duration-300"
+                        className="h-full bg-gradient-to-r from-amber-500 to-amber-400 transition-all duration-300"
                         style={{ width: `${progressPercent}%` }}
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between">
-                  <span className="text-[11px] font-mono text-zinc-500">
+                <div className="mt-5 pt-4 border-t border-zinc-800/80 flex items-center justify-between">
+                  <span className="text-xs font-mono text-zinc-400 font-semibold">
                     {isCompleted ? 'Đã chinh phục' : isUnlocked ? 'Đang mở' : 'Đã khóa'}
                   </span>
 
                   {isUnlocked && (
                     <button
                       type="button"
-                      className="px-3.5 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold flex items-center gap-1 transition-all group-hover:bg-amber-400 group-hover:text-zinc-950 font-bold"
+                      className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-100 text-xs sm:text-sm font-black flex items-center gap-1.5 transition-all group-hover:bg-amber-400 group-hover:text-zinc-950 shadow-md"
                     >
                       <span>Giương Buồm</span>
-                      <ChevronRight className="w-3.5 h-3.5" />
+                      <ChevronRight className="w-4 h-4" />
                     </button>
                   )}
                 </div>
@@ -167,7 +167,7 @@ export const TopicSelectionView: React.FC<TopicSelectionViewProps> = ({
         </section>
       </div>
 
-      <footer className="text-center py-4 text-xs text-zinc-500 font-mono">
+      <footer className="text-center py-6 text-xs sm:text-sm text-zinc-400 font-mono">
         Chọn vùng biển hải trình để tiến vào hải đồ chi tiết
       </footer>
     </div>

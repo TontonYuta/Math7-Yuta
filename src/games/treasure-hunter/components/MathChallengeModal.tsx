@@ -37,18 +37,18 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-sm animate-fade-in select-none">
-      <div className="relative w-full max-w-4xl bg-[#14161f] border border-zinc-700/90 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[94vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fade-in select-none">
+      <div className="relative w-full max-w-5xl bg-[#14161f] border border-zinc-700/90 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[94vh]">
         {/* Minimalist Problem Header */}
-        <header className="bg-[#181a24] text-zinc-100 px-6 py-3.5 flex items-center justify-between border-b border-zinc-800">
+        <header className="bg-[#181a24] text-zinc-100 px-6 sm:px-8 py-4 flex items-center justify-between border-b border-zinc-800">
           <div className="flex items-center gap-3">
-            <span className="px-2.5 py-1 rounded bg-zinc-800 text-zinc-300 text-xs font-mono font-bold border border-zinc-700">
+            <span className="px-3 py-1 rounded-lg bg-zinc-800 text-zinc-200 text-xs sm:text-sm font-mono font-black border border-zinc-700">
               {isMcq ? 'Trắc nghiệm' : 'Điền số'}
             </span>
-            <span className={`px-2.5 py-1 rounded text-xs font-mono font-bold border ${diffInfo.bgClass} ${diffInfo.borderClass} ${diffInfo.colorClass}`}>
+            <span className={`px-3 py-1 rounded-lg text-xs sm:text-sm font-mono font-black border ${diffInfo.bgClass} ${diffInfo.borderClass} ${diffInfo.colorClass}`}>
               Độ khó: {diffInfo.starsString} ({diffInfo.badgeText})
             </span>
-            <span className="text-xs text-zinc-400 font-medium hidden sm:inline truncate max-w-sm">
+            <span className="text-sm text-zinc-400 font-semibold hidden sm:inline truncate max-w-md">
               {question.chapterName || question.topicName || 'Thử thách toán học'}
             </span>
           </div>

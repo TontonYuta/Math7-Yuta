@@ -42,8 +42,8 @@ export const MysteriousPictureGame: React.FC<MysteriousPictureGameProps> = ({
   } = gameState;
 
   return (
-    <div className="min-h-screen bg-transparent text-zinc-100 flex flex-col p-3 sm:p-6 select-none">
-      <div className="max-w-4xl mx-auto w-full space-y-6 flex flex-col items-center flex-1">
+    <div className="min-h-screen bg-transparent text-zinc-100 flex flex-col p-4 sm:p-8 select-none">
+      <div className="max-w-6xl mx-auto w-full space-y-8 flex flex-col items-center flex-1">
         {/* Mystery HUD Header */}
         <MysteryHUD
           score={score}
@@ -58,13 +58,13 @@ export const MysteriousPictureGame: React.FC<MysteriousPictureGameProps> = ({
         />
 
         {/* Game Title Tag */}
-        <div className="text-center space-y-1">
-          <h2 className="text-base sm:text-lg font-bold text-white tracking-tight flex items-center justify-center gap-2">
+        <div className="text-center space-y-2">
+          <h2 className="text-lg sm:text-2xl font-black text-white tracking-tight flex items-center justify-center gap-2.5">
             <span>Ma Trận Mảnh Ghép:</span>
             <span className="text-amber-400">{currentImage.title}</span>
           </h2>
-          <p className="text-xs text-zinc-400">
-            Giải đúng các phép tính số học để giải mã từng ô trên ma trận hình ảnh.
+          <p className="text-sm sm:text-base text-zinc-300 font-medium">
+            Giải đúng các phép tính số học để giải mã từng ô trên ma trận Poneglyph cổ đại.
           </p>
         </div>
 

@@ -4,7 +4,7 @@ import { MYSTERY_IMAGES } from '../mysterious-picture/mysteryImages';
 import { StatsCardGroup } from './StatsCardGroup';
 import { GalleryGridView } from './GalleryGridView';
 import { DashboardStats } from './types';
-import { ArrowLeft, BarChart3, Image, Coins } from 'lucide-react';
+import { ArrowLeft, BarChart3, Image } from 'lucide-react';
 
 interface DashboardGalleryViewProps {
   worlds: GameWorld[];
@@ -51,48 +51,48 @@ export const DashboardGalleryView: React.FC<DashboardGalleryViewProps> = ({
   const unlockedCount = progress.unlockedGalleryImageIds.length;
 
   return (
-    <div className="min-h-screen bg-transparent text-zinc-100 p-4 sm:p-8 select-none flex flex-col justify-between">
-      <div className="max-w-4xl mx-auto w-full space-y-6">
+    <div className="min-h-screen bg-transparent text-zinc-100 p-4 sm:p-6 lg:p-10 select-none flex flex-col justify-between">
+      <div className="max-w-7xl mx-auto w-full space-y-8">
         {/* Top Header */}
-        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#141624]/90 backdrop-blur-md border border-zinc-800 rounded-2xl px-5 py-3.5 shadow-xl">
+        <header className="flex flex-wrap items-center justify-between gap-4 bg-[#141624]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl px-6 py-4 shadow-xl">
           <button
             onClick={onBack}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all active:scale-95 border border-zinc-700"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-zinc-100 text-sm font-bold transition-all active:scale-95 border border-zinc-700/80 shadow-sm"
           >
-            <ArrowLeft className="w-4 h-4 text-zinc-400" />
+            <ArrowLeft className="w-4 h-4 text-zinc-300" />
             <span>Quay lại Hải Đồ</span>
           </button>
 
           {/* Clean Segmented Tabs */}
-          <div className="flex items-center p-1 bg-zinc-900 rounded-xl border border-zinc-800">
+          <div className="flex items-center p-1.5 bg-zinc-900/95 rounded-2xl border border-zinc-800 shadow-inner">
             <button
               onClick={() => setActiveTab('stats')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${
                 activeTab === 'stats'
-                  ? 'bg-amber-400 text-zinc-950 font-bold shadow-sm'
+                  ? 'bg-amber-400 text-zinc-950 font-black shadow-md'
                   : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
-              <BarChart3 className="w-3.5 h-3.5" />
+              <BarChart3 className="w-4 h-4" />
               <span>Tiến Độ Hải Trình</span>
             </button>
 
             <button
               onClick={() => setActiveTab('gallery')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all ${
                 activeTab === 'gallery'
-                  ? 'bg-amber-400 text-zinc-950 font-bold shadow-sm'
+                  ? 'bg-amber-400 text-zinc-950 font-black shadow-md'
                   : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
-              <Image className="w-3.5 h-3.5" />
+              <Image className="w-4 h-4" />
               <span>Kho Báu Tranh ({unlockedCount}/{MYSTERY_IMAGES.length})</span>
             </button>
           </div>
 
           {/* Berries Display */}
-          <div className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-zinc-850 border border-zinc-750 text-amber-300 text-xs font-mono font-bold">
-            <span className="text-sm font-black">฿</span>
+          <div className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-sm font-mono font-black shadow-inner">
+            <span className="text-base text-amber-400">฿</span>
             <span>{playerCoins.toLocaleString()}</span>
           </div>
         </header>
@@ -108,7 +108,7 @@ export const DashboardGalleryView: React.FC<DashboardGalleryViewProps> = ({
         )}
       </div>
 
-      <footer className="text-center py-4 text-xs text-zinc-600 font-mono">
+      <footer className="text-center py-6 text-xs sm:text-sm text-zinc-400 font-mono">
         Dữ liệu chiến tích được lưu trữ an toàn trên thiết bị
       </footer>
     </div>

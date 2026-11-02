@@ -26,24 +26,24 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
 
   return (
     <div
-      className={`relative w-full max-w-xl mx-auto p-4 sm:p-5 bg-[#141622]/95 backdrop-blur-md rounded-3xl border border-zinc-800 shadow-2xl transition-transform select-none ${
+      className={`relative w-full max-w-2xl sm:max-w-3xl mx-auto p-5 sm:p-7 bg-[#141622]/95 backdrop-blur-md rounded-3xl border border-zinc-800/90 shadow-2xl transition-transform select-none ${
         shake ? 'animate-shake' : ''
       }`}
     >
       {/* Maze Tactical Header */}
-      <div className="flex items-center justify-between pb-3 px-1 border-b border-zinc-800/80 text-xs">
-        <div className="flex items-center gap-2 text-zinc-300 font-medium">
-          <Compass className="w-4 h-4 text-amber-400" />
-          <span>Mê Cung Đột Kích Căn Cứ • Lưới 8x8</span>
+      <div className="flex items-center justify-between pb-4 px-1 border-b border-zinc-800/80 text-xs sm:text-sm">
+        <div className="flex items-center gap-2.5 text-zinc-200 font-bold">
+          <Compass className="w-5 h-5 text-amber-400" />
+          <span>Mê Cung Tiền Đồn • Lưới 8x8</span>
         </div>
-        <span className="font-mono text-[11px] text-zinc-500">
+        <span className="font-mono text-xs text-zinc-400 font-medium">
           Chạm ô liền kề để di chuyển
         </span>
       </div>
 
       {/* Grid Canvas */}
       <div
-        className="grid gap-1.5 p-3 mt-3 bg-[#0a0c13] rounded-2xl border border-zinc-800/90 aspect-square"
+        className="grid gap-2 p-4 mt-4 bg-[#0a0c13] rounded-2xl border border-zinc-800/90 aspect-square"
         style={{
           gridTemplateColumns: `repeat(${GRID_SIZE}, minmax(0, 1fr))`,
           gridTemplateRows: `repeat(${GRID_SIZE}, minmax(0, 1fr))`,
@@ -90,14 +90,14 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
               >
                 {/* 1. Player Pawn: Straw Hat (Luffy Mũ Rơm) */}
                 {isPlayer && (
-                  <div className="flex items-center justify-center text-sm font-bold">
+                  <div className="flex items-center justify-center text-base sm:text-lg font-bold">
                     👒
                   </div>
                 )}
 
                 {/* 2. Goal: Kho báu One Piece */}
                 {!isPlayer && isChest && (
-                  <div className="flex items-center justify-center text-sm animate-bounce">
+                  <div className="flex items-center justify-center text-base sm:text-lg animate-bounce">
                     📦
                   </div>
                 )}
@@ -105,13 +105,13 @@ export const AdventureMaze: React.FC<AdventureMazeProps> = ({
                 {/* 3. Blocked Barrier */}
                 {!isPlayer && !isChest && isBlocked && (
                   <div className="flex items-center justify-center text-red-400">
-                    <Lock className="w-3.5 h-3.5" />
+                    <Lock className="w-4 h-4" />
                   </div>
                 )}
 
                 {/* 4. Question Barrier Node: Khối Poneglyph / Trạm gác Hải Quân */}
                 {!isPlayer && !isChest && !isBlocked && isQuestion && !isCompleted && (
-                  <div className="flex items-center justify-center text-xs">
+                  <div className="flex items-center justify-center text-sm">
                     📜
                   </div>
                 )}
