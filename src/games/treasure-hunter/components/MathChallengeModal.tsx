@@ -3,7 +3,9 @@ import { Question } from '../../../types/exam';
 import { MathRenderer } from '../../../components/MathRenderer';
 import { VirtualMathKeyboard } from '../../../components/VirtualMathKeyboard';
 import { getDifficultyInfo } from '../../../utils/difficultyBadge';
-import { X, CheckCircle2, RotateCcw } from 'lucide-react';
+import { getTheoryScroll } from '../../../data/toan7/theory';
+import { TheoryScrollModal } from '../../../components/theory/TheoryScrollModal';
+import { X, CheckCircle2, RotateCcw, Scroll } from 'lucide-react';
 
 interface MathChallengeModalProps {
   question: Question;
@@ -20,9 +22,11 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
 }) => {
   const [selectedMcq, setSelectedMcq] = useState<string>('');
   const [fillValue, setFillValue] = useState<string>('');
+  const [showTheory, setShowTheory] = useState<boolean>(false);
 
   const isMcq = question.type === 'mcq' && question.options && question.options.length > 0;
   const diffInfo = getDifficultyInfo(question);
+  const theoryScroll = getTheoryScroll(question.chapterId, question.topicId);
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -37,11 +41,12 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fade-in select-none">
-      <div className="relative w-full max-w-5xl bg-[#14161f] border border-zinc-700/90 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[94vh]">
-        {/* Minimalist Problem Header */}
-        <header className="bg-[#181a24] text-zinc-100 px-6 sm:px-8 py-4 flex items-center justify-between border-b border-zinc-800">
-          <div className="flex items-center gap-3">
+    <>
+      {/* 100% Full-Screen Immersive Question Experience */}
+      <div className="fixed inset-0 z-50 w-screen h-screen bg-[#0a0c14] flex flex-col animate-fade-in select-none overflow-hidden">
+        {/* Full-Width Header */}
+        <header className="w-full bg-[#131622] text-zinc-100 px-4 sm:px-8 lg:px-12 py-3.5 flex items-center justify-between border-b border-zinc-800 shadow-lg shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-4 flex-wrap">
             <span className="px-3 py-1 rounded-lg bg-zinc-800 text-zinc-200 text-xs sm:text-sm font-mono font-black border border-zinc-700">
               {isMcq ? 'Trắc nghiệm' : 'Điền số'}
             </span>
@@ -57,35 +62,48 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
                 📘 Phổ Thông
               </span>
             )}
-            <span className="text-sm text-zinc-400 font-semibold hidden sm:inline truncate max-w-md">
+            <span className="text-xs sm:text-sm text-zinc-400 font-semibold hidden md:inline truncate max-w-md">
               {question.chapterName || question.topicName || 'Thử thách toán học'}
             </span>
           </div>
 
-          <button
-            onClick={onClose}
-            className="w-9 h-9 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-lg bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors active:scale-90"
-            title="Đóng (Không giải)"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-2.5">
+            {/* Quick Access Theory Scroll (Bí kíp) */}
+            <button
+              onClick={() => setShowTheory(true)}
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 text-amber-300 text-xs sm:text-sm font-bold transition-all active:scale-95 shadow-sm"
+              title="Tra cứu bí kíp lý thuyết"
+            >
+              <Scroll className="w-4 h-4 text-amber-400" />
+              <span>Bí Kíp</span>
+            </button>
+
+            <button
+              onClick={onClose}
+              className="w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors active:scale-90"
+              title="Đóng (Không giải)"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </header>
 
-        {/* Question Prompt & Content */}
-        <div className="p-6 sm:p-8 overflow-y-auto space-y-6 flex-1 text-zinc-100">
-          <div className="p-5 sm:p-6 rounded-xl bg-[#101218] border border-zinc-800 text-base sm:text-lg leading-relaxed shadow-inner">
-            <div className="text-xs font-mono uppercase text-zinc-500 mb-2">
-              Đề bài:
+        {/* Full-Screen Main Content Body */}
+        <div className="flex-1 w-full overflow-y-auto px-4 sm:px-10 lg:px-16 py-6 space-y-6">
+          {/* Broad Question Prompt Box */}
+          <div className="w-full p-6 sm:p-8 rounded-2xl bg-[#111420] border border-zinc-800 text-lg sm:text-2xl leading-relaxed shadow-xl">
+            <div className="text-xs sm:text-sm font-mono uppercase text-amber-400 font-bold mb-3 flex items-center gap-2">
+              <span>Đề Bài Thử Thách:</span>
             </div>
             <MathRenderer
               content={question.content}
-              className="!text-zinc-100 text-base sm:text-lg font-medium"
+              className="!text-zinc-100 text-lg sm:text-2xl font-medium leading-loose"
             />
           </div>
 
-          {/* MCQ Options */}
+          {/* MCQ Options - Wide Full-Screen Grid */}
           {isMcq && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {question.options!.map((opt) => {
                 const isSelected = selectedMcq === opt.key;
                 return (
@@ -93,26 +111,26 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
                     key={opt.key}
                     type="button"
                     onClick={() => setSelectedMcq(opt.key)}
-                    className={`group relative flex items-center gap-3.5 p-4 rounded-xl border text-left transition-all min-h-[64px] ${
+                    className={`group relative flex items-center gap-4 p-5 sm:p-6 rounded-2xl border text-left transition-all min-h-[76px] shadow-md ${
                       isSelected
-                        ? 'border-amber-400 bg-amber-950/20 text-white shadow ring-1 ring-amber-400'
-                        : 'border-zinc-800 bg-[#101218] hover:border-zinc-600 text-zinc-300'
+                        ? 'border-amber-400 bg-amber-950/25 text-white ring-2 ring-amber-400/80'
+                        : 'border-zinc-800 bg-[#121420] hover:border-zinc-600 hover:bg-[#161a29] text-zinc-300'
                     }`}
                   >
                     <span
-                      className={`w-9 h-9 rounded-lg flex items-center justify-center font-mono font-bold text-sm shrink-0 transition-colors ${
+                      className={`w-11 h-11 rounded-xl flex items-center justify-center font-mono font-black text-base shrink-0 transition-colors ${
                         isSelected
-                          ? 'bg-amber-400 text-zinc-950 font-black'
+                          ? 'bg-amber-400 text-zinc-950 shadow-lg'
                           : 'bg-zinc-800 text-zinc-400 group-hover:text-zinc-200'
                       }`}
                     >
                       {opt.key}
                     </span>
 
-                    <div className="flex-1 text-sm sm:text-base font-medium">
+                    <div className="flex-1 text-base sm:text-xl font-medium">
                       <MathRenderer
                         content={opt.content}
-                        className={isSelected ? '!text-white font-semibold' : '!text-zinc-300'}
+                        className={isSelected ? '!text-white font-semibold' : '!text-zinc-200'}
                       />
                     </div>
                   </button>
@@ -121,11 +139,11 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
             </div>
           )}
 
-          {/* Direct Math Input for Fill Questions */}
+          {/* Direct Math Input for Fill Questions - Wide Centered Layout */}
           {!isMcq && (
-            <div className="space-y-4 max-w-xl mx-auto">
+            <div className="w-full max-w-3xl mx-auto space-y-6 pt-2">
               <div className="text-center">
-                <label className="text-xs font-mono uppercase tracking-wider text-zinc-400 block mb-2">
+                <label className="text-sm font-mono uppercase tracking-wider text-amber-300 font-bold block mb-3">
                   Nhập đáp số vào ô bên dưới:
                 </label>
                 <input
@@ -133,7 +151,7 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
                   value={fillValue}
                   onChange={(e) => setFillValue(e.target.value)}
                   placeholder="Ví dụ: 12 hoặc 3/4 hoặc -5.2"
-                  className="w-full text-center text-xl sm:text-2xl font-mono font-bold px-4 py-3 rounded-xl border border-zinc-700 bg-[#101218] text-amber-300 placeholder:text-zinc-600 focus:outline-none focus:border-amber-400 shadow-inner"
+                  className="w-full text-center text-2xl sm:text-3xl font-mono font-black px-6 py-4 rounded-2xl border-2 border-zinc-700 bg-[#121420] text-amber-300 placeholder:text-zinc-600 focus:outline-none focus:border-amber-400 shadow-2xl"
                   autoFocus
                 />
               </div>
@@ -145,23 +163,23 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
           )}
         </div>
 
-        {/* Action Bar */}
-        <footer className="bg-[#181a24] px-6 py-3.5 border-t border-zinc-800 flex items-center justify-between gap-4">
+        {/* Full-Width Action Footer */}
+        <footer className="w-full bg-[#131622] px-4 sm:px-10 lg:px-16 py-4 border-t border-zinc-800 flex items-center justify-between gap-4 shrink-0 shadow-2xl">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 min-h-[40px] rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-semibold text-xs transition-all flex items-center justify-center active:scale-95"
+            className="px-5 py-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-bold text-sm transition-all active:scale-95"
           >
-            {backLabel || 'Quay lại'}
+            {backLabel || 'Quay lại bản đồ'}
           </button>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3.5">
             <button
               type="button"
               onClick={handleClear}
-              className="px-4 py-2 min-h-[40px] rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-semibold text-xs transition-all flex items-center gap-2 border border-zinc-700 active:scale-95"
+              className="px-5 py-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-bold text-sm transition-all flex items-center gap-2 border border-zinc-700 active:scale-95"
             >
-              <RotateCcw className="w-3.5 h-3.5 text-zinc-400" />
+              <RotateCcw className="w-4 h-4 text-zinc-400" />
               <span>Sửa đáp án</span>
             </button>
 
@@ -169,14 +187,22 @@ export const MathChallengeModal: React.FC<MathChallengeModalProps> = ({
               type="button"
               disabled={isMcq ? !selectedMcq : !fillValue.trim()}
               onClick={() => handleSubmit()}
-              className="px-6 py-2.5 min-h-[40px] rounded-lg bg-zinc-100 hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed active:scale-95 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all shadow flex items-center gap-2"
+              className="px-8 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 disabled:opacity-30 disabled:cursor-not-allowed active:scale-95 text-zinc-950 font-black text-sm uppercase tracking-wider transition-all shadow-xl shadow-amber-500/20 flex items-center gap-2.5"
             >
-              <CheckCircle2 className="w-4 h-4" />
+              <CheckCircle2 className="w-5 h-5 fill-zinc-950" />
               <span>Xác nhận kết quả</span>
             </button>
           </div>
         </footer>
       </div>
-    </div>
+
+      {/* Embedded Theory Scroll Modal */}
+      {showTheory && (
+        <TheoryScrollModal
+          theory={theoryScroll}
+          onClose={() => setShowTheory(false)}
+        />
+      )}
+    </>
   );
 };

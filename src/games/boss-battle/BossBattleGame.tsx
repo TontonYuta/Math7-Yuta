@@ -6,8 +6,10 @@ import { VirtualMathKeyboard } from '../../components/VirtualMathKeyboard';
 import { getDifficultyInfo } from '../../utils/difficultyBadge';
 import { soundFx } from '../../sound/soundFx';
 import { checkAnswerCorrectness } from '../../utils/scoring';
-import { Heart, Trophy, Skull, Swords, RotateCcw, ArrowLeft, Flame, Zap } from 'lucide-react';
+import { Heart, Trophy, Skull, Swords, RotateCcw, ArrowLeft, Flame, Zap, Scroll } from 'lucide-react';
 import { LuffyStrawHatPawn } from '../world-map/onePieceAssets';
+import { getTheoryScroll } from '../../data/toan7/theory';
+import { TheoryScrollModal } from '../../components/theory/TheoryScrollModal';
 
 interface BossBattleGameProps {
   bossName: string;
@@ -38,6 +40,7 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
   const [fillValue, setFillValue] = useState('');
   const [isBossHurt, setIsBossHurt] = useState(false);
   const [isPlayerHurt, setIsPlayerHurt] = useState(false);
+  const [showTheory, setShowTheory] = useState(false);
 
   const currentQ = battleQuestions[currentIdx];
   const isMcq = currentQ?.type === 'mcq' && currentQ.options && currentQ.options.length > 0;
@@ -166,10 +169,10 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
         </div>
       </div>
 
-      {/* Question Battle Card */}
+      {/* Question Battle Card - Full Screen Width */}
       {status === 'fighting' && currentQ && (
-        <div className="max-w-5xl mx-auto w-full bg-[#14161f]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
-          <div className="flex items-center justify-between text-xs sm:text-sm text-stone-400 pb-2 border-b border-stone-800">
+        <div className="w-full max-w-full bg-[#14161f]/95 backdrop-blur-md border border-zinc-800/90 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-6">
+          <div className="flex items-center justify-between text-xs sm:text-sm text-stone-400 pb-2 border-b border-stone-800 flex-wrap gap-2">
             <div className="flex items-center gap-2">
               <span className="font-bold text-amber-400">Đòn tấn công {currentIdx + 1} / {battleQuestions.length}</span>
               <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold border ${getDifficultyInfo(currentQ).bgClass} ${getDifficultyInfo(currentQ).borderClass} ${getDifficultyInfo(currentQ).colorClass}`}>
@@ -181,7 +184,18 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
                 </span>
               )}
             </div>
-            <span>+25 điểm mỗi đòn chuẩn xác</span>
+
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setShowTheory(true)}
+                className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 text-amber-300 text-xs font-bold transition-all active:scale-95"
+              >
+                <Scroll className="w-3.5 h-3.5" />
+                <span>Bí Kíp</span>
+              </button>
+              <span className="text-stone-400">+25 điểm mỗi đòn chuẩn xác</span>
+            </div>
           </div>
 
           <div className="p-5 bg-gradient-to-b from-stone-850 to-stone-900 rounded-2xl border border-stone-700 text-stone-100 text-base sm:text-lg leading-relaxed shadow-inner">
@@ -262,6 +276,14 @@ export const BossBattleGame: React.FC<BossBattleGameProps> = ({
             </button>
           </div>
         </div>
+      )}
+
+      {/* Embedded Theory Scroll Modal */}
+      {showTheory && currentQ && (
+        <TheoryScrollModal
+          theory={getTheoryScroll(currentQ.chapterId, currentQ.topicId)}
+          onClose={() => setShowTheory(false)}
+        />
       )}
     </div>
   );
