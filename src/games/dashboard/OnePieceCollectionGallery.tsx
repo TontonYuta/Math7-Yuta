@@ -43,6 +43,26 @@ export const OnePieceCollectionGallery: React.FC = () => {
       if (activeCategory === 'wanted') {
         return titleLower.includes('wanted') || titleLower.includes('poster');
       }
+      if (activeCategory === 'legends') {
+        return (
+          titleLower.includes('shanks') ||
+          titleLower.includes('ace') ||
+          titleLower.includes('newgate') ||
+          titleLower.includes('roger') ||
+          titleLower.includes('mihawk') ||
+          titleLower.includes('kaidou') ||
+          titleLower.includes('linlin') ||
+          titleLower.includes('teach') ||
+          titleLower.includes('law') ||
+          titleLower.includes('crocodile') ||
+          titleLower.includes('doflamingo') ||
+          titleLower.includes('rayleigh') ||
+          titleLower.includes('garp') ||
+          titleLower.includes('hancock') ||
+          titleLower.includes('katakuri') ||
+          titleLower.includes('lucci')
+        );
+      }
       if (activeCategory === 'strawhat') {
         return (
           titleLower.includes('luffy') ||
@@ -107,6 +127,17 @@ export const OnePieceCollectionGallery: React.FC = () => {
             }`}
           >
             Lệnh Truy Nã (Wanted)
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveCategory('legends')}
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+              activeCategory === 'legends'
+                ? 'bg-amber-400 text-zinc-950 font-black shadow-md'
+                : 'bg-zinc-800/80 text-zinc-300 hover:bg-zinc-700'
+            }`}
+          >
+            Tứ Hoàng & Huyền Thoại
           </button>
           <button
             type="button"
